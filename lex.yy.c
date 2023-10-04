@@ -459,10 +459,31 @@ int yy_flex_debug = 0;
 char *yytext;
 #line 1 "scanner.l"
 #line 2 "scanner.l"
+    /*
+        DOCUMENTACION:
+        https://www.youtube.com/watch?v=_zbIOMp63mo&ab_channel=UniversitatPolit%C3%A8cnicadeVal%C3%A8ncia-UPV
+
+    */
+
+    // DEFINICIONES: Declaraciones de nombres asociados a expresiones regulares
+    //<nombre> <expresion_regular>
+    //digito [0-9]
+    /*
+        EXPRESIONES REGULARES:
+            X Caracter X.
+            . Cualquier caracter excepto una nueva línea.
+            [xyz] Clase de caracteres. Casa con una 'x', una 'y', o una 'z'.
+            [abj-o] (Subrango) Clase de caracteres que incluye un rango. Casara con una 'a', una 'b', o cualquier letra entre la 'j' y la 'o'.
+            [^A-Z] (Negacion) Clase de caracteres negados. Casara con cualquier caracter excepto una letra mayuscula.
+            r* (0 o mas veces) Cero o mas ocurrencias de la expresion regular r
+            r+ (1 o mas veces) Una o mas ocurrencias de r
+            r|s (O logico) r o s
+            EN DESARROLLO
+    */
 //Librerias
 #include <stdio.h>
-#line 465 "lex.yy.c"
-#line 466 "lex.yy.c"
+#line 486 "lex.yy.c"
+#line 487 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -679,10 +700,16 @@ YY_DECL
 		}
 
 	{
-#line 17 "scanner.l"
+#line 38 "scanner.l"
 
-
-#line 686 "lex.yy.c"
+#line 40 "scanner.l"
+    // REGLAS
+    //Acciones a realizar sobre las definiciones
+    //<patron> <accion>
+    //  patron: Expresión regular
+    //  accion: Codigo c a ejecutar
+    //{digito} { ECHO; }
+#line 713 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -741,41 +768,41 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 19 "scanner.l"
+#line 46 "scanner.l"
 { printf("TOKEN: BOOL, VALOR: %s\n", yytext); }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 20 "scanner.l"
+#line 47 "scanner.l"
 { printf("TOKEN: IDENTIFICADOR, VALOR: %s\n", yytext);}
 	YY_BREAK
 case 3:
 /* rule 3 can match eol */
 YY_RULE_SETUP
-#line 21 "scanner.l"
+#line 48 "scanner.l"
 {}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 22 "scanner.l"
+#line 49 "scanner.l"
 {printf("TOKEN : LITERAL ENTERO, VALOR %s\n", yytext);} 
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 23 "scanner.l"
+#line 50 "scanner.l"
 {printf("TOKEN : LITERAL REAL, VALOR %s\n", yytext);} 
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 24 "scanner.l"
+#line 51 "scanner.l"
 {printf("TOKEN : NO SE QUE ES ESTO, VALOR %s\n", yytext);}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 27 "scanner.l"
+#line 53 "scanner.l"
 ECHO;
 	YY_BREAK
-#line 779 "lex.yy.c"
+#line 806 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1780,8 +1807,9 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 27 "scanner.l"
+#line 53 "scanner.l"
 
+    //CODIGO
 int main(int argc, char **argv) {
     if(argc != 2){
         printf("Introduce archivo!!!!!");
