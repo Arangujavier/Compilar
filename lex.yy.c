@@ -351,8 +351,8 @@ static void yynoreturn yy_fatal_error ( const char* msg  );
 	(yy_hold_char) = *yy_cp; \
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
-#define YY_NUM_RULES 8
-#define YY_END_OF_BUFFER 9
+#define YY_NUM_RULES 7
+#define YY_END_OF_BUFFER 8
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -362,9 +362,9 @@ struct yy_trans_info
 	};
 static const flex_int16_t yy_accept[31] =
     {   0,
-        0,    0,    9,    5,    4,    4,    5,    2,    3,    3,
-        3,    6,    0,    3,    3,    3,    7,    3,    3,    0,
-        3,    3,    0,    7,    1,    3,    3,    3,    3,    0
+        0,    0,    8,    6,    3,    3,    6,    4,    2,    2,
+        2,    4,    0,    2,    2,    2,    5,    2,    2,    0,
+        2,    2,    0,    5,    1,    2,    2,    2,    2,    0
     } ;
 
 static const YY_CHAR yy_ec[256] =
@@ -679,7 +679,7 @@ YY_DECL
 		}
 
 	{
-#line 19 "scanner.l"
+#line 17 "scanner.l"
 
 
 #line 686 "lex.yy.c"
@@ -741,46 +741,41 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 21 "scanner.l"
+#line 19 "scanner.l"
 { printf("TOKEN: BOOL, VALOR: %s\n", yytext); }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 22 "scanner.l"
-{ printf("TOKEN: NUMERO, VALOR: %s\n", yytext); }
-	YY_BREAK
-case 3:
-YY_RULE_SETUP
-#line 23 "scanner.l"
+#line 20 "scanner.l"
 { printf("TOKEN: IDENTIFICADOR, VALOR: %s\n", yytext);}
 	YY_BREAK
-case 4:
-/* rule 4 can match eol */
+case 3:
+/* rule 3 can match eol */
 YY_RULE_SETUP
-#line 24 "scanner.l"
+#line 21 "scanner.l"
 {}
+	YY_BREAK
+case 4:
+YY_RULE_SETUP
+#line 22 "scanner.l"
+{printf("TOKEN : LITERAL ENTERO, VALOR %s\n", yytext);} 
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 25 "scanner.l"
-{printf("TOKEN : NO SE QUE ES ESTO, VALOR %s\n", yytext);}
+#line 23 "scanner.l"
+{printf("TOKEN : LITERAL REAL, VALOR %s\n", yytext);} 
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 28 "scanner.l"
-{printf("TOKEN : LITERAL ENTERO, VALOR %s\n", yytext);} 
+#line 24 "scanner.l"
+{printf("TOKEN : NO SE QUE ES ESTO, VALOR %s\n", yytext);}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 29 "scanner.l"
-{printf("TOKEN : LITERAL REAL, VALOR %s\n", yytext);} 
-	YY_BREAK
-case 8:
-YY_RULE_SETUP
-#line 32 "scanner.l"
+#line 27 "scanner.l"
 ECHO;
 	YY_BREAK
-#line 784 "lex.yy.c"
+#line 779 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1785,7 +1780,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 32 "scanner.l"
+#line 27 "scanner.l"
 
 int main(int argc, char **argv) {
     if(argc != 2){
