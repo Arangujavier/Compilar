@@ -16,9 +16,16 @@
             [abj-o] (Subrango) Clase de caracteres que incluye un rango. Casara con una 'a', una 'b', o cualquier letra entre la 'j' y la 'o'.
             [^A-Z] (Negacion) Clase de caracteres negados. Casara con cualquier caracter excepto una letra mayuscula.
             r* (0 o mas veces) Cero o mas ocurrencias de la expresion regular r
-            r+ (1 o mas veces) Una o mas ocurrencias de r
-            r|s (O logico) r o s
-            EN DESARROLLO
+            r+ (1 o mas veces) Una o mas ocurrencias de r.
+            r|s (O logico) r o s.
+            r? (0 o 1 veces) Cero o una ocurrencia de r.
+            r{3,6} De 3 a 6 ocurrencias de r.
+            {nombre} La expansion de la definicion nombre. Referencia a una expresión regular creada antes.
+            \x  Si x es una 'a'(alerta), 'b'(retroceso), 'f'(salto de pagina), 'n'(fin de linea), 'r'(retorno de carro), 't'(tabulador) o 'v'(tabulacion vertical): Interpretacion tipica de ANSI-C.
+                Si no, se toma 'x', esto es util para caracteres como parentisis, barras, etc que tienen significado en flex.
+            "[xyz]\"fo" La cadena literal: '[xyz]"fo'
+            rs (concatenacion) La expresion regular r seguida de la expresion regular s.
+            <<EOF>> Fin de fichero.
     */
 //Librerias
 #include <stdio.h>
@@ -56,12 +63,14 @@ int main(int argc, char **argv) {
         printf("Introduce archivo!!!!!");
         return 1;
     }
+    // Cambio entrada estandar para que apunte a un fichero
     yyin=fopen(argv[1],"r");
     if(!yyin){
-        printf("No se puede abrir el arvhivo");
+        printf("No se puede abrir el archivo");
         return 1;
     }
     
+    // Copiar al fichero de salida
     yylex();
     fclose(yyin);
     return 0;
