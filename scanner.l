@@ -2,6 +2,7 @@
     /*
         DOCUMENTACION:
         https://www.youtube.com/watch?v=_zbIOMp63mo&ab_channel=UniversitatPolit%C3%A8cnicadeVal%C3%A8ncia-UPV
+        https://www.youtube.com/watch?v=AyB7gVNor9U&ab_channel=EducacionOnLine
 
     */
 
@@ -30,6 +31,8 @@
 //Librerias
 #include <stdio.h>
 %}
+/*Opciones*/
+%option yylineno
 
 DIGITO      [0-9]
 SIGNO       [+-]
@@ -49,12 +52,12 @@ LITERAL_BOOLEANO    VERDADERO|FALSO
     //  patron: Expresión regular
     //  accion: Codigo c a ejecutar
     //{digito} { ECHO; }
-{LITERAL_BOOLEANO} { printf("TOKEN: BOOL, VALOR: %s\n", yytext); }
-[a-zA-Z_][a-zA-Z_0-9]* { printf("TOKEN: IDENTIFICADOR, VALOR: %s\n", yytext);}
+{LITERAL_BOOLEANO} { printf("%d: TOKEN: BOOL, VALOR: %s\n", yylineno, yytext); }
+[a-zA-Z_][a-zA-Z_0-9]* { printf("%d: TOKEN: IDENTIFICADOR, VALOR: %s\n", yylineno, yytext);}
 [ \t\n] {}
-{LITERAL_ENTERO}    {printf("TOKEN : LITERAL ENTERO, VALOR %s\n", yytext);} 
-{LITERAL_REAL}  {printf("TOKEN : LITERAL REAL, VALOR %s\n", yytext);} 
-. {printf("TOKEN : NO SE QUE ES ESTO, VALOR %s\n", yytext);}
+{LITERAL_ENTERO}    {printf("%d: TOKEN : LITERAL ENTERO, VALOR %s\n", yylineno, yytext);} 
+{LITERAL_REAL}  {printf("%d: TOKEN : LITERAL REAL, VALOR %s\n", yylineno, yytext);} 
+. {printf("%d: TOKEN : NO SE QUE ES ESTO, VALOR %s\n", yylineno, yytext);}
 
 %%
     //CODIGO

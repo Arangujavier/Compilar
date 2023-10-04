@@ -162,8 +162,27 @@ extern FILE *yyin, *yyout;
 #define EOB_ACT_END_OF_FILE 1
 #define EOB_ACT_LAST_MATCH 2
     
-    #define YY_LESS_LINENO(n)
-    #define YY_LINENO_REWIND_TO(ptr)
+    /* Note: We specifically omit the test for yy_rule_can_match_eol because it requires
+     *       access to the local variable yy_act. Since yyless() is a macro, it would break
+     *       existing scanners that call yyless() from OUTSIDE yylex.
+     *       One obvious solution it to make yy_act a global. I tried that, and saw
+     *       a 5% performance hit in a non-yylineno scanner, because yy_act is
+     *       normally declared as a register variable-- so it is not worth it.
+     */
+    #define  YY_LESS_LINENO(n) \
+            do { \
+                int yyl;\
+                for ( yyl = n; yyl < yyleng; ++yyl )\
+                    if ( yytext[yyl] == '\n' )\
+                        --yylineno;\
+            }while(0)
+    #define YY_LINENO_REWIND_TO(dst) \
+            do {\
+                const char *p;\
+                for ( p = yy_cp-1; p >= (dst); --p)\
+                    if ( *p == '\n' )\
+                        --yylineno;\
+            }while(0)
     
 /* Return all but the first "n" matched characters back to the input stream. */
 #define yyless(n) \
@@ -443,6 +462,11 @@ static const flex_int16_t yy_chk[63] =
        30,   30
     } ;
 
+/* Table of booleans, true if rule could match eol. */
+static const flex_int32_t yy_rule_can_match_eol[8] =
+    {   0,
+0, 0, 1, 0, 0, 0, 0,     };
+
 static yy_state_type yy_last_accepting_state;
 static char *yy_last_accepting_cpos;
 
@@ -476,14 +500,22 @@ char *yytext;
             [abj-o] (Subrango) Clase de caracteres que incluye un rango. Casara con una 'a', una 'b', o cualquier letra entre la 'j' y la 'o'.
             [^A-Z] (Negacion) Clase de caracteres negados. Casara con cualquier caracter excepto una letra mayuscula.
             r* (0 o mas veces) Cero o mas ocurrencias de la expresion regular r
-            r+ (1 o mas veces) Una o mas ocurrencias de r
-            r|s (O logico) r o s
-            EN DESARROLLO
+            r+ (1 o mas veces) Una o mas ocurrencias de r.
+            r|s (O logico) r o s.
+            r? (0 o 1 veces) Cero o una ocurrencia de r.
+            r{3,6} De 3 a 6 ocurrencias de r.
+            {nombre} La expansion de la definicion nombre. Referencia a una expresión regular creada antes.
+            \x  Si x es una 'a'(alerta), 'b'(retroceso), 'f'(salto de pagina), 'n'(fin de linea), 'r'(retorno de carro), 't'(tabulador) o 'v'(tabulacion vertical): Interpretacion tipica de ANSI-C.
+                Si no, se toma 'x', esto es util para caracteres como parentisis, barras, etc que tienen significado en flex.
+            "[xyz]\"fo" La cadena literal: '[xyz]"fo'
+            rs (concatenacion) La expresion regular r seguida de la expresion regular s.
+            <<EOF>> Fin de fichero.
     */
 //Librerias
 #include <stdio.h>
-#line 486 "lex.yy.c"
-#line 487 "lex.yy.c"
+#line 517 "lex.yy.c"
+/*Opciones*/
+#line 519 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -700,16 +732,16 @@ YY_DECL
 		}
 
 	{
-#line 38 "scanner.l"
+#line 47 "scanner.l"
 
-#line 40 "scanner.l"
+#line 49 "scanner.l"
     // REGLAS
     //Acciones a realizar sobre las definiciones
     //<patron> <accion>
     //  patron: Expresión regular
     //  accion: Codigo c a ejecutar
     //{digito} { ECHO; }
-#line 713 "lex.yy.c"
+#line 745 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -755,6 +787,16 @@ yy_find_action:
 
 		YY_DO_BEFORE_ACTION;
 
+		if ( yy_act != YY_END_OF_BUFFER && yy_rule_can_match_eol[yy_act] )
+			{
+			int yyl;
+			for ( yyl = 0; yyl < yyleng; ++yyl )
+				if ( yytext[yyl] == '\n' )
+					
+    yylineno++;
+;
+			}
+
 do_action:	/* This label is used only to access EOF actions. */
 
 		switch ( yy_act )
@@ -768,41 +810,41 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 46 "scanner.l"
-{ printf("TOKEN: BOOL, VALOR: %s\n", yytext); }
+#line 55 "scanner.l"
+{ printf("%d: TOKEN: BOOL, VALOR: %s\n", yylineno, yytext); }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 47 "scanner.l"
-{ printf("TOKEN: IDENTIFICADOR, VALOR: %s\n", yytext);}
+#line 56 "scanner.l"
+{ printf("%d: TOKEN: IDENTIFICADOR, VALOR: %s\n", yylineno, yytext);}
 	YY_BREAK
 case 3:
 /* rule 3 can match eol */
 YY_RULE_SETUP
-#line 48 "scanner.l"
+#line 57 "scanner.l"
 {}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 49 "scanner.l"
-{printf("TOKEN : LITERAL ENTERO, VALOR %s\n", yytext);} 
+#line 58 "scanner.l"
+{printf("%d: TOKEN : LITERAL ENTERO, VALOR %s\n", yylineno, yytext);} 
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 50 "scanner.l"
-{printf("TOKEN : LITERAL REAL, VALOR %s\n", yytext);} 
+#line 59 "scanner.l"
+{printf("%d: TOKEN : LITERAL REAL, VALOR %s\n", yylineno, yytext);} 
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 51 "scanner.l"
-{printf("TOKEN : NO SE QUE ES ESTO, VALOR %s\n", yytext);}
+#line 60 "scanner.l"
+{printf("%d: TOKEN : NO SE QUE ES ESTO, VALOR %s\n", yylineno, yytext);}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 53 "scanner.l"
+#line 62 "scanner.l"
 ECHO;
 	YY_BREAK
-#line 806 "lex.yy.c"
+#line 848 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1170,6 +1212,10 @@ static int yy_get_next_buffer (void)
 
 	*--yy_cp = (char) c;
 
+    if ( c == '\n' ){
+        --yylineno;
+    }
+
 	(yytext_ptr) = yy_bp;
 	(yy_hold_char) = *yy_cp;
 	(yy_c_buf_p) = yy_cp;
@@ -1246,6 +1292,11 @@ static int yy_get_next_buffer (void)
 	c = *(unsigned char *) (yy_c_buf_p);	/* cast for 8-bit char's */
 	*(yy_c_buf_p) = '\0';	/* preserve yytext */
 	(yy_hold_char) = *++(yy_c_buf_p);
+
+	if ( c == '\n' )
+		
+    yylineno++;
+;
 
 	return c;
 }
@@ -1713,6 +1764,9 @@ static int yy_init_globals (void)
      * This function is called from yylex_destroy(), so don't allocate here.
      */
 
+    /* We do not touch yylineno unless the option is enabled. */
+    yylineno =  1;
+    
     (yy_buffer_stack) = NULL;
     (yy_buffer_stack_top) = 0;
     (yy_buffer_stack_max) = 0;
@@ -1807,7 +1861,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 53 "scanner.l"
+#line 62 "scanner.l"
 
     //CODIGO
 int main(int argc, char **argv) {
@@ -1815,12 +1869,14 @@ int main(int argc, char **argv) {
         printf("Introduce archivo!!!!!");
         return 1;
     }
+    // Cambio entrada estandar para que apunte a un fichero
     yyin=fopen(argv[1],"r");
     if(!yyin){
-        printf("No se puede abrir el arvhivo");
+        printf("No se puede abrir el archivo");
         return 1;
     }
     
+    // Copiar al fichero de salida
     yylex();
     fclose(yyin);
     return 0;
