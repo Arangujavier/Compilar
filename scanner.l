@@ -8,7 +8,7 @@
 
     // DEFINICIONES: Declaraciones de nombres asociados a expresiones regulares
     //<nombre> <expresion_regular>
-    //digito [0-9]
+    //CIFRA [0-9]
     /*
         EXPRESIONES REGULARES:
             X Caracter X.
@@ -33,17 +33,19 @@
 %}
 /*Opciones*/
 %option yylineno
+%option case-insensitive 
 
-DIGITO      [0-9]
-SIGNO       [+-]
-EXPONENCIAL [eE]  
+/*Alfabeto*/
 LETRA       [a-z]|[A-Z]
+CIFRA       [0-9]
 
-LITERAL_REAL    {SIGNO}?{DIGITO}+"."{DIGITO}+({EXPONENCIAL}{SIGNO}?{DIGITO}+)?
-LITERAL_ENTERO  {SIGNO}?{DIGITO}+
-LETRA_DIGITO    {LETRA}|{DIGITO} 
-IDENTIFICADOR   {LETRA}|{LETRA_DIGITO}*
+/*Tokens*/
+LITERAL_REAL        [\+|\-]?{CIFRA}+"."{CIFRA}+(E[\+|\-]?{CIFRA}+)?
+LITERAL_ENTERO      [\+|\-]?{CIFRA}+
 LITERAL_BOOLEANO    VERDADERO|FALSO
+IDENTIFICADOR       {LETRA}+({LETRA}|{CIFRA})*
+LITERAL_CARACTER     \"([^\"])\"
+LITERAL_CADENA      '([^'\\]|\\')*'
 
 %%
     // REGLAS
@@ -51,13 +53,15 @@ LITERAL_BOOLEANO    VERDADERO|FALSO
     //<patron> <accion>
     //  patron: Expresión regular
     //  accion: Codigo c a ejecutar
-    //{digito} { ECHO; }
-{LITERAL_BOOLEANO} { printf("%d: TOKEN: BOOL, VALOR: %s\n", yylineno, yytext); }
-[a-zA-Z_][a-zA-Z_0-9]* { printf("%d: TOKEN: IDENTIFICADOR, VALOR: %s\n", yylineno, yytext);}
-[ \t\n] {}
-{LITERAL_ENTERO}    {printf("%d: TOKEN : LITERAL ENTERO, VALOR %s\n", yylineno, yytext);} 
-{LITERAL_REAL}  {printf("%d: TOKEN : LITERAL REAL, VALOR %s\n", yylineno, yytext);} 
-. {printf("%d: TOKEN : NO SE QUE ES ESTO, VALOR %s\n", yylineno, yytext);}
+    //{CIFRA} { ECHO; }
+{LITERAL_REAL}          {printf("[%d]: TOKEN: LITERAL REAL, VALOR %s\n", yylineno, yytext);} 
+{LITERAL_ENTERO}        {printf("[%d]: TOKEN: LITERAL ENTERO, VALOR %s\n", yylineno, yytext);} 
+{LITERAL_BOOLEANO}      {printf("[%d]: TOKEN: LITERAL BOOLEANO, VALOR: %s\n", yylineno, yytext); }
+{IDENTIFICADOR}         {printf("[%d]: TOKEN: IDENTIFICADOR, VALOR: %s\n", yylineno, yytext); }
+{LITERAL_CARACTER}      {printf("[%d]: TOKEN: LITERAL CARACTER, VALOR: %s\n", yylineno, yytext);}
+{LITERAL_CADENA}        {printf("[%d]: TOKEN: LITERAL CADENA, VALOR: %s\n", yylineno, yytext);}
+[ \t\n]                 {/*Ignorar*/}
+.                       {printf("[%d]: ERROR: CARACTER INVALIDO, VALOR: %s\n", yylineno, yytext);}
 
 %%
     //CODIGO

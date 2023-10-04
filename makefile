@@ -4,13 +4,16 @@ compilar: scanner.l
 	@echo "Compilando GCC"
 	gcc lex.yy.c -lfl -o scanner
 
-prueba1: scanner prueba1
+ejecutarPrueba: scanner prueba
+	./scanner prueba
+
+ejecutarPrueba1: scanner prueba1
 	./scanner prueba1
 
-prueba2: scanner prueba2
+ejecutarPrueba2: scanner prueba2
 	./scanner prueba2
 
-prueba3: scanner prueba3
+ejecutarPrueba3: scanner prueba3
 	./scanner prueba3
 
 clean:
