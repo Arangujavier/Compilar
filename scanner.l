@@ -39,7 +39,7 @@ int yywrap() { return 1; } //Excepcion para compilar en MAC
 /*Alfabeto*/
 LETRA               [a-z]|[A-Z]
 CIFRA               [0-9]
-
+       
 /*Palabras reservadas*/
     /*Tipo de dato*/
 REAL                real
@@ -56,6 +56,7 @@ TUPLA               tupla
 FTUPLA              ftupla
 VAR                 var
 FVAR                fvar
+
     /*Operadores logicos*/
 SUMA                "/+"
 RESTA               "/-"
@@ -67,6 +68,7 @@ MOD                 mod
 NO                  no
 Y                   y
 O                   o
+
     /*Estructuras*/
 ALGORITMO           algoritmo
 FALGORITMO          falgoritmo
@@ -85,13 +87,12 @@ DE                  de
 HASTA               hasta
 HACER               hacer
 REF                 ref
-/*REVISAR E/S*/
 DEV                 dev
 ES                  "e/s"
 ENT                 ent
 SAL                 sal
 
-/*Tokens*/
+    /*Tokens*/
 LITERAL_REAL        [+|-]?{CIFRA}+"."{CIFRA}+(E[\+|\-]?{CIFRA}+)?
 LITERAL_ENTERO      [+|-]?{CIFRA}+
 IDENTIFICADOR       {LETRA}+({LETRA}|{CIFRA})*
@@ -110,6 +111,11 @@ FIN_ARRAY           "\]"
 INICIO_LLAVE        \{
 CIERRE_LLAVE        "\}"
 
+/*Comentarios*/
+COMENTARIO          \{[^}]*\}
+PRECONDICION        \{prec:[^}]*\}
+POSTCONDICION       \{post:[^}]*\}
+
 %%
     // REGLAS
     //Acciones a realizar sobre las definiciones
@@ -118,18 +124,25 @@ CIERRE_LLAVE        "\}"
     //  accion: Codigo c a ejecutar
     //{CIFRA} { ECHO; }
     
+    /*Comentario*/
+{PRECONDICION}          { printf("[%d]: TOKEN: PRECONDICION, VALOR %s\n", yylineno, yytext);}
+{POSTCONDICION}         { printf("[%d]: TOKEN: POSTCONDICION, VALOR %s\n", yylineno, yytext);}
+{COMENTARIO}            { printf("[%d]: TOKEN: COMENTARIO, VALOR %s\n", yylineno, yytext);}
     /*Tipo de dato*/
-{REAL}|{ENTERO}|{BOOLEANO}|{CARACTER}|{TABLA}|{CADENA}|{CONST}|{FCONST}|{TIPO}|{FTIPO}|{TUPLA}|{FTUPLA}|{VAR}|{FVAR} {printf("[%d]: TOKEN:\n\tTipo de dato\n\t\t%s\n", yylineno, yytext);}
+{REAL}|{ENTERO}|{BOOLEANO}|{CARACTER}|{TABLA}|{CADENA}|{CONST}|{FCONST}|{TIPO}|{FTIPO}|{TUPLA}|{FTUPLA}|{VAR}|{FVAR} {
+    printf("[%d]: TOKEN: TIPO DE DATO, VALOR %s\n", yylineno, yytext);}
     /*Operador*/
-{SUMA}|{RESTA}|{MULTIPLICACION}|{DIV}|{VERDADERO}|{FALSO}|{MOD}|{NO}|{Y}|{O} {printf("[%d]: TOKEN:\n\tOperador\n\t\t%s\n", yylineno, yytext);}
+{SUMA}|{RESTA}|{MULTIPLICACION}|{DIV}|{VERDADERO}|{FALSO}|{MOD}|{NO}|{Y}|{O} {
+    printf("[%d]: TOKEN: OPERADOR, VALOR %s\n", yylineno, yytext);}
     /*Estructuras*/
-{ALGORITMO}|{FALGORITMO}|{FUNCION}|{FFUNCION}|{ACCION}|{FACCION}|{SI}|{FSI}|{MIENTRAS}|{FMIENTRAS}|{PARA}|{FPARA}|{CONTINUAR}|{DE}|{HASTA}|{HACER}|{REF}|{DEV}|{ES}|{ENT}|{SAL} {printf("[%d]: TOKEN:\n\tEstructura\n\t\t%s\n", yylineno, yytext);}
+{ALGORITMO}|{FALGORITMO}|{FUNCION}|{FFUNCION}|{ACCION}|{FACCION}|{SI}|{FSI}|{MIENTRAS}|{FMIENTRAS}|{PARA}|{FPARA}|{CONTINUAR}|{DE}|{HASTA}|{HACER}|{REF}|{DEV}|{ES}|{ENT}|{SAL} {
+    printf("[%d]: TOKEN: ESTRUCTURA, VALOR: %s\n", yylineno, yytext);}
     /*Otros*/
-{LITERAL_REAL}          {printf("[%d]: TOKEN:\n\tLiteral real\n\t\tVALOR %s\n", yylineno, yytext);} 
-{LITERAL_ENTERO}        {printf("[%d]: TOKEN:\n\tLiteral entero\n\t\tVALOR %s\n", yylineno, yytext);} 
-{IDENTIFICADOR}         {printf("[%d]: TOKEN:\n\tIdentificador\n\t\tVALOR: %s\n", yylineno, yytext); }
-{LITERAL_CARACTER}      {printf("[%d]: TOKEN:\n\tLiteral caracter\n\t\tVALOR: %s\n", yylineno, yytext);}
-{LITERAL_CADENA}        {printf("[%d]: TOKEN:\n\tLiteral cadena\n\t\tVALOR: %s\n", yylineno, yytext);}
+{LITERAL_REAL}          { printf("[%d]: TOKEN: LITERAL REAL, VALOR %s\n", yylineno, yytext);} 
+{LITERAL_ENTERO}        { printf("[%d]: TOKEN: LITERAL ENTERO, VALOR %s\n", yylineno, yytext);} 
+{IDENTIFICADOR}         { printf("[%d]: TOKEN: IDENTIFICADOR, VALOR: %s\n", yylineno, yytext); }
+{LITERAL_CARACTER}      { printf("[%d]: TOKEN: LITERAL CARACTER, VALOR: %s\n", yylineno, yytext);}
+{LITERAL_CADENA}        { printf("[%d]: TOKEN: LITERAL CADENA, VALOR: %s\n", yylineno, yytext);}
 {ASIGNACION}            { printf("[%d]: TOKEN: ASIGNACION, VALOR: %s\n", yylineno, yytext); }
 {COMPOSICION}           { printf("[%d]: TOKEN: COMPOSICION, VALOR: %s\n", yylineno, yytext); }
 {SEPARADOR}             { printf("[%d]: TOKEN: SEPARADOR, VALOR: %s\n", yylineno, yytext); }
