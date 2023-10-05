@@ -97,6 +97,18 @@ LITERAL_ENTERO      [+|-]?{CIFRA}+
 IDENTIFICADOR       {LETRA}+({LETRA}|{CIFRA})*
 LITERAL_CARACTER     \"([^\"])\"
 LITERAL_CADENA      '([^'\\]|\\')*'
+ASIGNACION          "\:=" 
+COMPOSICION         "\;"
+SEPARADOR           "\,"
+SUBRANGO            "\."
+DEF_TIPO            "\:"
+ENTONCES            "\->"
+SI_NO_SI            "\[\]"
+CREACION_TIPO       "\="
+INICIO_ARRAY        "\["
+FIN_ARRAY           "\]"
+INICIO_LLAVE        \{
+CIERRE_LLAVE        "\}"
 
 %%
     // REGLAS
@@ -118,7 +130,22 @@ LITERAL_CADENA      '([^'\\]|\\')*'
 {IDENTIFICADOR}         {printf("[%d]: TOKEN:\n\tIdentificador\n\t\tVALOR: %s\n", yylineno, yytext); }
 {LITERAL_CARACTER}      {printf("[%d]: TOKEN:\n\tLiteral caracter\n\t\tVALOR: %s\n", yylineno, yytext);}
 {LITERAL_CADENA}        {printf("[%d]: TOKEN:\n\tLiteral cadena\n\t\tVALOR: %s\n", yylineno, yytext);}
-[ \t\n]                 {/*Ignorar*/}
+{ASIGNACION}            { printf("[%d]: TOKEN: ASIGNACION, VALOR: %s\n", yylineno, yytext); }
+{COMPOSICION}           { printf("[%d]: TOKEN: COMPOSICION, VALOR: %s\n", yylineno, yytext); }
+{SEPARADOR}             { printf("[%d]: TOKEN: SEPARADOR, VALOR: %s\n", yylineno, yytext); }
+{SUBRANGO}              { printf("[%d]: TOKEN: SUBRANGO, VALOR: %s\n", yylineno, yytext); }
+{DEF_TIPO}              { printf("[%d]: TOKEN: DEF_TIPO, VALOR: %s\n", yylineno, yytext); }
+{ENTONCES}              { printf("[%d]: TOKEN: ENTONCES, VALOR: %s\n", yylineno, yytext); }
+{SI_NO_SI}              { printf("[%d]: TOKEN: SI_NO_SI, VALOR: %s\n", yylineno, yytext); }
+{CREACION_TIPO}         { printf("[%d]: TOKEN: CREACION_TIPO, VALOR: %s\n", yylineno, yytext); }
+{INICIO_ARRAY}          { printf("[%d]: TOKEN: INICIO_ARRAY, VALOR: %s\n", yylineno, yytext); }
+{FIN_ARRAY}             { printf("[%d]: TOKEN: FIN_ARRAY, VALOR: %s\n", yylineno, yytext); }
+{INICIO_LLAVE}          { printf("[%d]: TOKEN: INICIO_LLAVE, VALOR: %s\n", yylineno, yytext); }
+{CIERRE_LLAVE}          { printf("[%d]: TOKEN: CIERRE_LLAVE, VALOR: %s\n", yylineno, yytext); }
+
+
+[ \n]                   {/*Ignorar*/}
+[ \t]                   {/*Ignorar*/}
 .                       {printf("[%d]: ERROR:\n\tCARACTER INVALIDO, VALOR: %s\n", yylineno, yytext);}
 
 %%
