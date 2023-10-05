@@ -30,6 +30,7 @@
     */
 //Librerias
 #include <stdio.h>
+int yywrap() { return 1; } //Excepcion para compilar en MAC
 %}
 /*Opciones*/
 %option yylineno
