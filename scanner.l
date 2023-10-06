@@ -58,9 +58,9 @@ VAR                 var
 FVAR                fvar
 
     /*Operadores logicos*/
-SUMA                "/+"
-RESTA               "/-"
-MULTIPLICACION      "/*"
+SUMA                "\+"
+RESTA               "\-"
+MULTIPLICACION      "\*"
 DIV                 div
 VERDADERO           verdadero
 FALSO               falso
@@ -109,7 +109,15 @@ CREACION_TIPO       "\="
 INICIO_ARRAY        "\["
 FIN_ARRAY           "\]"
 INICIO_LLAVE        \{
-CIERRE_LLAVE        "\}"
+CIERRE_LLAVE        \}
+MAYOR_IGUAL         ">="
+MENOR_IGUAL         "<="
+DISTINTO            "!="
+MAYOR               >
+MENOR               <
+PARENTESIS_APERTURA "\("
+PARENTESIS_CIERRE   "\)"
+
 
 /*Comentarios*/
 COMENTARIO          \{[^}]*\}
@@ -128,6 +136,7 @@ POSTCONDICION       \{post:[^}]*\}
 {PRECONDICION}          { printf("[%d]: TOKEN: PRECONDICION, VALOR %s\n", yylineno, yytext);}
 {POSTCONDICION}         { printf("[%d]: TOKEN: POSTCONDICION, VALOR %s\n", yylineno, yytext);}
 {COMENTARIO}            { printf("[%d]: TOKEN: COMENTARIO, VALOR %s\n", yylineno, yytext);}
+
     /*Tipo de dato*/
 {REAL}|{ENTERO}|{BOOLEANO}|{CARACTER}|{TABLA}|{CADENA}|{CONST}|{FCONST}|{TIPO}|{FTIPO}|{TUPLA}|{FTUPLA}|{VAR}|{FVAR} {
     printf("[%d]: TOKEN: TIPO DE DATO, VALOR %s\n", yylineno, yytext);}
@@ -135,8 +144,9 @@ POSTCONDICION       \{post:[^}]*\}
 {SUMA}|{RESTA}|{MULTIPLICACION}|{DIV}|{VERDADERO}|{FALSO}|{MOD}|{NO}|{Y}|{O} {
     printf("[%d]: TOKEN: OPERADOR, VALOR %s\n", yylineno, yytext);}
     /*Estructuras*/
-{ALGORITMO}|{FALGORITMO}|{FUNCION}|{FFUNCION}|{ACCION}|{FACCION}|{SI}|{FSI}|{MIENTRAS}|{FMIENTRAS}|{PARA}|{FPARA}|{CONTINUAR}|{DE}|{HASTA}|{HACER}|{REF}|{DEV}|{ES}|{ENT}|{SAL} {
+{ALGORITMO}|{FALGORITMO}|{FUNCION}|{FFUNCION}|{ACCION}|{FACCION}|{SI}|{FSI}|{MIENTRAS}|{FMIENTRAS}|{PARA}|{FPARA}|{CONTINUAR}|{DE}|{HASTA}|{HACER}|{REF}|{DEV}|{ES}|{ENT}|{SAL}|{PARENTESIS_APERTURA}|{PARENTESIS_CIERRE} {
     printf("[%d]: TOKEN: ESTRUCTURA, VALOR: %s\n", yylineno, yytext);}
+
     /*Otros*/
 {LITERAL_REAL}          { printf("[%d]: TOKEN: LITERAL REAL, VALOR %s\n", yylineno, yytext);} 
 {LITERAL_ENTERO}        { printf("[%d]: TOKEN: LITERAL ENTERO, VALOR %s\n", yylineno, yytext);} 
@@ -155,7 +165,11 @@ POSTCONDICION       \{post:[^}]*\}
 {FIN_ARRAY}             { printf("[%d]: TOKEN: FIN_ARRAY, VALOR: %s\n", yylineno, yytext); }
 {INICIO_LLAVE}          { printf("[%d]: TOKEN: INICIO_LLAVE, VALOR: %s\n", yylineno, yytext); }
 {CIERRE_LLAVE}          { printf("[%d]: TOKEN: CIERRE_LLAVE, VALOR: %s\n", yylineno, yytext); }
-
+{MAYOR_IGUAL}           { printf("[%d]: TOKEN: MAYOR_IGUAL, VALOR: %s\n", yylineno, yytext); }
+{MENOR_IGUAL}           { printf("[%d]: TOKEN: MENOR_IGUAL, VALOR: %s\n", yylineno, yytext); }
+{DISTINTO}              { printf("[%d]: TOKEN: DISTINTO, VALOR: %s\n", yylineno, yytext); }
+{MAYOR}                 { printf("[%d]: TOKEN: MAYOR, VALOR: %s\n", yylineno, yytext); }
+{MENOR}                 { printf("[%d]: TOKEN: MENOR, VALOR: %s\n", yylineno, yytext); }
 
 [ \n]                   {/*Ignorar*/}
 [ \t]                   {/*Ignorar*/}
