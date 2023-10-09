@@ -107,7 +107,7 @@ LITERAL_REAL        ({SUMA}|{RESTA})?{CIFRA}+"."{CIFRA}+(E({SUMA}|{RESTA})?{CIFR
 LITERAL_ENTERO      ({SUMA}|{RESTA})?{CIFRA}+(E({SUMA}|{RESTA})?{CIFRA}+)?
 IDENTIFICADOR       {LETRA}+({LETRA}|{CIFRA})*
 LITERAL_CARACTER     \"([^\"])\"
-LITERAL_CADENA      '([^'\\]|\\')*'
+LITERAL_CADENA      '([^'\n\\]|\\.|\\\n)*'
 ASIGNACION          "\:=" 
 COMPOSICION         "\;"
 SEPARADOR           "\,"
