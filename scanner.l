@@ -40,7 +40,7 @@ int yywrap() { return 1; } //Excepcion para compilar en MAC
 LETRA               [a-z]|[A-Z]
 CIFRA               [0-9]
        
-/*Palabras reservadas*/
+/*Tokens*/
     /*Tipo de dato*/
 REAL                real
 ENTERO              entero
@@ -56,6 +56,9 @@ TUPLA               tupla
 FTUPLA              ftupla
 VAR                 var
 FVAR                fvar
+ES                  "e/s"
+ENT                 ent
+SAL                 sal
 
     /*Operadores logicos*/
 SUMA                "\+"
@@ -68,6 +71,11 @@ MOD                 mod
 NO                  no
 Y                   y
 O                   o
+MAYOR_IGUAL         ">="
+MENOR_IGUAL         "<="
+DISTINTO            "<>"
+MAYOR               >
+MENOR               <
 
     /*Estructuras*/
 ALGORITMO           algoritmo
@@ -88,13 +96,15 @@ HASTA               hasta
 HACER               hacer
 REF                 ref
 DEV                 dev
-ES                  "e/s"
-ENT                 ent
-SAL                 sal
 
-    /*Tokens*/
-LITERAL_REAL        [+|-]?{CIFRA}+"."{CIFRA}+(E[\+|\-]?{CIFRA}+)?
-LITERAL_ENTERO      [+|-]?{CIFRA}+
+    /*Comentarios*/
+COMENTARIO          \{[^}]*\}
+PRECONDICION        \{prec[^}]*\}
+POSTCONDICION       \{post[^}]*\}
+
+    /*Otros*/
+LITERAL_REAL        ({SUMA}|{RESTA})?{CIFRA}+"."{CIFRA}+(E({SUMA}|{RESTA})?{CIFRA}+)?
+LITERAL_ENTERO      ({SUMA}|{RESTA})?{CIFRA}+(E({SUMA}|{RESTA})?{CIFRA}+)?
 IDENTIFICADOR       {LETRA}+({LETRA}|{CIFRA})*
 LITERAL_CARACTER     \"([^\"])\"
 LITERAL_CADENA      '([^'\\]|\\')*'
@@ -110,19 +120,8 @@ INICIO_ARRAY        "\["
 FIN_ARRAY           "\]"
 INICIO_LLAVE        \{
 CIERRE_LLAVE        \}
-MAYOR_IGUAL         ">="
-MENOR_IGUAL         "<="
-DISTINTO            "!="
-MAYOR               >
-MENOR               <
 PARENTESIS_APERTURA "\("
 PARENTESIS_CIERRE   "\)"
-
-
-/*Comentarios*/
-COMENTARIO          \{[^}]*\}
-PRECONDICION        \{prec:[^}]*\}
-POSTCONDICION       \{post:[^}]*\}
 
 %%
     // REGLAS
@@ -163,8 +162,6 @@ POSTCONDICION       \{post:[^}]*\}
 {CREACION_TIPO}         { printf("[%d]: TOKEN: CREACION_TIPO, VALOR: %s\n", yylineno, yytext); }
 {INICIO_ARRAY}          { printf("[%d]: TOKEN: INICIO_ARRAY, VALOR: %s\n", yylineno, yytext); }
 {FIN_ARRAY}             { printf("[%d]: TOKEN: FIN_ARRAY, VALOR: %s\n", yylineno, yytext); }
-{INICIO_LLAVE}          { printf("[%d]: TOKEN: INICIO_LLAVE, VALOR: %s\n", yylineno, yytext); }
-{CIERRE_LLAVE}          { printf("[%d]: TOKEN: CIERRE_LLAVE, VALOR: %s\n", yylineno, yytext); }
 {MAYOR_IGUAL}           { printf("[%d]: TOKEN: MAYOR_IGUAL, VALOR: %s\n", yylineno, yytext); }
 {MENOR_IGUAL}           { printf("[%d]: TOKEN: MENOR_IGUAL, VALOR: %s\n", yylineno, yytext); }
 {DISTINTO}              { printf("[%d]: TOKEN: DISTINTO, VALOR: %s\n", yylineno, yytext); }
