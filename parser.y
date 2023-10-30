@@ -188,13 +188,6 @@ decl_sal:
 ;
 
 /* EXPRESIONES */
-
-operando:
-        IDENTIFICADOR
-        | operando PUNTO operando
-        | operando INICIO_ARRAY expresion FIN_ARRAY
-        | operando REF
-;
 expresion:
         exp_a
         | exp_b
@@ -210,7 +203,10 @@ exp_a:
 exp_a:
         exp_a DIV exp_a
         | PARENTESIS_APERTURA exp_a PARENTESIS_CIERRE
-        | operando
+        | IDENTIFICADOR
+        | exp_a PUNTO exp_a
+        | exp_a INICIO_ARRAY exp_a FIN_ARRAY
+        | exp_a REF
         | LITERAL_REAL
         | LITERAL_ENTERO
         | RESTA exp_a
@@ -219,7 +215,10 @@ exp_b:
         exp_b Y exp_b
         | exp_b O exp_b
         | NO exp_b
-        | operando
+        | IDENTIFICADOR
+        | exp_b PUNTO exp_b
+        | exp_b INICIO_ARRAY exp_b FIN_ARRAY
+        | exp_b REF
         | VERDADERO
         | FALSO
 ;
@@ -247,7 +246,8 @@ instruccion:
         | accion_ll
 ;
 asignacion:
-        operando ASIGNACION expresion
+        exp_a ASIGNACION exp_a
+        | exp_b ASIGNACION exp_b
 ;
 alternativa:
         SI expresion ENTONCES instrucciones lista_opciones FSI
