@@ -64,6 +64,7 @@ SAL                 sal
 SUMA                "\+"
 RESTA               "\-"
 MULTIPLICACION      "\*"
+DIVISION            "\/"
 DIV                 div
 VERDADERO           verdadero
 FALSO               falso
@@ -111,7 +112,8 @@ LITERAL_CADENA      '([^'\n\\]|\\.|\\\n)*'
 ASIGNACION          "\:=" 
 COMPOSICION         "\;"
 SEPARADOR           "\,"
-SUBRANGO            "\."
+SUBRANGO            "\.\."
+PUNTO               "\."
 DEF_TIPO            "\:"
 ENTONCES            "\->"
 SI_NO_SI            "\[\]"

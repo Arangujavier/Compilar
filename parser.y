@@ -25,6 +25,7 @@
 %token SUMA
 %token RESTA
 %token MULTIPLICACION
+%token DIVISION
 %token DIV
 %token VERDADERO
 %token FALSO
@@ -70,6 +71,7 @@
 %token COMPOSICION
 %token SEPARADOR
 %token SUBRANGO
+%token PUNTO
 %token DEF_TIPO
 %token ENTONCES
 %token SI_NO_SI
@@ -85,7 +87,7 @@
 
 /* PROALG */
 desc_algoritmo: 
-        ALGORITMO IDENTIFICADOR PUNTO_COMA cabecera_alg bloque_alg FALGORITMO PUNTO 
+        ALGORITMO IDENTIFICADOR COMPOSICION cabecera_alg bloque_alg FALGORITMO PUNTO 
 ;
 cabecera_alg:
         decl_globales decl_a_f decl_ent_sal COMENTARIO 
@@ -95,7 +97,7 @@ bloque_alg:
 ;
 decl_globales:
         declaracion_tipo decl_globales
-        | declaracion_const decl_globales
+        | declaracion_cte decl_globales
         | /*Epsilon*/ 
 ;
 decl_a_f:
@@ -108,25 +110,25 @@ bloque:
 ;
 declaraciones:
         declaracion_tipo declaraciones 
-        | declaracion_const declaraciones
+        | declaracion_cte declaraciones
         | declaracion_var declaraciones
         | /*Epsilon*/
 ;
 
 /* DECLARACIONES */
 declaracion_tipo:
-        TIPO lista_dtipo FTIPO PUNTO_COMA
+        TIPO lista_d_tipo FTIPO COMPOSICION
 ;
 declaracion_cte:
-        CONST lista_d_cte FCONST PUNTO_COMA
+        CONST lista_d_cte FCONST COMPOSICION
 ;
 declaracion_var:
-        VAR lista_d_var FVAR PUNTO_COMA
+        VAR lista_d_var FVAR COMPOSICION
 ;
 
 /* TIPOS */
 lista_d_tipo:
-        IDENTIFICADOR IGUAL d_tipo PUNTO_COMA lista_d_tipo
+        IDENTIFICADOR CREACION_TIPO d_tipo COMPOSICION lista_d_tipo
         | /*Epsilon*/
 ;
 d_tipo:
@@ -144,7 +146,7 @@ expresion_t:
         | LITERAL_CARACTER
 ;
 lista_campos:
-        IDENTIFICADOR DEF_TIPO d_tipo PUNTO_COMA lista_campos
+        IDENTIFICADOR DEF_TIPO d_tipo COMPOSICION lista_campos
         | /*Epsilon*/
 ;
 tipo_base:
@@ -157,16 +159,16 @@ tipo_base:
 
 /* CONSTANTES Y VARIABLES */
 lista_d_cte:
-        IDENTIFICADOR IGUAL ENTERO PUNTO_COMA lista_d_cte
-        | IDENTIFICADOR IGUAL BOOLEANO PUNTO_COMA lista_d_cte
-        | IDENTIFICADOR IGUAL CARACACTER PUNTO_COMA lista_d_cte
-        | IDENTIFICADOR IGUAL REAL PUNTO_COMA lista_d_cte
-        | IDENTIFICADOR IGUAL CADENA PUNTO_COMA lista_d_cte
+        IDENTIFICADOR CREACION_TIPO ENTERO COMPOSICION lista_d_cte
+        | IDENTIFICADOR CREACION_TIPO BOOLEANO COMPOSICION lista_d_cte
+        | IDENTIFICADOR CREACION_TIPO CARACACTER COMPOSICION lista_d_cte
+        | IDENTIFICADOR CREACION_TIPO REAL COMPOSICION lista_d_cte
+        | IDENTIFICADOR CREACION_TIPO CADENA COMPOSICION lista_d_cte
         | /*Epsilon*/
 ;
 lista_d_var:
-        lista_id DEF_TIPO IDENTIFICADOR PUNTO_COMA lista_d_var
-        | lista_id DEF_TIPO d_tipo PUNTO_COMA lista_d_var
+        lista_id DEF_TIPO IDENTIFICADOR COMPOSICION lista_d_var
+        | lista_id DEF_TIPO d_tipo COMPOSICION lista_d_var
         | /*Epsilon*/
 ;
 lista_id:
@@ -175,8 +177,8 @@ lista_id:
 ;
 decl_ent_sal:
         decl_ent
-        | decl_ent decl_salida
-        | decl_salida
+        | decl_ent decl_sal
+        | decl_sal
 ;
 decl_ent:
         ENT lista_d_var
@@ -217,11 +219,11 @@ exp_b:
 exp_b:
         expresion MENOR expresion
         | expresion MAYOR expresion
-        | expresion IGUAL expresion
+        | expresion CREACION_TIPO expresion
         | expresion DISTINTO expresion
         | expresion MAYOR_IGUAL expresion
         | expresion MENOR_IGUAL expresion
-        | PARENTESIS_APERTURA expresion PARENTESIS_CIERRE
+        | PARENTESIS_APERTURA exp_b PARENTESIS_CIERRE
 ;
 operando:
         IDENTIFICADOR
@@ -232,10 +234,10 @@ operando:
 
 /* INSTRUCCIONES */
 instrucciones:
-        instruccion PUNTO_COMA instrucciones
+        instruccion COMPOSICION instrucciones
         | instruccion
 ; 
-instruccion
+instruccion:
         CONTINUAR
         | asignacion
         | alternativa
@@ -271,19 +273,19 @@ funcion_d:
         FUNCION f_cabecera bloque DEV expresion FFUNCION
 ;
 a_cabecera:
-        IDENTIFICADOR PARENTESIS_APERTURA d_par_form PARENTESIS_CIERRE PUNTO_COMA
+        IDENTIFICADOR PARENTESIS_APERTURA d_par_form PARENTESIS_CIERRE COMPOSICION
 ;
 f_cabecera:
-        IDENTIFICADOR PARENTESIS_APERTURA lista_d_var PARENTESIS_CIERRE DEV d_tipo PUNTO_COMA
+        IDENTIFICADOR PARENTESIS_APERTURA lista_d_var PARENTESIS_CIERRE DEV d_tipo COMPOSICION
 ;
 d_par_form:
-        d_p_form PUNTO_COMA d_par_form
+        d_p_form COMPOSICION d_par_form
         | /* Epsilon */
 ;
 d_p_form:
         ENT lista_id DEF_TIPO d_tipo
         | SAL lista_id DEF_TIPO d_tipo
-        | ES lista_id DEF_TIPO PUNTO_COMA d_tipo
+        | ES lista_id DEF_TIPO COMPOSICION d_tipo
 ;
 accion_ll:
         IDENTIFICADOR PARENTESIS_APERTURA l_ll PARENTESIS_CIERRE
