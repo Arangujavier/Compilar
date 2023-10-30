@@ -4,30 +4,104 @@
 #include <string.h>
 %}
 
-%token INT FLOAT CHAR BOOLEANO PUNTO_COMA IGUAL  
-%token ALGORITMO FALGORITMO IDENTIFICADOR DECL COMENTARIO 
-%token TIPO CONST VAR TABLA CADENA FCONST FTIPO TUPLA FTUPLA FVAR ES ENT SAL
+%token REAL
+%token ENTERO
+%token BOOLEANO
+%token CARACACTER
+%token TABLA
+%token CADENA
+%token CONST
+%token FCONST
+%token TIPO
+%token FTIPO
+%token TUPLA
+%token FTUPLA
+%token VAR
+%token FVAR
+%token ES
+%token ENT
+%token SAL
+
+%token SUMA
+%token RESTA
+%token MULTIPLICACION
+%token DIV
+%token VERDADERO
+%token FALSO
+%token MOD
+%token NO
+%token Y
+%token O
+%token MAYOR_IGUAL
+%token MENOR_IGUAL
+%token DISTINTO
+%token MAYOR
+%token MENOR
+
+%token ALGORITMO
+%token FALGORITMO
+%token FUNCION
+%token FFUNCION
+%token ACCION
+%token FACCION
+%token SI
+%token FSI
+%token MIENTRAS
+%token FMIENTRAS
+%token PARA
+%token FPARA
+%token CONTINUAR
+%token DE
+%token HASTA
+%token HACER
+%token REF
+%token DEV
+
+%token COMENTARIO
+%token PRECONDICION
+%token POSTCONDICION
+
+%token LITERAL_ENTERO
+%token LITERAL_REAL
+%token IDENTIFICADOR
+%token LITERAL_CARACTER
+%token LITERAL_CADENA
+%token ASIGNACION
+%token COMPOSICION
+%token SEPARADOR
+%token SUBRANGO
+%token DEF_TIPO
+%token ENTONCES
+%token SI_NO_SI
+%token CREACION_TIPO
+%token INICIO_ARRAY
+%token FIN_ARRAY
+%token INICIO_LLAVE
+%token FIN_LLAVE
+%token PARENTESIS_APERTURA
+%token PARENTESIS_CIERRE
+
 %%
 
 /* PROALG */
 desc_algoritmo: 
-        ALGORITMO IDENTIFICADOR ; cabecera_alg bloque_alg falgoritmo PUNTO 
+        ALGORITMO IDENTIFICADOR PUNTO_COMA cabecera_alg bloque_alg FALGORITMO PUNTO 
 ;
 cabecera_alg:
         decl_globales decl_a_f decl_ent_sal COMENTARIO 
 ;
 bloque_alg:
-        COMENTARIO 
+        bloque COMENTARIO 
 ;
 decl_globales:
         declaracion_tipo decl_globales
         | declaracion_const decl_globales
         | /*Epsilon*/ 
 ;
-declaf:
-        accion_d declaf
-        | funcion_d declaf 
-        |/*Epsilon*/ 
+decl_a_f:
+        accion_d decl_a_f
+        | funcion_d decl_a_f 
+        | /*Epsilon*/ 
 ;
 bloque:
         declaraciones instrucciones
@@ -36,47 +110,64 @@ declaraciones:
         declaracion_tipo declaraciones 
         | declaracion_const declaraciones
         | declaracion_var declaraciones
+        | /*Epsilon*/
 ;
 
 /* DECLARACIONES */
 declaracion_tipo:
-        TIPO lista_dtipo FTIPO
+        TIPO lista_dtipo FTIPO PUNTO_COMA
 ;
 declaracion_cte:
-        CONST lista_d_cte FCONST
+        CONST lista_d_cte FCONST PUNTO_COMA
 ;
 declaracion_var:
-        VAR lista_d_var FVAR
+        VAR lista_d_var FVAR PUNTO_COMA
 ;
 
 /* TIPOS */
 lista_d_tipo:
         IDENTIFICADOR IGUAL d_tipo PUNTO_COMA lista_d_tipo
-        | /*Epsilon */
+        | /*Epsilon*/
 ;
 d_tipo:
         TUPLA lista_campos FTUPLA
-        | TABLA INICIO_ARRAY FIN_ARRAY DE d_tipo
+        | TABLA INICIO_ARRAY expresion_t SUBRANGO expresion_t FIN_ARRAY DE d_tipo
 ;
 d_tipo:
         IDENTIFICADOR
-        | expresion_t
-        | REF
-        | TIPO_BASE
+        | expresion_t SUBRANGO expresion_t
+        | REF d_tipo
+        | tipo_base
 ;
 expresion_t:
+        expresion
+        | LITERAL_CARACTER
+;
+lista_campos:
         IDENTIFICADOR DEF_TIPO d_tipo PUNTO_COMA lista_campos
-        | /* Epsilon */
+        | /*Epsilon*/
+;
+tipo_base:
+        ENTERO
+        | BOOLEANO
+        | CARACACTER
+        | REAL
+        | CADENA
+;
 
 /* CONSTANTES Y VARIABLES */
 lista_d_cte:
-        IDENTIFICADOR IGUAL literal PUNTO_COMA lista_d_cte
-        | /* Epsilon */
+        IDENTIFICADOR IGUAL ENTERO PUNTO_COMA lista_d_cte
+        | IDENTIFICADOR IGUAL BOOLEANO PUNTO_COMA lista_d_cte
+        | IDENTIFICADOR IGUAL CARACACTER PUNTO_COMA lista_d_cte
+        | IDENTIFICADOR IGUAL REAL PUNTO_COMA lista_d_cte
+        | IDENTIFICADOR IGUAL CADENA PUNTO_COMA lista_d_cte
+        | /*Epsilon*/
 ;
 lista_d_var:
-        lista_id DEF_TIPO IDENTIFICADOR PUNTO_COMAlista_d_var
+        lista_id DEF_TIPO IDENTIFICADOR PUNTO_COMA lista_d_var
         | lista_id DEF_TIPO d_tipo PUNTO_COMA lista_d_var
-        | /* Epsilon */
+        | /*Epsilon*/
 ;
 lista_id:
         IDENTIFICADOR SEPARADOR lista_id
@@ -101,14 +192,14 @@ expresion:
         | funcion_ll
 ;
 exp_a:
-        exp_a OP_SUMA exp_a
-        | exp_a OP_RESTA exp_a
-        | exp_a OP_MULTIPLICACION exp_a
-        | exp_a OP_DIVISION exp_a
-        | exp_a OP_MOD exp_a
+        exp_a SUMA exp_a
+        | exp_a RESTA exp_a
+        | exp_a MULTIPLICACION exp_a
+        | exp_a DIVISION exp_a
+        | exp_a MOD exp_a
 ;
 exp_a:
-        exp_a OP_DIV exp_a
+        exp_a DIV exp_a
         | PARENTESIS_APERTURA exp_a PARENTESIS_CIERRE
         | operando
         | LITERAL_REAL
@@ -130,6 +221,7 @@ exp_b:
         | expresion DISTINTO expresion
         | expresion MAYOR_IGUAL expresion
         | expresion MENOR_IGUAL expresion
+        | PARENTESIS_APERTURA expresion PARENTESIS_CIERRE
 ;
 operando:
         IDENTIFICADOR
@@ -140,7 +232,7 @@ operando:
 
 /* INSTRUCCIONES */
 instrucciones:
-        instrucciones PUNTO_COMA instrucciones
+        instruccion PUNTO_COMA instrucciones
         | instruccion
 ; 
 instruccion
@@ -168,7 +260,7 @@ it_cota_exp:
         MIENTRAS expresion HACER instrucciones FMIENTRAS
 ;
 it_cota_fija:
-        PARA IDENTIFICADOR ASIGNACION expresion HASTA expresion HACER instruccion fpara
+        PARA IDENTIFICADOR ASIGNACION expresion HASTA expresion HACER instruccion FPARA
 ;
 
 /* ACCIONES Y FUNCIONES */
