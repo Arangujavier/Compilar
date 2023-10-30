@@ -188,6 +188,13 @@ decl_sal:
 ;
 
 /* EXPRESIONES */
+
+operando:
+        IDENTIFICADOR
+        | operando PUNTO operando
+        | operando INICIO_ARRAY expresion FIN_ARRAY
+        | operando REF
+;
 expresion:
         exp_a
         | exp_b
@@ -225,12 +232,7 @@ exp_b:
         | expresion MENOR_IGUAL expresion
         | PARENTESIS_APERTURA exp_b PARENTESIS_CIERRE
 ;
-operando:
-        IDENTIFICADOR
-        | operando PUNTO operando
-        | operando INICIO_ARRAY expresion FIN_ARRAY
-        | operando REF
-;
+
 
 /* INSTRUCCIONES */
 instrucciones:

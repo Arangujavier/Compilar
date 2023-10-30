@@ -2,7 +2,7 @@ compilar: scanner.l
 	@echo "Compilando Flex"
 	flex scanner.l
 	@echo "Compilando GCC"
-	gcc lex.yy.c -lfl -o scanner
+	gcc lex.yy.c -o scanner
 	@echo "Compilando Bison"
 	bison -v -d parser.y
 
