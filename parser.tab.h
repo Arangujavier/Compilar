@@ -127,7 +127,8 @@ extern int yydebug;
     INICIO_LLAVE = 328,            /* INICIO_LLAVE  */
     FIN_LLAVE = 329,               /* FIN_LLAVE  */
     PARENTESIS_APERTURA = 330,     /* PARENTESIS_APERTURA  */
-    PARENTESIS_CIERRE = 331        /* PARENTESIS_CIERRE  */
+    PARENTESIS_CIERRE = 331,       /* PARENTESIS_CIERRE  */
+    IGUAL = 332                    /* IGUAL  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
