@@ -6,7 +6,10 @@
 #include "parser.tab.h"
 
 int yylex(void);    // Declare the lexer function
-void yyerror(const char *s); 
+void yyerror(char *s);
+int yyparse(void);
+extern FILE * yyin;
+
 %}
 
 %token REAL
@@ -312,7 +315,7 @@ l_ll:
     //CODIGO
 
 
-void yyerror(const char *s) {
+void yyerror(char *s) {
     fprintf(stderr, "Error: %s\n", s);
 }
 
@@ -323,7 +326,6 @@ int main (int argc, char **argv ) {
         return 1;
     }
     // Cambio entrada estandar para que apunte a un fichero
-    FILE *yyin;
     yyin=fopen(argv[1],"r");
     if(!yyin){
         printf("No se puede abrir el archivo");
