@@ -30,8 +30,11 @@
     */
 //Librerias
 #include <stdio.h>
+#include "parser.tab.h"
 int yywrap() { return 1; } //Excepcion para compilar en MAC
 %}
+
+
 /*Opciones*/
 %option yylineno
 %option case-insensitive 
@@ -61,7 +64,7 @@ ENT                 ent
 SAL                 sal
 
     /*Operadores logicos*/
-SUMA                "\+"
+SUMA                "\+"   
 RESTA               "\-"
 MULTIPLICACION      "\*"
 DIVISION            "\/"
@@ -125,7 +128,10 @@ CIERRE_LLAVE        \}
 PARENTESIS_APERTURA "\("
 PARENTESIS_CIERRE   "\)"
 
+
+
 %%
+
     // REGLAS
     //Acciones a realizar sobre las definiciones
     //<patron> <accion>
@@ -134,62 +140,87 @@ PARENTESIS_CIERRE   "\)"
     //{CIFRA} { ECHO; }
     
     /*Comentario*/
-{PRECONDICION}          { printf("[%d]: TOKEN: PRECONDICION, VALOR %s\n", yylineno, yytext);}
-{POSTCONDICION}         { printf("[%d]: TOKEN: POSTCONDICION, VALOR %s\n", yylineno, yytext);}
-{COMENTARIO}            { printf("[%d]: TOKEN: COMENTARIO, VALOR %s\n", yylineno, yytext);}
+{PRECONDICION}          {  return PRECONDICION; }
+{POSTCONDICION}         { printf("[%d]: TOKEN: POSTCONDICION, VALOR %s\n", yylineno, yytext); return POSTCONDICION  ; }
+{COMENTARIO}            { printf("[%d]: TOKEN: COMENTARIO, VALOR %s\n", yylineno, yytext); return COMENTARIO; }
 
     /*Tipo de dato*/
-{REAL}|{ENTERO}|{BOOLEANO}|{CARACTER}|{TABLA}|{CADENA}|{CONST}|{FCONST}|{TIPO}|{FTIPO}|{TUPLA}|{FTUPLA}|{VAR}|{FVAR} {
-    printf("[%d]: TOKEN: TIPO DE DATO, VALOR %s\n", yylineno, yytext);}
+{REAL}                  { printf("[%d]: TOKEN: TIPO DE DATO, VALOR %s\n", yylineno, yytext); return REAL;}
+{ENTERO}                { printf("[%d]: TOKEN: TIPO DE DATO, VALOR %s\n", yylineno, yytext); return ENTERO;}
+{BOOLEANO}              { printf("[%d]: TOKEN: TIPO DE DATO, VALOR %s\n", yylineno, yytext); return BOOLEANO;}
+{CARACTER}              { printf("[%d]: TOKEN: TIPO DE DATO, VALOR %s\n", yylineno, yytext); return CARACACTER;}
+{TABLA}                 { printf("[%d]: TOKEN: TIPO DE DATO, VALOR %s\n", yylineno, yytext); return TABLA;}
+{CADENA}                { printf("[%d]: TOKEN: TIPO DE DATO, VALOR %s\n", yylineno, yytext); return CADENA;}
+{CONST}                 { printf("[%d]: TOKEN: TIPO DE DATO, VALOR %s\n", yylineno, yytext); return CONST;}
+{FCONST}                { printf("[%d]: TOKEN: TIPO DE DATO, VALOR %s\n", yylineno, yytext); return FCONST;}
+{TIPO}                  { printf("[%d]: TOKEN: TIPO DE DATO, VALOR %s\n", yylineno, yytext); return TIPO;}
+{FTIPO}                 { printf("[%d]: TOKEN: TIPO DE DATO, VALOR %s\n", yylineno, yytext); return FTIPO;}
+{TUPLA}                 { printf("[%d]: TOKEN: TIPO DE DATO, VALOR %s\n", yylineno, yytext); return TUPLA;}
+{FTUPLA}                { printf("[%d]: TOKEN: TIPO DE DATO, VALOR %s\n", yylineno, yytext); return FTUPLA;}
+{VAR}                   { printf("[%d]: TOKEN: TIPO DE DATO, VALOR %s\n", yylineno, yytext); return VAR;}
+{FVAR}                  {printf("[%d]: TOKEN: TIPO DE DATO, VALOR %s\n", yylineno, yytext); return FVAR;}
     /*Operador*/
-{SUMA}|{RESTA}|{MULTIPLICACION}|{DIV}|{VERDADERO}|{FALSO}|{MOD}|{NO}|{Y}|{O} {
-    printf("[%d]: TOKEN: OPERADOR, VALOR %s\n", yylineno, yytext);}
+{SUMA}                  { printf("[%d]: TOKEN: OPERADOR, VALOR %s\n", yylineno, yytext); return SUMA;}
+{RESTA}                 { printf("[%d]: TOKEN: OPERADOR, VALOR %s\n", yylineno, yytext); return RESTA;}
+{MULTIPLICACION}        { printf("[%d]: TOKEN: OPERADOR, VALOR %s\n", yylineno, yytext); return MULTIPLICACION;}
+{DIV}                   { printf("[%d]: TOKEN: OPERADOR, VALOR %s\n", yylineno, yytext); return DIV;}
+{VERDADERO}             { printf("[%d]: TOKEN: OPERADOR, VALOR %s\n", yylineno, yytext); return VERDADERO;}
+{FALSO}                 { printf("[%d]: TOKEN: OPERADOR, VALOR %s\n", yylineno, yytext); return FALSO;}
+{MOD}                   { printf("[%d]: TOKEN: OPERADOR, VALOR %s\n", yylineno, yytext); return MOD;}
+{NO}                    { printf("[%d]: TOKEN: OPERADOR, VALOR %s\n", yylineno, yytext); return NO;}
+{Y}                     { printf("[%d]: TOKEN: OPERADOR, VALOR %s\n", yylineno, yytext); return Y;}
+{O}                     { printf("[%d]: TOKEN: OPERADOR, VALOR %s\n", yylineno, yytext); return O;} 
+    
     /*Estructuras*/
-{ALGORITMO}|{FALGORITMO}|{FUNCION}|{FFUNCION}|{ACCION}|{FACCION}|{SI}|{FSI}|{MIENTRAS}|{FMIENTRAS}|{PARA}|{FPARA}|{CONTINUAR}|{DE}|{HASTA}|{HACER}|{REF}|{DEV}|{ES}|{ENT}|{SAL}|{PARENTESIS_APERTURA}|{PARENTESIS_CIERRE} {
-    printf("[%d]: TOKEN: ESTRUCTURA, VALOR: %s\n", yylineno, yytext);}
+{ALGORITMO}             { printf("[%d]: TOKEN: ESTRUCTURA, VALOR: %s\n", yylineno, yytext); return ALGORITMO;}
+{FALGORITMO}            { printf("[%d]: TOKEN: ESTRUCTURA, VALOR: %s\n", yylineno, yytext); return FALGORITMO;}
+{FUNCION}               { printf("[%d]: TOKEN: ESTRUCTURA, VALOR: %s\n", yylineno, yytext); return FUNCION;}
+{FFUNCION}              { printf("[%d]: TOKEN: ESTRUCTURA, VALOR: %s\n", yylineno, yytext); return FFUNCION;}
+{ACCION}                { printf("[%d]: TOKEN: ESTRUCTURA, VALOR: %s\n", yylineno, yytext); return ACCION;}
+{FACCION}               { printf("[%d]: TOKEN: ESTRUCTURA, VALOR: %s\n", yylineno, yytext); return FACCION;}
+{SI}                    { printf("[%d]: TOKEN: ESTRUCTURA, VALOR: %s\n", yylineno, yytext); return SI;}
+{FSI}                   { printf("[%d]: TOKEN: ESTRUCTURA, VALOR: %s\n", yylineno, yytext); return FSI;}
+{MIENTRAS}              { printf("[%d]: TOKEN: ESTRUCTURA, VALOR: %s\n", yylineno, yytext); return MIENTRAS;}
+{FMIENTRAS}             { printf("[%d]: TOKEN: ESTRUCTURA, VALOR: %s\n", yylineno, yytext); return FMIENTRAS;}
+{PARA}                  { printf("[%d]: TOKEN: ESTRUCTURA, VALOR: %s\n", yylineno, yytext); return PARA;}
+{FPARA}                 { printf("[%d]: TOKEN: ESTRUCTURA, VALOR: %s\n", yylineno, yytext); return FPARA;}
+{CONTINUAR}             { printf("[%d]: TOKEN: ESTRUCTURA, VALOR: %s\n", yylineno, yytext); return CONTINUAR;}
+{DE}                    { printf("[%d]: TOKEN: ESTRUCTURA, VALOR: %s\n", yylineno, yytext); return DE;}
+{HASTA}                 { printf("[%d]: TOKEN: ESTRUCTURA, VALOR: %s\n", yylineno, yytext); return HASTA;}
+{HACER}                 { printf("[%d]: TOKEN: ESTRUCTURA, VALOR: %s\n", yylineno, yytext); return HACER;}
+{REF}                   { printf("[%d]: TOKEN: ESTRUCTURA, VALOR: %s\n", yylineno, yytext); return REF;}
+{DEV}                   { printf("[%d]: TOKEN: ESTRUCTURA, VALOR: %s\n", yylineno, yytext); return DEV;}
+{ES}                    { printf("[%d]: TOKEN: ESTRUCTURA, VALOR: %s\n", yylineno, yytext); return ES;}
+{ENT}                   { printf("[%d]: TOKEN: ESTRUCTURA, VALOR: %s\n", yylineno, yytext); return ENT;}
+{SAL}                   { printf("[%d]: TOKEN: ESTRUCTURA, VALOR: %s\n", yylineno, yytext); return SAL;}
+{PARENTESIS_APERTURA}   { printf("[%d]: TOKEN: ESTRUCTURA, VALOR: %s\n", yylineno, yytext); return PARENTESIS_APERTURA;}
+{PARENTESIS_CIERRE}     { printf("[%d]: TOKEN: ESTRUCTURA, VALOR: %s\n", yylineno, yytext); return PARENTESIS_CIERRE;}
 
     /*Otros*/
-{LITERAL_REAL}          { printf("[%d]: TOKEN: LITERAL REAL, VALOR %s\n", yylineno, yytext);} 
-{LITERAL_ENTERO}        { printf("[%d]: TOKEN: LITERAL ENTERO, VALOR %s\n", yylineno, yytext);} 
-{IDENTIFICADOR}         { printf("[%d]: TOKEN: IDENTIFICADOR, VALOR: %s\n", yylineno, yytext); }
-{LITERAL_CARACTER}      { printf("[%d]: TOKEN: LITERAL CARACTER, VALOR: %s\n", yylineno, yytext);}
-{LITERAL_CADENA}        { printf("[%d]: TOKEN: LITERAL CADENA, VALOR: %s\n", yylineno, yytext);}
-{ASIGNACION}            { printf("[%d]: TOKEN: ASIGNACION, VALOR: %s\n", yylineno, yytext); }
-{COMPOSICION}           { printf("[%d]: TOKEN: COMPOSICION, VALOR: %s\n", yylineno, yytext); }
-{SEPARADOR}             { printf("[%d]: TOKEN: SEPARADOR, VALOR: %s\n", yylineno, yytext); }
-{SUBRANGO}              { printf("[%d]: TOKEN: SUBRANGO, VALOR: %s\n", yylineno, yytext); }
-{DEF_TIPO}              { printf("[%d]: TOKEN: DEF_TIPO, VALOR: %s\n", yylineno, yytext); }
-{ENTONCES}              { printf("[%d]: TOKEN: ENTONCES, VALOR: %s\n", yylineno, yytext); }
-{SI_NO_SI}              { printf("[%d]: TOKEN: SI_NO_SI, VALOR: %s\n", yylineno, yytext); }
-{CREACION_TIPO}         { printf("[%d]: TOKEN: CREACION_TIPO, VALOR: %s\n", yylineno, yytext); }
-{INICIO_ARRAY}          { printf("[%d]: TOKEN: INICIO_ARRAY, VALOR: %s\n", yylineno, yytext); }
-{FIN_ARRAY}             { printf("[%d]: TOKEN: FIN_ARRAY, VALOR: %s\n", yylineno, yytext); }
-{MAYOR_IGUAL}           { printf("[%d]: TOKEN: MAYOR_IGUAL, VALOR: %s\n", yylineno, yytext); }
-{MENOR_IGUAL}           { printf("[%d]: TOKEN: MENOR_IGUAL, VALOR: %s\n", yylineno, yytext); }
-{DISTINTO}              { printf("[%d]: TOKEN: DISTINTO, VALOR: %s\n", yylineno, yytext); }
-{MAYOR}                 { printf("[%d]: TOKEN: MAYOR, VALOR: %s\n", yylineno, yytext); }
-{MENOR}                 { printf("[%d]: TOKEN: MENOR, VALOR: %s\n", yylineno, yytext); }
+{LITERAL_REAL}          { printf("[%d]: TOKEN: LITERAL REAL, VALOR %s\n", yylineno, yytext); return LITERAL_REAL;} 
+{LITERAL_ENTERO}        { printf("[%d]: TOKEN: LITERAL ENTERO, VALOR %s\n", yylineno, yytext); return LITERAL_ENTERO;} 
+{IDENTIFICADOR}         { printf("[%d]: TOKEN: IDENTIFICADOR, VALOR: %s\n", yylineno, yytext); return IDENTIFICADOR; }
+{LITERAL_CARACTER}      { printf("[%d]: TOKEN: LITERAL CARACTER, VALOR: %s\n", yylineno, yytext); return LITERAL_CARACTER;}
+{LITERAL_CADENA}        { printf("[%d]: TOKEN: LITERAL CADENA, VALOR: %s\n", yylineno, yytext); return LITERAL_CADENA;}
+{ASIGNACION}            { printf("[%d]: TOKEN: ASIGNACION, VALOR: %s\n", yylineno, yytext);return ASIGNACION; }
+{COMPOSICION}           { printf("[%d]: TOKEN: COMPOSICION, VALOR: %s\n", yylineno, yytext); return COMPOSICION; }
+{SEPARADOR}             { printf("[%d]: TOKEN: SEPARADOR, VALOR: %s\n", yylineno, yytext); return SEPARADOR; }
+{SUBRANGO}              { printf("[%d]: TOKEN: SUBRANGO, VALOR: %s\n", yylineno, yytext); return SUBRANGO; }
+{DEF_TIPO}              { printf("[%d]: TOKEN: DEF_TIPO, VALOR: %s\n", yylineno, yytext); return DEF_TIPO; }
+{ENTONCES}              { printf("[%d]: TOKEN: ENTONCES, VALOR: %s\n", yylineno, yytext); return ENTONCES; }
+{SI_NO_SI}              { printf("[%d]: TOKEN: SI_NO_SI, VALOR: %s\n", yylineno, yytext); return SI_NO_SI;}
+{CREACION_TIPO}         { printf("[%d]: TOKEN: CREACION_TIPO, VALOR: %s\n", yylineno, yytext); return CREACION_TIPO;}
+{INICIO_ARRAY}          { printf("[%d]: TOKEN: INICIO_ARRAY, VALOR: %s\n", yylineno, yytext); return INICIO_ARRAY;}
+{FIN_ARRAY}             { printf("[%d]: TOKEN: FIN_ARRAY, VALOR: %s\n", yylineno, yytext); return FIN_ARRAY; }
+{MAYOR_IGUAL}           { printf("[%d]: TOKEN: MAYOR_IGUAL, VALOR: %s\n", yylineno, yytext); return MAYOR_IGUAL; }
+{MENOR_IGUAL}           { printf("[%d]: TOKEN: MENOR_IGUAL, VALOR: %s\n", yylineno, yytext); return MENOR_IGUAL; }
+{DISTINTO}              { printf("[%d]: TOKEN: DISTINTO, VALOR: %s\n", yylineno, yytext); return DISTINTO; }
+{MAYOR}                 { printf("[%d]: TOKEN: MAYOR, VALOR: %s\n", yylineno, yytext); return MAYOR; }
+{MENOR}                 { printf("[%d]: TOKEN: MENOR, VALOR: %s\n", yylineno, yytext); return MENOR; }
 
 [ \n]                   {/*Ignorar*/}
 [ \t]                   {/*Ignorar*/}
 .                       {printf("[%d]: ERROR:\n\tCARACTER INVALIDO, VALOR: %s\n", yylineno, yytext);}
 
 %%
-    //CODIGO
-int main(int argc, char **argv) {
-    if(argc != 2){
-        printf("Introduce archivo!!!!!");
-        return 1;
-    }
-    // Cambio entrada estandar para que apunte a un fichero
-    yyin=fopen(argv[1],"r");
-    if(!yyin){
-        printf("No se puede abrir el archivo");
-        return 1;
-    }
-    
-    // Copiar al fichero de salida
-    yylex();
-    fclose(yyin);
-    return 0;
-}
+

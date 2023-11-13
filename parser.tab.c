@@ -72,8 +72,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include<errno.h>
+#include "parser.tab.h"
 
-#line 77 "parser.tab.c"
+int yylex(void);    // Declare the lexer function
+void yyerror(const char *s); 
+
+#line 82 "parser.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -613,18 +618,18 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int16 yyrline[] =
 {
-       0,    90,    90,    93,    96,    99,   100,   101,   104,   105,
-     106,   109,   112,   113,   114,   115,   120,   123,   126,   131,
-     132,   135,   136,   139,   140,   141,   142,   145,   146,   149,
-     150,   153,   154,   155,   156,   157,   162,   163,   164,   165,
-     166,   167,   170,   171,   172,   175,   176,   179,   180,   181,
-     184,   187,   192,   193,   194,   197,   198,   199,   200,   201,
-     204,   205,   206,   207,   208,   209,   210,   211,   212,   215,
-     216,   217,   218,   219,   220,   221,   222,   223,   226,   227,
-     228,   229,   230,   231,   232,   238,   239,   242,   243,   244,
-     245,   246,   249,   250,   253,   256,   257,   260,   261,   264,
-     267,   272,   275,   278,   281,   284,   285,   288,   289,   290,
-     293,   296,   299,   300
+       0,    98,    98,   101,   104,   107,   108,   109,   112,   113,
+     114,   117,   120,   121,   122,   123,   128,   131,   134,   139,
+     140,   143,   144,   147,   148,   149,   150,   153,   154,   157,
+     158,   161,   162,   163,   164,   165,   170,   171,   172,   173,
+     174,   175,   178,   179,   180,   183,   184,   187,   188,   189,
+     192,   195,   200,   201,   202,   205,   206,   207,   208,   209,
+     212,   213,   214,   215,   216,   217,   218,   219,   220,   223,
+     224,   225,   226,   227,   228,   229,   230,   231,   234,   235,
+     236,   237,   238,   239,   240,   246,   247,   250,   251,   252,
+     253,   254,   257,   258,   261,   264,   265,   268,   269,   272,
+     275,   280,   283,   286,   289,   292,   293,   296,   297,   298,
+     301,   304,   307,   308
 };
 #endif
 
@@ -1411,7 +1416,7 @@ yyreduce:
   switch (yyn)
     {
 
-#line 1415 "parser.tab.c"
+#line 1420 "parser.tab.c"
 
       default: break;
     }
@@ -1604,3 +1609,34 @@ yyreturnlab:
   return yyresult;
 }
 
+#line 311 "parser.y"
+
+    //CODIGO
+
+
+void yyerror(const char *s) {
+    fprintf(stderr, "Error: %s\n", s);
+}
+
+
+int main (int argc, char **argv ) {
+    if(argc != 2){
+        printf("Introduce archivo!!!!!");
+        return 1;
+    }
+    // Cambio entrada estandar para que apunte a un fichero
+    FILE *yyin;
+    yyin=fopen(argv[1],"r");
+    if(!yyin){
+        printf("No se puede abrir el archivo");
+        return 1;
+    }
+    //Inicializar flex
+    yylex();
+    
+    // Copiar al fichero de salida
+    yyparse();
+    fclose(yyin);
+    //yylex_destroy(); //Destruir scanner
+    return 0;
+}

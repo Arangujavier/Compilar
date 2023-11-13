@@ -2,6 +2,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include<errno.h>
+#include "parser.tab.h"
+
+int yylex(void);    // Declare the lexer function
+void yyerror(const char *s); 
 %}
 
 %token REAL
@@ -82,6 +87,9 @@
 %token FIN_LLAVE
 %token PARENTESIS_APERTURA
 %token PARENTESIS_CIERRE
+
+
+
 
 %%
 
@@ -299,3 +307,34 @@ l_ll:
         expresion SEPARADOR l_ll
         | expresion
 ;
+
+%%
+    //CODIGO
+
+
+void yyerror(const char *s) {
+    fprintf(stderr, "Error: %s\n", s);
+}
+
+
+int main (int argc, char **argv ) {
+    if(argc != 2){
+        printf("Introduce archivo!!!!!");
+        return 1;
+    }
+    // Cambio entrada estandar para que apunte a un fichero
+    FILE *yyin;
+    yyin=fopen(argv[1],"r");
+    if(!yyin){
+        printf("No se puede abrir el archivo");
+        return 1;
+    }
+    //Inicializar flex
+    yylex();
+    
+    // Copiar al fichero de salida
+    yyparse();
+    fclose(yyin);
+    //yylex_destroy(); //Destruir scanner
+    return 0;
+}

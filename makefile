@@ -1,10 +1,14 @@
 compilar: scanner.l
+	@echo "Compilando Bison"
+	bison -v -d parser.y
 	@echo "Compilando Flex"
 	flex scanner.l
 	@echo "Compilando GCC"
-	gcc lex.yy.c -o scanner
-	@echo "Compilando Bison"
-	bison -v -d parser.y
+	gcc -c lex.yy.c 
+	gcc parser.tab.c lex.yy.o
+	
+
+	
 
 ejecutarPrueba: scanner prueba
 	./scanner prueba
