@@ -1627,7 +1627,7 @@ int main (int argc, char **argv ) {
     }
     //Inicializar flex
     //yylex();
-    //yydebug = 1;
+    yydebug = 1;
     
     // Copiar al fichero de salida
     yyparse();
