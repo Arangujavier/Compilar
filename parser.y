@@ -219,9 +219,7 @@ exp:
         | exp REF
         | VERDADERO
         | FALSO
-;
-exp:
-        exp MENOR exp
+        | exp MENOR exp
         | exp MAYOR exp
         | exp CREACION_TIPO exp
         | exp DISTINTO exp
@@ -230,18 +228,12 @@ exp:
         | PARENTESIS_APERTURA exp PARENTESIS_CIERRE
         | exp LITERAL_ENTERO
         | exp LITERAL_REAL
-;
-
-
-exp:
-        exp SUMA exp
+        | exp SUMA exp
         | exp RESTA exp
         | exp MULTIPLICACION exp
         | exp DIVISION exp
         | exp MOD exp
-;
-exp:
-        exp DIV exp
+        | exp DIV exp
         | LITERAL_REAL
         | LITERAL_ENTERO
         | RESTA exp
@@ -336,7 +328,7 @@ int main (int argc, char **argv ) {
     }
     //Inicializar flex
     //yylex();
-    yydebug = 1;
+    //yydebug = 1;
     
     // Copiar al fichero de salida
     yyparse();

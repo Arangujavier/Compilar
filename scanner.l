@@ -143,6 +143,8 @@ PARENTESIS_CIERRE   "\)"
 {PRECONDICION}          { printf("[%d]: TOKEN: PRECONDICION, VALOR %s\n", yylineno, yytext); return COMENTARIO  ; }
 {POSTCONDICION}         { printf("[%d]: TOKEN: POSTCONDICION, VALOR %s\n", yylineno, yytext); return COMENTARIO  ; }
 {COMENTARIO}            { printf("[%d]: TOKEN: COMENTARIO, VALOR %s\n", yylineno, yytext); return COMENTARIO; }
+{PUNTO}                 { printf("[%d]: TOKEN: PUNTO, VALOR %s\n", yylineno, yytext); return PUNTO; }
+
 
     /*Tipo de dato*/
 {REAL}                  { printf("[%d]: TOKEN: TIPO DE DATO, VALOR %s\n", yylineno, yytext); return REAL;}
