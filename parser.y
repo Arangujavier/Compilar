@@ -206,27 +206,9 @@ decl_sal:
 
 /* EXPRESIONES */
 expresion:
-        exp_a
-        | exp_b
+        exp_b
+        | exp_a
         | funcion_ll
-;
-exp_a:
-        exp_a SUMA exp_a
-        | exp_a RESTA exp_a
-        | exp_a MULTIPLICACION exp_a
-        | exp_a DIVISION exp_a
-        | exp_a MOD exp_a
-;
-exp_a:
-        exp_a DIV exp_a
-        | PARENTESIS_APERTURA exp_a PARENTESIS_CIERRE
-        | IDENTIFICADOR
-        | exp_a PUNTO exp_a
-        | exp_a INICIO_ARRAY exp_a FIN_ARRAY
-        | exp_a REF
-        | LITERAL_REAL
-        | LITERAL_ENTERO
-        | RESTA exp_a
 ;
 exp_b:
         exp_b Y exp_b
@@ -247,6 +229,26 @@ exp_b:
         | expresion MAYOR_IGUAL expresion
         | expresion MENOR_IGUAL expresion
         | PARENTESIS_APERTURA exp_b PARENTESIS_CIERRE
+;
+
+
+exp_a:
+        exp_a SUMA exp_a
+        | exp_a RESTA exp_a
+        | exp_a MULTIPLICACION exp_a
+        | exp_a DIVISION exp_a
+        | exp_a MOD exp_a
+;
+exp_a:
+        exp_a DIV exp_a
+        | PARENTESIS_APERTURA exp_a PARENTESIS_CIERRE
+        | IDENTIFICADOR
+        | exp_a PUNTO exp_a
+        | exp_a INICIO_ARRAY exp_a FIN_ARRAY
+        | exp_a REF
+        | LITERAL_REAL
+        | LITERAL_ENTERO
+        | RESTA exp_a
 ;
 
 
@@ -338,7 +340,8 @@ int main (int argc, char **argv ) {
         return 1;
     }
     //Inicializar flex
-    yylex();
+    //yylex();
+    yydebug = 1;
     
     // Copiar al fichero de salida
     yyparse();

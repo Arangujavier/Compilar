@@ -1,10 +1,9 @@
-algoritmo sumacomb
+algoritmo sumacomb;
 	ent n, m: entero;
 	sal suma: entero;
-{Prec: n= N AND m = M AND M >= N >0}
-	var
+	var 
 		i, comb: entero;
-	fvar
+	fvar;
 	i:= 0;
 	suma:= 0;
 	comb:= m;

@@ -140,7 +140,7 @@ PARENTESIS_CIERRE   "\)"
     //{CIFRA} { ECHO; }
     
     /*Comentario*/
-{PRECONDICION}          {  return PRECONDICION; }
+{PRECONDICION}          { printf("[%d]: TOKEN: PRECONDICION, VALOR %s\n", yylineno, yytext); return PRECONDICION  ; }
 {POSTCONDICION}         { printf("[%d]: TOKEN: POSTCONDICION, VALOR %s\n", yylineno, yytext); return POSTCONDICION  ; }
 {COMENTARIO}            { printf("[%d]: TOKEN: COMENTARIO, VALOR %s\n", yylineno, yytext); return COMENTARIO; }
 
