@@ -206,49 +206,48 @@ decl_sal:
 
 /* EXPRESIONES */
 expresion:
-        exp_b
-        | exp_a
+        exp
         | funcion_ll
 ;
-exp_b:
-        exp_b Y exp_b
-        | exp_b O exp_b
-        | NO exp_b
+exp:
+        exp Y exp
+        | exp O exp
+        | NO exp
         | IDENTIFICADOR
-        | exp_b PUNTO exp_b
-        | exp_b INICIO_ARRAY exp_b FIN_ARRAY
-        | exp_b REF
+        | exp PUNTO exp
+        | exp INICIO_ARRAY exp FIN_ARRAY
+        | exp REF
         | VERDADERO
         | FALSO
 ;
-exp_b:
-        expresion MENOR expresion
-        | expresion MAYOR expresion
-        | expresion CREACION_TIPO expresion
-        | expresion DISTINTO expresion
-        | expresion MAYOR_IGUAL expresion
-        | expresion MENOR_IGUAL expresion
-        | PARENTESIS_APERTURA exp_b PARENTESIS_CIERRE
+exp:
+        exp MENOR exp
+        | exp MAYOR exp
+        | exp CREACION_TIPO exp
+        | exp DISTINTO exp
+        | exp MAYOR_IGUAL exp
+        | exp MENOR_IGUAL exp
+        | PARENTESIS_APERTURA exp PARENTESIS_CIERRE
 ;
 
 
-exp_a:
-        exp_a SUMA exp_a
-        | exp_a RESTA exp_a
-        | exp_a MULTIPLICACION exp_a
-        | exp_a DIVISION exp_a
-        | exp_a MOD exp_a
+exp:
+        exp SUMA exp
+        | exp RESTA exp
+        | exp MULTIPLICACION exp
+        | exp DIVISION exp
+        | exp MOD exp
 ;
-exp_a:
-        exp_a DIV exp_a
-        | PARENTESIS_APERTURA exp_a PARENTESIS_CIERRE
+exp:
+        exp DIV exp
+        | PARENTESIS_APERTURA exp PARENTESIS_CIERRE
         | IDENTIFICADOR
-        | exp_a PUNTO exp_a
-        | exp_a INICIO_ARRAY exp_a FIN_ARRAY
-        | exp_a REF
+        | exp PUNTO exp
+        | exp INICIO_ARRAY exp FIN_ARRAY
+        | exp REF
         | LITERAL_REAL
         | LITERAL_ENTERO
-        | RESTA exp_a
+        | RESTA exp
 ;
 
 
@@ -265,8 +264,7 @@ instruccion:
         | accion_ll
 ;
 asignacion:
-        exp_a ASIGNACION exp_a
-        | exp_b ASIGNACION exp_b
+        exp ASIGNACION exp
 ;
 alternativa:
         SI expresion ENTONCES instrucciones lista_opciones FSI
