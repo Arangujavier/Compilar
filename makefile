@@ -1,6 +1,6 @@
 compilar: scanner.l
 	@echo "Compilando Bison"
-	bison -v -t parser.y
+	bison -d -v -t parser.y
 	@echo "Compilando Flex"
 	flex scanner.l
 	@echo "Compilando GCC"

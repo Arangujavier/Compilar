@@ -228,6 +228,8 @@ exp:
         | exp MAYOR_IGUAL exp
         | exp MENOR_IGUAL exp
         | PARENTESIS_APERTURA exp PARENTESIS_CIERRE
+        | exp LITERAL_ENTERO
+        | exp LITERAL_REAL
 ;
 
 
@@ -240,11 +242,6 @@ exp:
 ;
 exp:
         exp DIV exp
-        | PARENTESIS_APERTURA exp PARENTESIS_CIERRE
-        | IDENTIFICADOR
-        | exp PUNTO exp
-        | exp INICIO_ARRAY exp FIN_ARRAY
-        | exp REF
         | LITERAL_REAL
         | LITERAL_ENTERO
         | RESTA exp
