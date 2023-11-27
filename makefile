@@ -3,12 +3,14 @@ compilar: scanner.l
 	bison -d -v -t parser.y
 	@echo "Compilando Flex"
 	flex scanner.l
+	@echo "Compilando Tabla de Simbolos"
+	gcc -c 
+	@echo "Compilando Tabla de Cuadruplas"
+
+
 	@echo "Compilando GCC"
 	gcc -c lex.yy.c 
 	gcc parser.tab.c lex.yy.o
-	
-
-	
 
 ejecutarPrueba: scanner prueba
 	./scanner prueba

@@ -271,6 +271,7 @@ instruccion:
 ;
 asignacion:
         exp ASIGNACION exp
+        
 ;
 alternativa:
         SI expresion ENTONCES instrucciones lista_opciones FSI

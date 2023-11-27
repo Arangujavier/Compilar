@@ -147,7 +147,7 @@ PARENTESIS_CIERRE   "\)"
 
 
     /*Tipo de dato*/
-{REAL}                  { printf("[%d]: TOKEN: TIPO DE DATO, VALOR %s\n", yylineno, yytext); return REAL;}
+{REAL}                  { printf("[%d]: TOKEN: TIPO DE DATO, VALOR %s\n", yylineno, yytext); yyval.tipo = real; return REAL;}
 {ENTERO}                { printf("[%d]: TOKEN: TIPO DE DATO, VALOR %s\n", yylineno, yytext); return ENTERO;}
 {BOOLEANO}              { printf("[%d]: TOKEN: TIPO DE DATO, VALOR %s\n", yylineno, yytext); return BOOLEANO;}
 {CARACTER}              { printf("[%d]: TOKEN: TIPO DE DATO, VALOR %s\n", yylineno, yytext); return CARACACTER;}
@@ -199,7 +199,7 @@ PARENTESIS_CIERRE   "\)"
 {PARENTESIS_CIERRE}     { printf("[%d]: TOKEN: ESTRUCTURA, VALOR: %s\n", yylineno, yytext); return PARENTESIS_CIERRE;}
 
     /*Otros*/
-{LITERAL_REAL}          { printf("[%d]: TOKEN: LITERAL REAL, VALOR %s\n", yylineno, yytext); return LITERAL_REAL;} 
+{LITERAL_REAL}          { printf("[%d]: TOKEN: LITERAL REAL, VALOR %s\n", yylineno, yytext); yyval.ctype; return LITERAL_REAL;} 
 {LITERAL_ENTERO}        { printf("[%d]: TOKEN: LITERAL ENTERO, VALOR %s\n", yylineno, yytext); return LITERAL_ENTERO;} 
 {IDENTIFICADOR}         { printf("[%d]: TOKEN: IDENTIFICADOR, VALOR: %s\n", yylineno, yytext); return IDENTIFICADOR; }
 {LITERAL_CARACTER}      { printf("[%d]: TOKEN: LITERAL CARACTER, VALOR: %s\n", yylineno, yytext); return LITERAL_CARACTER;}
