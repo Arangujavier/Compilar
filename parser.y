@@ -12,12 +12,21 @@ extern FILE * yyin;
 
 %}
 
-%token REAL
-%token ENTERO
-%token BOOLEANO
-%token CARACACTER
+%union {
+        int literal_entero;
+        float literal_real;
+        int literal_booleano;
+        char literal_caracter;
+        char* literal_cadena;
+}
+
+%type <literal_entero> ENTERO
+%type <literal_real> REAL
+%type <literal_booleano> BOOLEANO
+%type <literal_caracter> CARACACTER
+%type <literal_cadena> CADENA
+
 %token TABLA
-%token CADENA
 %token CONST
 %token FCONST
 %token TIPO
@@ -328,7 +337,7 @@ int main (int argc, char **argv ) {
     }
     //Inicializar flex
     //yylex();
-    yydebug = 1;
+    //yydebug = 1;
     
     // Copiar al fichero de salida
     yyparse();

@@ -1,4 +1,4 @@
-Terminales no usados en la gramática
+Terminals unused in grammar
 
     PRECONDICION
     POSTCONDICION
@@ -8,27 +8,27 @@ Terminales no usados en la gramática
     IGUAL
 
 
-Estado 102 conflictos: 4 desplazamiento/reducción
-Estado 103 conflictos: 19 desplazamiento/reducción
-Estado 153 conflictos: 1 desplazamiento/reducción
-Estado 161 conflictos: 4 desplazamiento/reducción
-Estado 162 conflictos: 4 desplazamiento/reducción
-Estado 163 conflictos: 4 desplazamiento/reducción
-Estado 164 conflictos: 4 desplazamiento/reducción
-Estado 165 conflictos: 4 desplazamiento/reducción
-Estado 166 conflictos: 4 desplazamiento/reducción
-Estado 167 conflictos: 19 desplazamiento/reducción
-Estado 168 conflictos: 19 desplazamiento/reducción
-Estado 169 conflictos: 4 desplazamiento/reducción
-Estado 170 conflictos: 4 desplazamiento/reducción
-Estado 171 conflictos: 4 desplazamiento/reducción
-Estado 172 conflictos: 4 desplazamiento/reducción
-Estado 173 conflictos: 4 desplazamiento/reducción
-Estado 175 conflictos: 4 desplazamiento/reducción
-Estado 176 conflictos: 4 desplazamiento/reducción
+State 102 conflicts: 4 shift/reduce
+State 103 conflicts: 19 shift/reduce
+State 153 conflicts: 1 shift/reduce
+State 161 conflicts: 4 shift/reduce
+State 162 conflicts: 4 shift/reduce
+State 163 conflicts: 4 shift/reduce
+State 164 conflicts: 4 shift/reduce
+State 165 conflicts: 4 shift/reduce
+State 166 conflicts: 4 shift/reduce
+State 167 conflicts: 19 shift/reduce
+State 168 conflicts: 19 shift/reduce
+State 169 conflicts: 4 shift/reduce
+State 170 conflicts: 4 shift/reduce
+State 171 conflicts: 4 shift/reduce
+State 172 conflicts: 4 shift/reduce
+State 173 conflicts: 4 shift/reduce
+State 175 conflicts: 4 shift/reduce
+State 176 conflicts: 4 shift/reduce
 
 
-Gramática
+Grammar
 
     0 $accept: desc_algoritmo $end
 
@@ -180,7 +180,7 @@ Gramática
   107     | expresion
 
 
-Terminales con las reglas donde aparecen
+Terminals, with rules where they appear
 
     $end (0) 0
     error (256)
@@ -261,7 +261,7 @@ Terminales con las reglas donde aparecen
     IGUAL (332)
 
 
-No terminales con las reglas donde aparecen
+Nonterminals, with rules where they appear
 
     $accept (78)
         on left: 0
@@ -387,141 +387,141 @@ No terminales con las reglas donde aparecen
         on right: 104 105 106
 
 
-Estado 0
+State 0
 
     0 $accept: • desc_algoritmo $end
 
-    ALGORITMO  desplazar e ir al estado 1
+    ALGORITMO  shift, and go to state 1
 
-    desc_algoritmo  ir al estado 2
+    desc_algoritmo  go to state 2
 
 
-Estado 1
+State 1
 
     1 desc_algoritmo: ALGORITMO • IDENTIFICADOR COMPOSICION cabecera_alg bloque_alg FALGORITMO PUNTO
 
-    IDENTIFICADOR  desplazar e ir al estado 3
+    IDENTIFICADOR  shift, and go to state 3
 
 
-Estado 2
+State 2
 
     0 $accept: desc_algoritmo • $end
 
-    $end  desplazar e ir al estado 4
+    $end  shift, and go to state 4
 
 
-Estado 3
+State 3
 
     1 desc_algoritmo: ALGORITMO IDENTIFICADOR • COMPOSICION cabecera_alg bloque_alg FALGORITMO PUNTO
 
-    COMPOSICION  desplazar e ir al estado 5
+    COMPOSICION  shift, and go to state 5
 
 
-Estado 4
+State 4
 
     0 $accept: desc_algoritmo $end •
 
-    $default  aceptar
+    $default  accept
 
 
-Estado 5
+State 5
 
     1 desc_algoritmo: ALGORITMO IDENTIFICADOR COMPOSICION • cabecera_alg bloque_alg FALGORITMO PUNTO
 
-    CONST  desplazar e ir al estado 6
-    TIPO   desplazar e ir al estado 7
+    CONST  shift, and go to state 6
+    TIPO   shift, and go to state 7
 
-    $default  reduce usando la regla 6 (decl_globales)
+    $default  reduce using rule 6 (decl_globales)
 
-    cabecera_alg      ir al estado 8
-    decl_globales     ir al estado 9
-    declaracion_tipo  ir al estado 10
-    declaracion_cte   ir al estado 11
+    cabecera_alg      go to state 8
+    decl_globales     go to state 9
+    declaracion_tipo  go to state 10
+    declaracion_cte   go to state 11
 
 
-Estado 6
+State 6
 
    16 declaracion_cte: CONST • lista_d_cte FCONST COMPOSICION
 
-    IDENTIFICADOR  desplazar e ir al estado 12
+    IDENTIFICADOR  shift, and go to state 12
 
-    $default  reduce usando la regla 40 (lista_d_cte)
+    $default  reduce using rule 40 (lista_d_cte)
 
-    lista_d_cte  ir al estado 13
+    lista_d_cte  go to state 13
 
 
-Estado 7
+State 7
 
    15 declaracion_tipo: TIPO • lista_d_tipo FTIPO COMPOSICION
 
-    IDENTIFICADOR  desplazar e ir al estado 14
+    IDENTIFICADOR  shift, and go to state 14
 
-    $default  reduce usando la regla 19 (lista_d_tipo)
+    $default  reduce using rule 19 (lista_d_tipo)
 
-    lista_d_tipo  ir al estado 15
+    lista_d_tipo  go to state 15
 
 
-Estado 8
+State 8
 
     1 desc_algoritmo: ALGORITMO IDENTIFICADOR COMPOSICION cabecera_alg • bloque_alg FALGORITMO PUNTO
 
-    CONST  desplazar e ir al estado 6
-    TIPO   desplazar e ir al estado 7
-    VAR    desplazar e ir al estado 16
+    CONST  shift, and go to state 6
+    TIPO   shift, and go to state 7
+    VAR    shift, and go to state 16
 
-    $default  reduce usando la regla 14 (declaraciones)
+    $default  reduce using rule 14 (declaraciones)
 
-    bloque_alg        ir al estado 17
-    bloque            ir al estado 18
-    declaraciones     ir al estado 19
-    declaracion_tipo  ir al estado 20
-    declaracion_cte   ir al estado 21
-    declaracion_var   ir al estado 22
+    bloque_alg        go to state 17
+    bloque            go to state 18
+    declaraciones     go to state 19
+    declaracion_tipo  go to state 20
+    declaracion_cte   go to state 21
+    declaracion_var   go to state 22
 
 
-Estado 9
+State 9
 
     2 cabecera_alg: decl_globales • decl_a_f decl_ent_sal COMENTARIO
 
-    FUNCION  desplazar e ir al estado 23
-    ACCION   desplazar e ir al estado 24
+    FUNCION  shift, and go to state 23
+    ACCION   shift, and go to state 24
 
-    $default  reduce usando la regla 9 (decl_a_f)
+    $default  reduce using rule 9 (decl_a_f)
 
-    decl_a_f   ir al estado 25
-    accion_d   ir al estado 26
-    funcion_d  ir al estado 27
+    decl_a_f   go to state 25
+    accion_d   go to state 26
+    funcion_d  go to state 27
 
 
-Estado 10
+State 10
 
     4 decl_globales: declaracion_tipo • decl_globales
 
-    CONST  desplazar e ir al estado 6
-    TIPO   desplazar e ir al estado 7
+    CONST  shift, and go to state 6
+    TIPO   shift, and go to state 7
 
-    $default  reduce usando la regla 6 (decl_globales)
+    $default  reduce using rule 6 (decl_globales)
 
-    decl_globales     ir al estado 28
-    declaracion_tipo  ir al estado 10
-    declaracion_cte   ir al estado 11
+    decl_globales     go to state 28
+    declaracion_tipo  go to state 10
+    declaracion_cte   go to state 11
 
 
-Estado 11
+State 11
 
     5 decl_globales: declaracion_cte • decl_globales
 
-    CONST  desplazar e ir al estado 6
-    TIPO   desplazar e ir al estado 7
+    CONST  shift, and go to state 6
+    TIPO   shift, and go to state 7
 
-    $default  reduce usando la regla 6 (decl_globales)
+    $default  reduce using rule 6 (decl_globales)
 
-    decl_globales     ir al estado 29
-    declaracion_tipo  ir al estado 10
-    declaracion_cte   ir al estado 11
+    decl_globales     go to state 29
+    declaracion_tipo  go to state 10
+    declaracion_cte   go to state 11
 
 
-Estado 12
+State 12
 
    35 lista_d_cte: IDENTIFICADOR • CREACION_TIPO ENTERO COMPOSICION lista_d_cte
    36            | IDENTIFICADOR • CREACION_TIPO BOOLEANO COMPOSICION lista_d_cte
@@ -529,205 +529,205 @@ Estado 12
    38            | IDENTIFICADOR • CREACION_TIPO REAL COMPOSICION lista_d_cte
    39            | IDENTIFICADOR • CREACION_TIPO CADENA COMPOSICION lista_d_cte
 
-    CREACION_TIPO  desplazar e ir al estado 30
+    CREACION_TIPO  shift, and go to state 30
 
 
-Estado 13
+State 13
 
    16 declaracion_cte: CONST lista_d_cte • FCONST COMPOSICION
 
-    FCONST  desplazar e ir al estado 31
+    FCONST  shift, and go to state 31
 
 
-Estado 14
+State 14
 
    18 lista_d_tipo: IDENTIFICADOR • CREACION_TIPO d_tipo COMPOSICION lista_d_tipo
 
-    CREACION_TIPO  desplazar e ir al estado 32
+    CREACION_TIPO  shift, and go to state 32
 
 
-Estado 15
+State 15
 
    15 declaracion_tipo: TIPO lista_d_tipo • FTIPO COMPOSICION
 
-    FTIPO  desplazar e ir al estado 33
+    FTIPO  shift, and go to state 33
 
 
-Estado 16
+State 16
 
    17 declaracion_var: VAR • lista_d_var FVAR COMPOSICION
 
-    IDENTIFICADOR  desplazar e ir al estado 34
+    IDENTIFICADOR  shift, and go to state 34
 
-    $default  reduce usando la regla 43 (lista_d_var)
+    $default  reduce using rule 43 (lista_d_var)
 
-    lista_d_var  ir al estado 35
-    lista_id     ir al estado 36
+    lista_d_var  go to state 35
+    lista_id     go to state 36
 
 
-Estado 17
+State 17
 
     1 desc_algoritmo: ALGORITMO IDENTIFICADOR COMPOSICION cabecera_alg bloque_alg • FALGORITMO PUNTO
 
-    FALGORITMO  desplazar e ir al estado 37
+    FALGORITMO  shift, and go to state 37
 
 
-Estado 18
+State 18
 
     3 bloque_alg: bloque • COMENTARIO
 
-    COMENTARIO  desplazar e ir al estado 38
+    COMENTARIO  shift, and go to state 38
 
 
-Estado 19
+State 19
 
    10 bloque: declaraciones • instrucciones
 
-    RESTA                desplazar e ir al estado 39
-    VERDADERO            desplazar e ir al estado 40
-    FALSO                desplazar e ir al estado 41
-    NO                   desplazar e ir al estado 42
-    SI                   desplazar e ir al estado 43
-    MIENTRAS             desplazar e ir al estado 44
-    PARA                 desplazar e ir al estado 45
-    CONTINUAR            desplazar e ir al estado 46
-    LITERAL_ENTERO       desplazar e ir al estado 47
-    LITERAL_REAL         desplazar e ir al estado 48
-    IDENTIFICADOR        desplazar e ir al estado 49
-    PARENTESIS_APERTURA  desplazar e ir al estado 50
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    SI                   shift, and go to state 43
+    MIENTRAS             shift, and go to state 44
+    PARA                 shift, and go to state 45
+    CONTINUAR            shift, and go to state 46
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 49
+    PARENTESIS_APERTURA  shift, and go to state 50
 
-    exp            ir al estado 51
-    instrucciones  ir al estado 52
-    instruccion    ir al estado 53
-    asignacion     ir al estado 54
-    alternativa    ir al estado 55
-    iteracion      ir al estado 56
-    it_cota_exp    ir al estado 57
-    it_cota_fija   ir al estado 58
-    accion_ll      ir al estado 59
+    exp            go to state 51
+    instrucciones  go to state 52
+    instruccion    go to state 53
+    asignacion     go to state 54
+    alternativa    go to state 55
+    iteracion      go to state 56
+    it_cota_exp    go to state 57
+    it_cota_fija   go to state 58
+    accion_ll      go to state 59
 
 
-Estado 20
+State 20
 
    11 declaraciones: declaracion_tipo • declaraciones
 
-    CONST  desplazar e ir al estado 6
-    TIPO   desplazar e ir al estado 7
-    VAR    desplazar e ir al estado 16
+    CONST  shift, and go to state 6
+    TIPO   shift, and go to state 7
+    VAR    shift, and go to state 16
 
-    $default  reduce usando la regla 14 (declaraciones)
+    $default  reduce using rule 14 (declaraciones)
 
-    declaraciones     ir al estado 60
-    declaracion_tipo  ir al estado 20
-    declaracion_cte   ir al estado 21
-    declaracion_var   ir al estado 22
+    declaraciones     go to state 60
+    declaracion_tipo  go to state 20
+    declaracion_cte   go to state 21
+    declaracion_var   go to state 22
 
 
-Estado 21
+State 21
 
    12 declaraciones: declaracion_cte • declaraciones
 
-    CONST  desplazar e ir al estado 6
-    TIPO   desplazar e ir al estado 7
-    VAR    desplazar e ir al estado 16
+    CONST  shift, and go to state 6
+    TIPO   shift, and go to state 7
+    VAR    shift, and go to state 16
 
-    $default  reduce usando la regla 14 (declaraciones)
+    $default  reduce using rule 14 (declaraciones)
 
-    declaraciones     ir al estado 61
-    declaracion_tipo  ir al estado 20
-    declaracion_cte   ir al estado 21
-    declaracion_var   ir al estado 22
+    declaraciones     go to state 61
+    declaracion_tipo  go to state 20
+    declaracion_cte   go to state 21
+    declaracion_var   go to state 22
 
 
-Estado 22
+State 22
 
    13 declaraciones: declaracion_var • declaraciones
 
-    CONST  desplazar e ir al estado 6
-    TIPO   desplazar e ir al estado 7
-    VAR    desplazar e ir al estado 16
+    CONST  shift, and go to state 6
+    TIPO   shift, and go to state 7
+    VAR    shift, and go to state 16
 
-    $default  reduce usando la regla 14 (declaraciones)
+    $default  reduce using rule 14 (declaraciones)
 
-    declaraciones     ir al estado 62
-    declaracion_tipo  ir al estado 20
-    declaracion_cte   ir al estado 21
-    declaracion_var   ir al estado 22
+    declaraciones     go to state 62
+    declaracion_tipo  go to state 20
+    declaracion_cte   go to state 21
+    declaracion_var   go to state 22
 
 
-Estado 23
+State 23
 
    96 funcion_d: FUNCION • f_cabecera bloque DEV expresion FFUNCION
 
-    IDENTIFICADOR  desplazar e ir al estado 63
+    IDENTIFICADOR  shift, and go to state 63
 
-    f_cabecera  ir al estado 64
+    f_cabecera  go to state 64
 
 
-Estado 24
+State 24
 
    95 accion_d: ACCION • a_cabecera bloque FACCION
 
-    IDENTIFICADOR  desplazar e ir al estado 65
+    IDENTIFICADOR  shift, and go to state 65
 
-    a_cabecera  ir al estado 66
+    a_cabecera  go to state 66
 
 
-Estado 25
+State 25
 
     2 cabecera_alg: decl_globales decl_a_f • decl_ent_sal COMENTARIO
 
-    ENT  desplazar e ir al estado 67
-    SAL  desplazar e ir al estado 68
+    ENT  shift, and go to state 67
+    SAL  shift, and go to state 68
 
-    decl_ent_sal  ir al estado 69
-    decl_ent      ir al estado 70
-    decl_sal      ir al estado 71
+    decl_ent_sal  go to state 69
+    decl_ent      go to state 70
+    decl_sal      go to state 71
 
 
-Estado 26
+State 26
 
     7 decl_a_f: accion_d • decl_a_f
 
-    FUNCION  desplazar e ir al estado 23
-    ACCION   desplazar e ir al estado 24
+    FUNCION  shift, and go to state 23
+    ACCION   shift, and go to state 24
 
-    $default  reduce usando la regla 9 (decl_a_f)
+    $default  reduce using rule 9 (decl_a_f)
 
-    decl_a_f   ir al estado 72
-    accion_d   ir al estado 26
-    funcion_d  ir al estado 27
+    decl_a_f   go to state 72
+    accion_d   go to state 26
+    funcion_d  go to state 27
 
 
-Estado 27
+State 27
 
     8 decl_a_f: funcion_d • decl_a_f
 
-    FUNCION  desplazar e ir al estado 23
-    ACCION   desplazar e ir al estado 24
+    FUNCION  shift, and go to state 23
+    ACCION   shift, and go to state 24
 
-    $default  reduce usando la regla 9 (decl_a_f)
+    $default  reduce using rule 9 (decl_a_f)
 
-    decl_a_f   ir al estado 73
-    accion_d   ir al estado 26
-    funcion_d  ir al estado 27
+    decl_a_f   go to state 73
+    accion_d   go to state 26
+    funcion_d  go to state 27
 
 
-Estado 28
+State 28
 
     4 decl_globales: declaracion_tipo decl_globales •
 
-    $default  reduce usando la regla 4 (decl_globales)
+    $default  reduce using rule 4 (decl_globales)
 
 
-Estado 29
+State 29
 
     5 decl_globales: declaracion_cte decl_globales •
 
-    $default  reduce usando la regla 5 (decl_globales)
+    $default  reduce using rule 5 (decl_globales)
 
 
-Estado 30
+State 30
 
    35 lista_d_cte: IDENTIFICADOR CREACION_TIPO • ENTERO COMPOSICION lista_d_cte
    36            | IDENTIFICADOR CREACION_TIPO • BOOLEANO COMPOSICION lista_d_cte
@@ -735,233 +735,233 @@ Estado 30
    38            | IDENTIFICADOR CREACION_TIPO • REAL COMPOSICION lista_d_cte
    39            | IDENTIFICADOR CREACION_TIPO • CADENA COMPOSICION lista_d_cte
 
-    REAL        desplazar e ir al estado 74
-    ENTERO      desplazar e ir al estado 75
-    BOOLEANO    desplazar e ir al estado 76
-    CARACACTER  desplazar e ir al estado 77
-    CADENA      desplazar e ir al estado 78
+    REAL        shift, and go to state 74
+    ENTERO      shift, and go to state 75
+    BOOLEANO    shift, and go to state 76
+    CARACACTER  shift, and go to state 77
+    CADENA      shift, and go to state 78
 
 
-Estado 31
+State 31
 
    16 declaracion_cte: CONST lista_d_cte FCONST • COMPOSICION
 
-    COMPOSICION  desplazar e ir al estado 79
+    COMPOSICION  shift, and go to state 79
 
 
-Estado 32
+State 32
 
    18 lista_d_tipo: IDENTIFICADOR CREACION_TIPO • d_tipo COMPOSICION lista_d_tipo
 
-    REAL                 desplazar e ir al estado 80
-    ENTERO               desplazar e ir al estado 81
-    BOOLEANO             desplazar e ir al estado 82
-    CARACACTER           desplazar e ir al estado 83
-    TABLA                desplazar e ir al estado 84
-    CADENA               desplazar e ir al estado 85
-    TUPLA                desplazar e ir al estado 86
-    RESTA                desplazar e ir al estado 39
-    VERDADERO            desplazar e ir al estado 40
-    FALSO                desplazar e ir al estado 41
-    NO                   desplazar e ir al estado 42
-    REF                  desplazar e ir al estado 87
-    LITERAL_ENTERO       desplazar e ir al estado 47
-    LITERAL_REAL         desplazar e ir al estado 48
-    IDENTIFICADOR        desplazar e ir al estado 88
-    LITERAL_CARACTER     desplazar e ir al estado 89
-    PARENTESIS_APERTURA  desplazar e ir al estado 50
+    REAL                 shift, and go to state 80
+    ENTERO               shift, and go to state 81
+    BOOLEANO             shift, and go to state 82
+    CARACACTER           shift, and go to state 83
+    TABLA                shift, and go to state 84
+    CADENA               shift, and go to state 85
+    TUPLA                shift, and go to state 86
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    REF                  shift, and go to state 87
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 88
+    LITERAL_CARACTER     shift, and go to state 89
+    PARENTESIS_APERTURA  shift, and go to state 50
 
-    d_tipo       ir al estado 90
-    expresion_t  ir al estado 91
-    tipo_base    ir al estado 92
-    expresion    ir al estado 93
-    exp          ir al estado 94
-    funcion_ll   ir al estado 95
+    d_tipo       go to state 90
+    expresion_t  go to state 91
+    tipo_base    go to state 92
+    expresion    go to state 93
+    exp          go to state 94
+    funcion_ll   go to state 95
 
 
-Estado 33
+State 33
 
    15 declaracion_tipo: TIPO lista_d_tipo FTIPO • COMPOSICION
 
-    COMPOSICION  desplazar e ir al estado 96
+    COMPOSICION  shift, and go to state 96
 
 
-Estado 34
+State 34
 
    44 lista_id: IDENTIFICADOR • SEPARADOR lista_id
    45         | IDENTIFICADOR •
 
-    SEPARADOR  desplazar e ir al estado 97
+    SEPARADOR  shift, and go to state 97
 
-    $default  reduce usando la regla 45 (lista_id)
+    $default  reduce using rule 45 (lista_id)
 
 
-Estado 35
+State 35
 
    17 declaracion_var: VAR lista_d_var • FVAR COMPOSICION
 
-    FVAR  desplazar e ir al estado 98
+    FVAR  shift, and go to state 98
 
 
-Estado 36
+State 36
 
    41 lista_d_var: lista_id • DEF_TIPO IDENTIFICADOR COMPOSICION lista_d_var
    42            | lista_id • DEF_TIPO d_tipo COMPOSICION lista_d_var
 
-    DEF_TIPO  desplazar e ir al estado 99
+    DEF_TIPO  shift, and go to state 99
 
 
-Estado 37
+State 37
 
     1 desc_algoritmo: ALGORITMO IDENTIFICADOR COMPOSICION cabecera_alg bloque_alg FALGORITMO • PUNTO
 
-    PUNTO  desplazar e ir al estado 100
+    PUNTO  shift, and go to state 100
 
 
-Estado 38
+State 38
 
     3 bloque_alg: bloque COMENTARIO •
 
-    $default  reduce usando la regla 3 (bloque_alg)
+    $default  reduce using rule 3 (bloque_alg)
 
 
-Estado 39
+State 39
 
    79 exp: RESTA • exp
 
-    RESTA                desplazar e ir al estado 39
-    VERDADERO            desplazar e ir al estado 40
-    FALSO                desplazar e ir al estado 41
-    NO                   desplazar e ir al estado 42
-    LITERAL_ENTERO       desplazar e ir al estado 47
-    LITERAL_REAL         desplazar e ir al estado 48
-    IDENTIFICADOR        desplazar e ir al estado 101
-    PARENTESIS_APERTURA  desplazar e ir al estado 50
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 101
+    PARENTESIS_APERTURA  shift, and go to state 50
 
-    exp  ir al estado 102
+    exp  go to state 102
 
 
-Estado 40
+State 40
 
    60 exp: VERDADERO •
 
-    $default  reduce usando la regla 60 (exp)
+    $default  reduce using rule 60 (exp)
 
 
-Estado 41
+State 41
 
    61 exp: FALSO •
 
-    $default  reduce usando la regla 61 (exp)
+    $default  reduce using rule 61 (exp)
 
 
-Estado 42
+State 42
 
    55 exp: NO • exp
 
-    RESTA                desplazar e ir al estado 39
-    VERDADERO            desplazar e ir al estado 40
-    FALSO                desplazar e ir al estado 41
-    NO                   desplazar e ir al estado 42
-    LITERAL_ENTERO       desplazar e ir al estado 47
-    LITERAL_REAL         desplazar e ir al estado 48
-    IDENTIFICADOR        desplazar e ir al estado 101
-    PARENTESIS_APERTURA  desplazar e ir al estado 50
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 101
+    PARENTESIS_APERTURA  shift, and go to state 50
 
-    exp  ir al estado 103
+    exp  go to state 103
 
 
-Estado 43
+State 43
 
    88 alternativa: SI • expresion ENTONCES instrucciones lista_opciones FSI
 
-    RESTA                desplazar e ir al estado 39
-    VERDADERO            desplazar e ir al estado 40
-    FALSO                desplazar e ir al estado 41
-    NO                   desplazar e ir al estado 42
-    LITERAL_ENTERO       desplazar e ir al estado 47
-    LITERAL_REAL         desplazar e ir al estado 48
-    IDENTIFICADOR        desplazar e ir al estado 104
-    PARENTESIS_APERTURA  desplazar e ir al estado 50
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 104
+    PARENTESIS_APERTURA  shift, and go to state 50
 
-    expresion   ir al estado 105
-    exp         ir al estado 94
-    funcion_ll  ir al estado 95
+    expresion   go to state 105
+    exp         go to state 94
+    funcion_ll  go to state 95
 
 
-Estado 44
+State 44
 
    93 it_cota_exp: MIENTRAS • expresion HACER instrucciones FMIENTRAS
 
-    RESTA                desplazar e ir al estado 39
-    VERDADERO            desplazar e ir al estado 40
-    FALSO                desplazar e ir al estado 41
-    NO                   desplazar e ir al estado 42
-    LITERAL_ENTERO       desplazar e ir al estado 47
-    LITERAL_REAL         desplazar e ir al estado 48
-    IDENTIFICADOR        desplazar e ir al estado 104
-    PARENTESIS_APERTURA  desplazar e ir al estado 50
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 104
+    PARENTESIS_APERTURA  shift, and go to state 50
 
-    expresion   ir al estado 106
-    exp         ir al estado 94
-    funcion_ll  ir al estado 95
+    expresion   go to state 106
+    exp         go to state 94
+    funcion_ll  go to state 95
 
 
-Estado 45
+State 45
 
    94 it_cota_fija: PARA • IDENTIFICADOR ASIGNACION expresion HASTA expresion HACER instruccion FPARA
 
-    IDENTIFICADOR  desplazar e ir al estado 107
+    IDENTIFICADOR  shift, and go to state 107
 
 
-Estado 46
+State 46
 
    82 instruccion: CONTINUAR •
 
-    $default  reduce usando la regla 82 (instruccion)
+    $default  reduce using rule 82 (instruccion)
 
 
-Estado 47
+State 47
 
    78 exp: LITERAL_ENTERO •
 
-    $default  reduce usando la regla 78 (exp)
+    $default  reduce using rule 78 (exp)
 
 
-Estado 48
+State 48
 
    77 exp: LITERAL_REAL •
 
-    $default  reduce usando la regla 77 (exp)
+    $default  reduce using rule 77 (exp)
 
 
-Estado 49
+State 49
 
    56 exp: IDENTIFICADOR •
   104 accion_ll: IDENTIFICADOR • PARENTESIS_APERTURA l_ll PARENTESIS_CIERRE
 
-    PARENTESIS_APERTURA  desplazar e ir al estado 108
+    PARENTESIS_APERTURA  shift, and go to state 108
 
-    $default  reduce usando la regla 56 (exp)
+    $default  reduce using rule 56 (exp)
 
 
-Estado 50
+State 50
 
    68 exp: PARENTESIS_APERTURA • exp PARENTESIS_CIERRE
 
-    RESTA                desplazar e ir al estado 39
-    VERDADERO            desplazar e ir al estado 40
-    FALSO                desplazar e ir al estado 41
-    NO                   desplazar e ir al estado 42
-    LITERAL_ENTERO       desplazar e ir al estado 47
-    LITERAL_REAL         desplazar e ir al estado 48
-    IDENTIFICADOR        desplazar e ir al estado 101
-    PARENTESIS_APERTURA  desplazar e ir al estado 50
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 101
+    PARENTESIS_APERTURA  shift, and go to state 50
 
-    exp  ir al estado 109
+    exp  go to state 109
 
 
-Estado 51
+State 51
 
    53 exp: exp • Y exp
    54    | exp • O exp
@@ -984,393 +984,393 @@ Estado 51
    76    | exp • DIV exp
    87 asignacion: exp • ASIGNACION exp
 
-    SUMA            desplazar e ir al estado 110
-    RESTA           desplazar e ir al estado 111
-    MULTIPLICACION  desplazar e ir al estado 112
-    DIVISION        desplazar e ir al estado 113
-    DIV             desplazar e ir al estado 114
-    MOD             desplazar e ir al estado 115
-    Y               desplazar e ir al estado 116
-    O               desplazar e ir al estado 117
-    MAYOR_IGUAL     desplazar e ir al estado 118
-    MENOR_IGUAL     desplazar e ir al estado 119
-    DISTINTO        desplazar e ir al estado 120
-    MAYOR           desplazar e ir al estado 121
-    MENOR           desplazar e ir al estado 122
-    REF             desplazar e ir al estado 123
-    LITERAL_ENTERO  desplazar e ir al estado 124
-    LITERAL_REAL    desplazar e ir al estado 125
-    ASIGNACION      desplazar e ir al estado 126
-    PUNTO           desplazar e ir al estado 127
-    CREACION_TIPO   desplazar e ir al estado 128
-    INICIO_ARRAY    desplazar e ir al estado 129
+    SUMA            shift, and go to state 110
+    RESTA           shift, and go to state 111
+    MULTIPLICACION  shift, and go to state 112
+    DIVISION        shift, and go to state 113
+    DIV             shift, and go to state 114
+    MOD             shift, and go to state 115
+    Y               shift, and go to state 116
+    O               shift, and go to state 117
+    MAYOR_IGUAL     shift, and go to state 118
+    MENOR_IGUAL     shift, and go to state 119
+    DISTINTO        shift, and go to state 120
+    MAYOR           shift, and go to state 121
+    MENOR           shift, and go to state 122
+    REF             shift, and go to state 123
+    LITERAL_ENTERO  shift, and go to state 124
+    LITERAL_REAL    shift, and go to state 125
+    ASIGNACION      shift, and go to state 126
+    PUNTO           shift, and go to state 127
+    CREACION_TIPO   shift, and go to state 128
+    INICIO_ARRAY    shift, and go to state 129
 
 
-Estado 52
+State 52
 
    10 bloque: declaraciones instrucciones •
 
-    $default  reduce usando la regla 10 (bloque)
+    $default  reduce using rule 10 (bloque)
 
 
-Estado 53
+State 53
 
    80 instrucciones: instruccion • COMPOSICION instrucciones
    81              | instruccion •
 
-    COMPOSICION  desplazar e ir al estado 130
+    COMPOSICION  shift, and go to state 130
 
-    $default  reduce usando la regla 81 (instrucciones)
+    $default  reduce using rule 81 (instrucciones)
 
 
-Estado 54
+State 54
 
    83 instruccion: asignacion •
 
-    $default  reduce usando la regla 83 (instruccion)
+    $default  reduce using rule 83 (instruccion)
 
 
-Estado 55
+State 55
 
    84 instruccion: alternativa •
 
-    $default  reduce usando la regla 84 (instruccion)
+    $default  reduce using rule 84 (instruccion)
 
 
-Estado 56
+State 56
 
    85 instruccion: iteracion •
 
-    $default  reduce usando la regla 85 (instruccion)
+    $default  reduce using rule 85 (instruccion)
 
 
-Estado 57
+State 57
 
    92 iteracion: it_cota_exp •
 
-    $default  reduce usando la regla 92 (iteracion)
+    $default  reduce using rule 92 (iteracion)
 
 
-Estado 58
+State 58
 
    91 iteracion: it_cota_fija •
 
-    $default  reduce usando la regla 91 (iteracion)
+    $default  reduce using rule 91 (iteracion)
 
 
-Estado 59
+State 59
 
    86 instruccion: accion_ll •
 
-    $default  reduce usando la regla 86 (instruccion)
+    $default  reduce using rule 86 (instruccion)
 
 
-Estado 60
+State 60
 
    11 declaraciones: declaracion_tipo declaraciones •
 
-    $default  reduce usando la regla 11 (declaraciones)
+    $default  reduce using rule 11 (declaraciones)
 
 
-Estado 61
+State 61
 
    12 declaraciones: declaracion_cte declaraciones •
 
-    $default  reduce usando la regla 12 (declaraciones)
+    $default  reduce using rule 12 (declaraciones)
 
 
-Estado 62
+State 62
 
    13 declaraciones: declaracion_var declaraciones •
 
-    $default  reduce usando la regla 13 (declaraciones)
+    $default  reduce using rule 13 (declaraciones)
 
 
-Estado 63
+State 63
 
    98 f_cabecera: IDENTIFICADOR • PARENTESIS_APERTURA lista_d_var PARENTESIS_CIERRE DEV d_tipo COMPOSICION
 
-    PARENTESIS_APERTURA  desplazar e ir al estado 131
+    PARENTESIS_APERTURA  shift, and go to state 131
 
 
-Estado 64
+State 64
 
    96 funcion_d: FUNCION f_cabecera • bloque DEV expresion FFUNCION
 
-    CONST  desplazar e ir al estado 6
-    TIPO   desplazar e ir al estado 7
-    VAR    desplazar e ir al estado 16
+    CONST  shift, and go to state 6
+    TIPO   shift, and go to state 7
+    VAR    shift, and go to state 16
 
-    $default  reduce usando la regla 14 (declaraciones)
+    $default  reduce using rule 14 (declaraciones)
 
-    bloque            ir al estado 132
-    declaraciones     ir al estado 19
-    declaracion_tipo  ir al estado 20
-    declaracion_cte   ir al estado 21
-    declaracion_var   ir al estado 22
+    bloque            go to state 132
+    declaraciones     go to state 19
+    declaracion_tipo  go to state 20
+    declaracion_cte   go to state 21
+    declaracion_var   go to state 22
 
 
-Estado 65
+State 65
 
    97 a_cabecera: IDENTIFICADOR • PARENTESIS_APERTURA d_par_form PARENTESIS_CIERRE COMPOSICION
 
-    PARENTESIS_APERTURA  desplazar e ir al estado 133
+    PARENTESIS_APERTURA  shift, and go to state 133
 
 
-Estado 66
+State 66
 
    95 accion_d: ACCION a_cabecera • bloque FACCION
 
-    CONST  desplazar e ir al estado 6
-    TIPO   desplazar e ir al estado 7
-    VAR    desplazar e ir al estado 16
+    CONST  shift, and go to state 6
+    TIPO   shift, and go to state 7
+    VAR    shift, and go to state 16
 
-    $default  reduce usando la regla 14 (declaraciones)
+    $default  reduce using rule 14 (declaraciones)
 
-    bloque            ir al estado 134
-    declaraciones     ir al estado 19
-    declaracion_tipo  ir al estado 20
-    declaracion_cte   ir al estado 21
-    declaracion_var   ir al estado 22
+    bloque            go to state 134
+    declaraciones     go to state 19
+    declaracion_tipo  go to state 20
+    declaracion_cte   go to state 21
+    declaracion_var   go to state 22
 
 
-Estado 67
+State 67
 
    49 decl_ent: ENT • lista_d_var
 
-    IDENTIFICADOR  desplazar e ir al estado 34
+    IDENTIFICADOR  shift, and go to state 34
 
-    $default  reduce usando la regla 43 (lista_d_var)
+    $default  reduce using rule 43 (lista_d_var)
 
-    lista_d_var  ir al estado 135
-    lista_id     ir al estado 36
+    lista_d_var  go to state 135
+    lista_id     go to state 36
 
 
-Estado 68
+State 68
 
    50 decl_sal: SAL • lista_d_var
 
-    IDENTIFICADOR  desplazar e ir al estado 34
+    IDENTIFICADOR  shift, and go to state 34
 
-    $default  reduce usando la regla 43 (lista_d_var)
+    $default  reduce using rule 43 (lista_d_var)
 
-    lista_d_var  ir al estado 136
-    lista_id     ir al estado 36
+    lista_d_var  go to state 136
+    lista_id     go to state 36
 
 
-Estado 69
+State 69
 
     2 cabecera_alg: decl_globales decl_a_f decl_ent_sal • COMENTARIO
 
-    COMENTARIO  desplazar e ir al estado 137
+    COMENTARIO  shift, and go to state 137
 
 
-Estado 70
+State 70
 
    46 decl_ent_sal: decl_ent •
    47             | decl_ent • decl_sal
 
-    SAL  desplazar e ir al estado 68
+    SAL  shift, and go to state 68
 
-    $default  reduce usando la regla 46 (decl_ent_sal)
+    $default  reduce using rule 46 (decl_ent_sal)
 
-    decl_sal  ir al estado 138
+    decl_sal  go to state 138
 
 
-Estado 71
+State 71
 
    48 decl_ent_sal: decl_sal •
 
-    $default  reduce usando la regla 48 (decl_ent_sal)
+    $default  reduce using rule 48 (decl_ent_sal)
 
 
-Estado 72
+State 72
 
     7 decl_a_f: accion_d decl_a_f •
 
-    $default  reduce usando la regla 7 (decl_a_f)
+    $default  reduce using rule 7 (decl_a_f)
 
 
-Estado 73
+State 73
 
     8 decl_a_f: funcion_d decl_a_f •
 
-    $default  reduce usando la regla 8 (decl_a_f)
+    $default  reduce using rule 8 (decl_a_f)
 
 
-Estado 74
+State 74
 
    38 lista_d_cte: IDENTIFICADOR CREACION_TIPO REAL • COMPOSICION lista_d_cte
 
-    COMPOSICION  desplazar e ir al estado 139
+    COMPOSICION  shift, and go to state 139
 
 
-Estado 75
+State 75
 
    35 lista_d_cte: IDENTIFICADOR CREACION_TIPO ENTERO • COMPOSICION lista_d_cte
 
-    COMPOSICION  desplazar e ir al estado 140
+    COMPOSICION  shift, and go to state 140
 
 
-Estado 76
+State 76
 
    36 lista_d_cte: IDENTIFICADOR CREACION_TIPO BOOLEANO • COMPOSICION lista_d_cte
 
-    COMPOSICION  desplazar e ir al estado 141
+    COMPOSICION  shift, and go to state 141
 
 
-Estado 77
+State 77
 
    37 lista_d_cte: IDENTIFICADOR CREACION_TIPO CARACACTER • COMPOSICION lista_d_cte
 
-    COMPOSICION  desplazar e ir al estado 142
+    COMPOSICION  shift, and go to state 142
 
 
-Estado 78
+State 78
 
    39 lista_d_cte: IDENTIFICADOR CREACION_TIPO CADENA • COMPOSICION lista_d_cte
 
-    COMPOSICION  desplazar e ir al estado 143
+    COMPOSICION  shift, and go to state 143
 
 
-Estado 79
+State 79
 
    16 declaracion_cte: CONST lista_d_cte FCONST COMPOSICION •
 
-    $default  reduce usando la regla 16 (declaracion_cte)
+    $default  reduce using rule 16 (declaracion_cte)
 
 
-Estado 80
+State 80
 
    33 tipo_base: REAL •
 
-    $default  reduce usando la regla 33 (tipo_base)
+    $default  reduce using rule 33 (tipo_base)
 
 
-Estado 81
+State 81
 
    30 tipo_base: ENTERO •
 
-    $default  reduce usando la regla 30 (tipo_base)
+    $default  reduce using rule 30 (tipo_base)
 
 
-Estado 82
+State 82
 
    31 tipo_base: BOOLEANO •
 
-    $default  reduce usando la regla 31 (tipo_base)
+    $default  reduce using rule 31 (tipo_base)
 
 
-Estado 83
+State 83
 
    32 tipo_base: CARACACTER •
 
-    $default  reduce usando la regla 32 (tipo_base)
+    $default  reduce using rule 32 (tipo_base)
 
 
-Estado 84
+State 84
 
    21 d_tipo: TABLA • INICIO_ARRAY expresion_t SUBRANGO expresion_t FIN_ARRAY DE d_tipo
 
-    INICIO_ARRAY  desplazar e ir al estado 144
+    INICIO_ARRAY  shift, and go to state 144
 
 
-Estado 85
+State 85
 
    34 tipo_base: CADENA •
 
-    $default  reduce usando la regla 34 (tipo_base)
+    $default  reduce using rule 34 (tipo_base)
 
 
-Estado 86
+State 86
 
    20 d_tipo: TUPLA • lista_campos FTUPLA
 
-    IDENTIFICADOR  desplazar e ir al estado 145
+    IDENTIFICADOR  shift, and go to state 145
 
-    $default  reduce usando la regla 29 (lista_campos)
+    $default  reduce using rule 29 (lista_campos)
 
-    lista_campos  ir al estado 146
+    lista_campos  go to state 146
 
 
-Estado 87
+State 87
 
    24 d_tipo: REF • d_tipo
 
-    REAL                 desplazar e ir al estado 80
-    ENTERO               desplazar e ir al estado 81
-    BOOLEANO             desplazar e ir al estado 82
-    CARACACTER           desplazar e ir al estado 83
-    TABLA                desplazar e ir al estado 84
-    CADENA               desplazar e ir al estado 85
-    TUPLA                desplazar e ir al estado 86
-    RESTA                desplazar e ir al estado 39
-    VERDADERO            desplazar e ir al estado 40
-    FALSO                desplazar e ir al estado 41
-    NO                   desplazar e ir al estado 42
-    REF                  desplazar e ir al estado 87
-    LITERAL_ENTERO       desplazar e ir al estado 47
-    LITERAL_REAL         desplazar e ir al estado 48
-    IDENTIFICADOR        desplazar e ir al estado 88
-    LITERAL_CARACTER     desplazar e ir al estado 89
-    PARENTESIS_APERTURA  desplazar e ir al estado 50
+    REAL                 shift, and go to state 80
+    ENTERO               shift, and go to state 81
+    BOOLEANO             shift, and go to state 82
+    CARACACTER           shift, and go to state 83
+    TABLA                shift, and go to state 84
+    CADENA               shift, and go to state 85
+    TUPLA                shift, and go to state 86
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    REF                  shift, and go to state 87
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 88
+    LITERAL_CARACTER     shift, and go to state 89
+    PARENTESIS_APERTURA  shift, and go to state 50
 
-    d_tipo       ir al estado 147
-    expresion_t  ir al estado 91
-    tipo_base    ir al estado 92
-    expresion    ir al estado 93
-    exp          ir al estado 94
-    funcion_ll   ir al estado 95
+    d_tipo       go to state 147
+    expresion_t  go to state 91
+    tipo_base    go to state 92
+    expresion    go to state 93
+    exp          go to state 94
+    funcion_ll   go to state 95
 
 
-Estado 88
+State 88
 
    22 d_tipo: IDENTIFICADOR •
    56 exp: IDENTIFICADOR •
   105 funcion_ll: IDENTIFICADOR • PARENTESIS_APERTURA l_ll PARENTESIS_CIERRE
 
-    PARENTESIS_APERTURA  desplazar e ir al estado 148
+    PARENTESIS_APERTURA  shift, and go to state 148
 
-    COMPOSICION  reduce usando la regla 22 (d_tipo)
-    $default     reduce usando la regla 56 (exp)
+    COMPOSICION  reduce using rule 22 (d_tipo)
+    $default     reduce using rule 56 (exp)
 
 
-Estado 89
+State 89
 
    27 expresion_t: LITERAL_CARACTER •
 
-    $default  reduce usando la regla 27 (expresion_t)
+    $default  reduce using rule 27 (expresion_t)
 
 
-Estado 90
+State 90
 
    18 lista_d_tipo: IDENTIFICADOR CREACION_TIPO d_tipo • COMPOSICION lista_d_tipo
 
-    COMPOSICION  desplazar e ir al estado 149
+    COMPOSICION  shift, and go to state 149
 
 
-Estado 91
+State 91
 
    23 d_tipo: expresion_t • SUBRANGO expresion_t
 
-    SUBRANGO  desplazar e ir al estado 150
+    SUBRANGO  shift, and go to state 150
 
 
-Estado 92
+State 92
 
    25 d_tipo: tipo_base •
 
-    $default  reduce usando la regla 25 (d_tipo)
+    $default  reduce using rule 25 (d_tipo)
 
 
-Estado 93
+State 93
 
    26 expresion_t: expresion •
 
-    $default  reduce usando la regla 26 (expresion_t)
+    $default  reduce using rule 26 (expresion_t)
 
 
-Estado 94
+State 94
 
    51 expresion: exp •
    53 exp: exp • Y exp
@@ -1393,105 +1393,105 @@ Estado 94
    75    | exp • MOD exp
    76    | exp • DIV exp
 
-    SUMA            desplazar e ir al estado 110
-    RESTA           desplazar e ir al estado 111
-    MULTIPLICACION  desplazar e ir al estado 112
-    DIVISION        desplazar e ir al estado 113
-    DIV             desplazar e ir al estado 114
-    MOD             desplazar e ir al estado 115
-    Y               desplazar e ir al estado 116
-    O               desplazar e ir al estado 117
-    MAYOR_IGUAL     desplazar e ir al estado 118
-    MENOR_IGUAL     desplazar e ir al estado 119
-    DISTINTO        desplazar e ir al estado 120
-    MAYOR           desplazar e ir al estado 121
-    MENOR           desplazar e ir al estado 122
-    REF             desplazar e ir al estado 123
-    LITERAL_ENTERO  desplazar e ir al estado 124
-    LITERAL_REAL    desplazar e ir al estado 125
-    PUNTO           desplazar e ir al estado 127
-    CREACION_TIPO   desplazar e ir al estado 128
-    INICIO_ARRAY    desplazar e ir al estado 129
+    SUMA            shift, and go to state 110
+    RESTA           shift, and go to state 111
+    MULTIPLICACION  shift, and go to state 112
+    DIVISION        shift, and go to state 113
+    DIV             shift, and go to state 114
+    MOD             shift, and go to state 115
+    Y               shift, and go to state 116
+    O               shift, and go to state 117
+    MAYOR_IGUAL     shift, and go to state 118
+    MENOR_IGUAL     shift, and go to state 119
+    DISTINTO        shift, and go to state 120
+    MAYOR           shift, and go to state 121
+    MENOR           shift, and go to state 122
+    REF             shift, and go to state 123
+    LITERAL_ENTERO  shift, and go to state 124
+    LITERAL_REAL    shift, and go to state 125
+    PUNTO           shift, and go to state 127
+    CREACION_TIPO   shift, and go to state 128
+    INICIO_ARRAY    shift, and go to state 129
 
-    $default  reduce usando la regla 51 (expresion)
+    $default  reduce using rule 51 (expresion)
 
 
-Estado 95
+State 95
 
    52 expresion: funcion_ll •
 
-    $default  reduce usando la regla 52 (expresion)
+    $default  reduce using rule 52 (expresion)
 
 
-Estado 96
+State 96
 
    15 declaracion_tipo: TIPO lista_d_tipo FTIPO COMPOSICION •
 
-    $default  reduce usando la regla 15 (declaracion_tipo)
+    $default  reduce using rule 15 (declaracion_tipo)
 
 
-Estado 97
+State 97
 
    44 lista_id: IDENTIFICADOR SEPARADOR • lista_id
 
-    IDENTIFICADOR  desplazar e ir al estado 34
+    IDENTIFICADOR  shift, and go to state 34
 
-    lista_id  ir al estado 151
+    lista_id  go to state 151
 
 
-Estado 98
+State 98
 
    17 declaracion_var: VAR lista_d_var FVAR • COMPOSICION
 
-    COMPOSICION  desplazar e ir al estado 152
+    COMPOSICION  shift, and go to state 152
 
 
-Estado 99
+State 99
 
    41 lista_d_var: lista_id DEF_TIPO • IDENTIFICADOR COMPOSICION lista_d_var
    42            | lista_id DEF_TIPO • d_tipo COMPOSICION lista_d_var
 
-    REAL                 desplazar e ir al estado 80
-    ENTERO               desplazar e ir al estado 81
-    BOOLEANO             desplazar e ir al estado 82
-    CARACACTER           desplazar e ir al estado 83
-    TABLA                desplazar e ir al estado 84
-    CADENA               desplazar e ir al estado 85
-    TUPLA                desplazar e ir al estado 86
-    RESTA                desplazar e ir al estado 39
-    VERDADERO            desplazar e ir al estado 40
-    FALSO                desplazar e ir al estado 41
-    NO                   desplazar e ir al estado 42
-    REF                  desplazar e ir al estado 87
-    LITERAL_ENTERO       desplazar e ir al estado 47
-    LITERAL_REAL         desplazar e ir al estado 48
-    IDENTIFICADOR        desplazar e ir al estado 153
-    LITERAL_CARACTER     desplazar e ir al estado 89
-    PARENTESIS_APERTURA  desplazar e ir al estado 50
+    REAL                 shift, and go to state 80
+    ENTERO               shift, and go to state 81
+    BOOLEANO             shift, and go to state 82
+    CARACACTER           shift, and go to state 83
+    TABLA                shift, and go to state 84
+    CADENA               shift, and go to state 85
+    TUPLA                shift, and go to state 86
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    REF                  shift, and go to state 87
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 153
+    LITERAL_CARACTER     shift, and go to state 89
+    PARENTESIS_APERTURA  shift, and go to state 50
 
-    d_tipo       ir al estado 154
-    expresion_t  ir al estado 91
-    tipo_base    ir al estado 92
-    expresion    ir al estado 93
-    exp          ir al estado 94
-    funcion_ll   ir al estado 95
+    d_tipo       go to state 154
+    expresion_t  go to state 91
+    tipo_base    go to state 92
+    expresion    go to state 93
+    exp          go to state 94
+    funcion_ll   go to state 95
 
 
-Estado 100
+State 100
 
     1 desc_algoritmo: ALGORITMO IDENTIFICADOR COMPOSICION cabecera_alg bloque_alg FALGORITMO PUNTO •
 
-    $default  reduce usando la regla 1 (desc_algoritmo)
+    $default  reduce using rule 1 (desc_algoritmo)
 
 
-Estado 101
+State 101
 
    56 exp: IDENTIFICADOR •
 
-    $default  reduce usando la regla 56 (exp)
+    $default  reduce using rule 56 (exp)
 
 
-Estado 102
+State 102
 
    53 exp: exp • Y exp
    54    | exp • O exp
@@ -1514,26 +1514,26 @@ Estado 102
    76    | exp • DIV exp
    79    | RESTA exp •
 
-    MULTIPLICACION  desplazar e ir al estado 112
-    DIVISION        desplazar e ir al estado 113
-    DIV             desplazar e ir al estado 114
-    MOD             desplazar e ir al estado 115
-    Y               desplazar e ir al estado 116
-    O               desplazar e ir al estado 117
-    REF             desplazar e ir al estado 123
-    LITERAL_ENTERO  desplazar e ir al estado 124
-    LITERAL_REAL    desplazar e ir al estado 125
-    PUNTO           desplazar e ir al estado 127
-    INICIO_ARRAY    desplazar e ir al estado 129
+    MULTIPLICACION  shift, and go to state 112
+    DIVISION        shift, and go to state 113
+    DIV             shift, and go to state 114
+    MOD             shift, and go to state 115
+    Y               shift, and go to state 116
+    O               shift, and go to state 117
+    REF             shift, and go to state 123
+    LITERAL_ENTERO  shift, and go to state 124
+    LITERAL_REAL    shift, and go to state 125
+    PUNTO           shift, and go to state 127
+    INICIO_ARRAY    shift, and go to state 129
 
-    Y               [reduce usando la regla 79 (exp)]
-    O               [reduce usando la regla 79 (exp)]
-    LITERAL_ENTERO  [reduce usando la regla 79 (exp)]
-    LITERAL_REAL    [reduce usando la regla 79 (exp)]
-    $default        reduce usando la regla 79 (exp)
+    Y               [reduce using rule 79 (exp)]
+    O               [reduce using rule 79 (exp)]
+    LITERAL_ENTERO  [reduce using rule 79 (exp)]
+    LITERAL_REAL    [reduce using rule 79 (exp)]
+    $default        reduce using rule 79 (exp)
 
 
-Estado 103
+State 103
 
    53 exp: exp • Y exp
    54    | exp • O exp
@@ -1556,99 +1556,99 @@ Estado 103
    75    | exp • MOD exp
    76    | exp • DIV exp
 
-    SUMA            desplazar e ir al estado 110
-    RESTA           desplazar e ir al estado 111
-    MULTIPLICACION  desplazar e ir al estado 112
-    DIVISION        desplazar e ir al estado 113
-    DIV             desplazar e ir al estado 114
-    MOD             desplazar e ir al estado 115
-    Y               desplazar e ir al estado 116
-    O               desplazar e ir al estado 117
-    MAYOR_IGUAL     desplazar e ir al estado 118
-    MENOR_IGUAL     desplazar e ir al estado 119
-    DISTINTO        desplazar e ir al estado 120
-    MAYOR           desplazar e ir al estado 121
-    MENOR           desplazar e ir al estado 122
-    REF             desplazar e ir al estado 123
-    LITERAL_ENTERO  desplazar e ir al estado 124
-    LITERAL_REAL    desplazar e ir al estado 125
-    PUNTO           desplazar e ir al estado 127
-    CREACION_TIPO   desplazar e ir al estado 128
-    INICIO_ARRAY    desplazar e ir al estado 129
+    SUMA            shift, and go to state 110
+    RESTA           shift, and go to state 111
+    MULTIPLICACION  shift, and go to state 112
+    DIVISION        shift, and go to state 113
+    DIV             shift, and go to state 114
+    MOD             shift, and go to state 115
+    Y               shift, and go to state 116
+    O               shift, and go to state 117
+    MAYOR_IGUAL     shift, and go to state 118
+    MENOR_IGUAL     shift, and go to state 119
+    DISTINTO        shift, and go to state 120
+    MAYOR           shift, and go to state 121
+    MENOR           shift, and go to state 122
+    REF             shift, and go to state 123
+    LITERAL_ENTERO  shift, and go to state 124
+    LITERAL_REAL    shift, and go to state 125
+    PUNTO           shift, and go to state 127
+    CREACION_TIPO   shift, and go to state 128
+    INICIO_ARRAY    shift, and go to state 129
 
-    SUMA            [reduce usando la regla 55 (exp)]
-    RESTA           [reduce usando la regla 55 (exp)]
-    MULTIPLICACION  [reduce usando la regla 55 (exp)]
-    DIVISION        [reduce usando la regla 55 (exp)]
-    DIV             [reduce usando la regla 55 (exp)]
-    MOD             [reduce usando la regla 55 (exp)]
-    Y               [reduce usando la regla 55 (exp)]
-    O               [reduce usando la regla 55 (exp)]
-    MAYOR_IGUAL     [reduce usando la regla 55 (exp)]
-    MENOR_IGUAL     [reduce usando la regla 55 (exp)]
-    DISTINTO        [reduce usando la regla 55 (exp)]
-    MAYOR           [reduce usando la regla 55 (exp)]
-    MENOR           [reduce usando la regla 55 (exp)]
-    REF             [reduce usando la regla 55 (exp)]
-    LITERAL_ENTERO  [reduce usando la regla 55 (exp)]
-    LITERAL_REAL    [reduce usando la regla 55 (exp)]
-    PUNTO           [reduce usando la regla 55 (exp)]
-    CREACION_TIPO   [reduce usando la regla 55 (exp)]
-    INICIO_ARRAY    [reduce usando la regla 55 (exp)]
-    $default        reduce usando la regla 55 (exp)
+    SUMA            [reduce using rule 55 (exp)]
+    RESTA           [reduce using rule 55 (exp)]
+    MULTIPLICACION  [reduce using rule 55 (exp)]
+    DIVISION        [reduce using rule 55 (exp)]
+    DIV             [reduce using rule 55 (exp)]
+    MOD             [reduce using rule 55 (exp)]
+    Y               [reduce using rule 55 (exp)]
+    O               [reduce using rule 55 (exp)]
+    MAYOR_IGUAL     [reduce using rule 55 (exp)]
+    MENOR_IGUAL     [reduce using rule 55 (exp)]
+    DISTINTO        [reduce using rule 55 (exp)]
+    MAYOR           [reduce using rule 55 (exp)]
+    MENOR           [reduce using rule 55 (exp)]
+    REF             [reduce using rule 55 (exp)]
+    LITERAL_ENTERO  [reduce using rule 55 (exp)]
+    LITERAL_REAL    [reduce using rule 55 (exp)]
+    PUNTO           [reduce using rule 55 (exp)]
+    CREACION_TIPO   [reduce using rule 55 (exp)]
+    INICIO_ARRAY    [reduce using rule 55 (exp)]
+    $default        reduce using rule 55 (exp)
 
 
-Estado 104
+State 104
 
    56 exp: IDENTIFICADOR •
   105 funcion_ll: IDENTIFICADOR • PARENTESIS_APERTURA l_ll PARENTESIS_CIERRE
 
-    PARENTESIS_APERTURA  desplazar e ir al estado 148
+    PARENTESIS_APERTURA  shift, and go to state 148
 
-    $default  reduce usando la regla 56 (exp)
+    $default  reduce using rule 56 (exp)
 
 
-Estado 105
+State 105
 
    88 alternativa: SI expresion • ENTONCES instrucciones lista_opciones FSI
 
-    ENTONCES  desplazar e ir al estado 155
+    ENTONCES  shift, and go to state 155
 
 
-Estado 106
+State 106
 
    93 it_cota_exp: MIENTRAS expresion • HACER instrucciones FMIENTRAS
 
-    HACER  desplazar e ir al estado 156
+    HACER  shift, and go to state 156
 
 
-Estado 107
+State 107
 
    94 it_cota_fija: PARA IDENTIFICADOR • ASIGNACION expresion HASTA expresion HACER instruccion FPARA
 
-    ASIGNACION  desplazar e ir al estado 157
+    ASIGNACION  shift, and go to state 157
 
 
-Estado 108
+State 108
 
   104 accion_ll: IDENTIFICADOR PARENTESIS_APERTURA • l_ll PARENTESIS_CIERRE
 
-    RESTA                desplazar e ir al estado 39
-    VERDADERO            desplazar e ir al estado 40
-    FALSO                desplazar e ir al estado 41
-    NO                   desplazar e ir al estado 42
-    LITERAL_ENTERO       desplazar e ir al estado 47
-    LITERAL_REAL         desplazar e ir al estado 48
-    IDENTIFICADOR        desplazar e ir al estado 104
-    PARENTESIS_APERTURA  desplazar e ir al estado 50
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 104
+    PARENTESIS_APERTURA  shift, and go to state 50
 
-    expresion   ir al estado 158
-    exp         ir al estado 94
-    funcion_ll  ir al estado 95
-    l_ll        ir al estado 159
+    expresion   go to state 158
+    exp         go to state 94
+    funcion_ll  go to state 95
+    l_ll        go to state 159
 
 
-Estado 109
+State 109
 
    53 exp: exp • Y exp
    54    | exp • O exp
@@ -1671,697 +1671,697 @@ Estado 109
    75    | exp • MOD exp
    76    | exp • DIV exp
 
-    SUMA               desplazar e ir al estado 110
-    RESTA              desplazar e ir al estado 111
-    MULTIPLICACION     desplazar e ir al estado 112
-    DIVISION           desplazar e ir al estado 113
-    DIV                desplazar e ir al estado 114
-    MOD                desplazar e ir al estado 115
-    Y                  desplazar e ir al estado 116
-    O                  desplazar e ir al estado 117
-    MAYOR_IGUAL        desplazar e ir al estado 118
-    MENOR_IGUAL        desplazar e ir al estado 119
-    DISTINTO           desplazar e ir al estado 120
-    MAYOR              desplazar e ir al estado 121
-    MENOR              desplazar e ir al estado 122
-    REF                desplazar e ir al estado 123
-    LITERAL_ENTERO     desplazar e ir al estado 124
-    LITERAL_REAL       desplazar e ir al estado 125
-    PUNTO              desplazar e ir al estado 127
-    CREACION_TIPO      desplazar e ir al estado 128
-    INICIO_ARRAY       desplazar e ir al estado 129
-    PARENTESIS_CIERRE  desplazar e ir al estado 160
+    SUMA               shift, and go to state 110
+    RESTA              shift, and go to state 111
+    MULTIPLICACION     shift, and go to state 112
+    DIVISION           shift, and go to state 113
+    DIV                shift, and go to state 114
+    MOD                shift, and go to state 115
+    Y                  shift, and go to state 116
+    O                  shift, and go to state 117
+    MAYOR_IGUAL        shift, and go to state 118
+    MENOR_IGUAL        shift, and go to state 119
+    DISTINTO           shift, and go to state 120
+    MAYOR              shift, and go to state 121
+    MENOR              shift, and go to state 122
+    REF                shift, and go to state 123
+    LITERAL_ENTERO     shift, and go to state 124
+    LITERAL_REAL       shift, and go to state 125
+    PUNTO              shift, and go to state 127
+    CREACION_TIPO      shift, and go to state 128
+    INICIO_ARRAY       shift, and go to state 129
+    PARENTESIS_CIERRE  shift, and go to state 160
 
 
-Estado 110
+State 110
 
    71 exp: exp SUMA • exp
 
-    RESTA                desplazar e ir al estado 39
-    VERDADERO            desplazar e ir al estado 40
-    FALSO                desplazar e ir al estado 41
-    NO                   desplazar e ir al estado 42
-    LITERAL_ENTERO       desplazar e ir al estado 47
-    LITERAL_REAL         desplazar e ir al estado 48
-    IDENTIFICADOR        desplazar e ir al estado 101
-    PARENTESIS_APERTURA  desplazar e ir al estado 50
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 101
+    PARENTESIS_APERTURA  shift, and go to state 50
 
-    exp  ir al estado 161
+    exp  go to state 161
 
 
-Estado 111
+State 111
 
    72 exp: exp RESTA • exp
 
-    RESTA                desplazar e ir al estado 39
-    VERDADERO            desplazar e ir al estado 40
-    FALSO                desplazar e ir al estado 41
-    NO                   desplazar e ir al estado 42
-    LITERAL_ENTERO       desplazar e ir al estado 47
-    LITERAL_REAL         desplazar e ir al estado 48
-    IDENTIFICADOR        desplazar e ir al estado 101
-    PARENTESIS_APERTURA  desplazar e ir al estado 50
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 101
+    PARENTESIS_APERTURA  shift, and go to state 50
 
-    exp  ir al estado 162
+    exp  go to state 162
 
 
-Estado 112
+State 112
 
    73 exp: exp MULTIPLICACION • exp
 
-    RESTA                desplazar e ir al estado 39
-    VERDADERO            desplazar e ir al estado 40
-    FALSO                desplazar e ir al estado 41
-    NO                   desplazar e ir al estado 42
-    LITERAL_ENTERO       desplazar e ir al estado 47
-    LITERAL_REAL         desplazar e ir al estado 48
-    IDENTIFICADOR        desplazar e ir al estado 101
-    PARENTESIS_APERTURA  desplazar e ir al estado 50
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 101
+    PARENTESIS_APERTURA  shift, and go to state 50
 
-    exp  ir al estado 163
+    exp  go to state 163
 
 
-Estado 113
+State 113
 
    74 exp: exp DIVISION • exp
 
-    RESTA                desplazar e ir al estado 39
-    VERDADERO            desplazar e ir al estado 40
-    FALSO                desplazar e ir al estado 41
-    NO                   desplazar e ir al estado 42
-    LITERAL_ENTERO       desplazar e ir al estado 47
-    LITERAL_REAL         desplazar e ir al estado 48
-    IDENTIFICADOR        desplazar e ir al estado 101
-    PARENTESIS_APERTURA  desplazar e ir al estado 50
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 101
+    PARENTESIS_APERTURA  shift, and go to state 50
 
-    exp  ir al estado 164
+    exp  go to state 164
 
 
-Estado 114
+State 114
 
    76 exp: exp DIV • exp
 
-    RESTA                desplazar e ir al estado 39
-    VERDADERO            desplazar e ir al estado 40
-    FALSO                desplazar e ir al estado 41
-    NO                   desplazar e ir al estado 42
-    LITERAL_ENTERO       desplazar e ir al estado 47
-    LITERAL_REAL         desplazar e ir al estado 48
-    IDENTIFICADOR        desplazar e ir al estado 101
-    PARENTESIS_APERTURA  desplazar e ir al estado 50
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 101
+    PARENTESIS_APERTURA  shift, and go to state 50
 
-    exp  ir al estado 165
+    exp  go to state 165
 
 
-Estado 115
+State 115
 
    75 exp: exp MOD • exp
 
-    RESTA                desplazar e ir al estado 39
-    VERDADERO            desplazar e ir al estado 40
-    FALSO                desplazar e ir al estado 41
-    NO                   desplazar e ir al estado 42
-    LITERAL_ENTERO       desplazar e ir al estado 47
-    LITERAL_REAL         desplazar e ir al estado 48
-    IDENTIFICADOR        desplazar e ir al estado 101
-    PARENTESIS_APERTURA  desplazar e ir al estado 50
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 101
+    PARENTESIS_APERTURA  shift, and go to state 50
 
-    exp  ir al estado 166
+    exp  go to state 166
 
 
-Estado 116
+State 116
 
    53 exp: exp Y • exp
 
-    RESTA                desplazar e ir al estado 39
-    VERDADERO            desplazar e ir al estado 40
-    FALSO                desplazar e ir al estado 41
-    NO                   desplazar e ir al estado 42
-    LITERAL_ENTERO       desplazar e ir al estado 47
-    LITERAL_REAL         desplazar e ir al estado 48
-    IDENTIFICADOR        desplazar e ir al estado 101
-    PARENTESIS_APERTURA  desplazar e ir al estado 50
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 101
+    PARENTESIS_APERTURA  shift, and go to state 50
 
-    exp  ir al estado 167
+    exp  go to state 167
 
 
-Estado 117
+State 117
 
    54 exp: exp O • exp
 
-    RESTA                desplazar e ir al estado 39
-    VERDADERO            desplazar e ir al estado 40
-    FALSO                desplazar e ir al estado 41
-    NO                   desplazar e ir al estado 42
-    LITERAL_ENTERO       desplazar e ir al estado 47
-    LITERAL_REAL         desplazar e ir al estado 48
-    IDENTIFICADOR        desplazar e ir al estado 101
-    PARENTESIS_APERTURA  desplazar e ir al estado 50
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 101
+    PARENTESIS_APERTURA  shift, and go to state 50
 
-    exp  ir al estado 168
+    exp  go to state 168
 
 
-Estado 118
+State 118
 
    66 exp: exp MAYOR_IGUAL • exp
 
-    RESTA                desplazar e ir al estado 39
-    VERDADERO            desplazar e ir al estado 40
-    FALSO                desplazar e ir al estado 41
-    NO                   desplazar e ir al estado 42
-    LITERAL_ENTERO       desplazar e ir al estado 47
-    LITERAL_REAL         desplazar e ir al estado 48
-    IDENTIFICADOR        desplazar e ir al estado 101
-    PARENTESIS_APERTURA  desplazar e ir al estado 50
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 101
+    PARENTESIS_APERTURA  shift, and go to state 50
 
-    exp  ir al estado 169
+    exp  go to state 169
 
 
-Estado 119
+State 119
 
    67 exp: exp MENOR_IGUAL • exp
 
-    RESTA                desplazar e ir al estado 39
-    VERDADERO            desplazar e ir al estado 40
-    FALSO                desplazar e ir al estado 41
-    NO                   desplazar e ir al estado 42
-    LITERAL_ENTERO       desplazar e ir al estado 47
-    LITERAL_REAL         desplazar e ir al estado 48
-    IDENTIFICADOR        desplazar e ir al estado 101
-    PARENTESIS_APERTURA  desplazar e ir al estado 50
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 101
+    PARENTESIS_APERTURA  shift, and go to state 50
 
-    exp  ir al estado 170
+    exp  go to state 170
 
 
-Estado 120
+State 120
 
    65 exp: exp DISTINTO • exp
 
-    RESTA                desplazar e ir al estado 39
-    VERDADERO            desplazar e ir al estado 40
-    FALSO                desplazar e ir al estado 41
-    NO                   desplazar e ir al estado 42
-    LITERAL_ENTERO       desplazar e ir al estado 47
-    LITERAL_REAL         desplazar e ir al estado 48
-    IDENTIFICADOR        desplazar e ir al estado 101
-    PARENTESIS_APERTURA  desplazar e ir al estado 50
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 101
+    PARENTESIS_APERTURA  shift, and go to state 50
 
-    exp  ir al estado 171
+    exp  go to state 171
 
 
-Estado 121
+State 121
 
    63 exp: exp MAYOR • exp
 
-    RESTA                desplazar e ir al estado 39
-    VERDADERO            desplazar e ir al estado 40
-    FALSO                desplazar e ir al estado 41
-    NO                   desplazar e ir al estado 42
-    LITERAL_ENTERO       desplazar e ir al estado 47
-    LITERAL_REAL         desplazar e ir al estado 48
-    IDENTIFICADOR        desplazar e ir al estado 101
-    PARENTESIS_APERTURA  desplazar e ir al estado 50
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 101
+    PARENTESIS_APERTURA  shift, and go to state 50
 
-    exp  ir al estado 172
+    exp  go to state 172
 
 
-Estado 122
+State 122
 
    62 exp: exp MENOR • exp
 
-    RESTA                desplazar e ir al estado 39
-    VERDADERO            desplazar e ir al estado 40
-    FALSO                desplazar e ir al estado 41
-    NO                   desplazar e ir al estado 42
-    LITERAL_ENTERO       desplazar e ir al estado 47
-    LITERAL_REAL         desplazar e ir al estado 48
-    IDENTIFICADOR        desplazar e ir al estado 101
-    PARENTESIS_APERTURA  desplazar e ir al estado 50
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 101
+    PARENTESIS_APERTURA  shift, and go to state 50
 
-    exp  ir al estado 173
+    exp  go to state 173
 
 
-Estado 123
+State 123
 
    59 exp: exp REF •
 
-    $default  reduce usando la regla 59 (exp)
+    $default  reduce using rule 59 (exp)
 
 
-Estado 124
+State 124
 
    69 exp: exp LITERAL_ENTERO •
 
-    $default  reduce usando la regla 69 (exp)
+    $default  reduce using rule 69 (exp)
 
 
-Estado 125
+State 125
 
    70 exp: exp LITERAL_REAL •
 
-    $default  reduce usando la regla 70 (exp)
+    $default  reduce using rule 70 (exp)
 
 
-Estado 126
+State 126
 
    87 asignacion: exp ASIGNACION • exp
 
-    RESTA                desplazar e ir al estado 39
-    VERDADERO            desplazar e ir al estado 40
-    FALSO                desplazar e ir al estado 41
-    NO                   desplazar e ir al estado 42
-    LITERAL_ENTERO       desplazar e ir al estado 47
-    LITERAL_REAL         desplazar e ir al estado 48
-    IDENTIFICADOR        desplazar e ir al estado 101
-    PARENTESIS_APERTURA  desplazar e ir al estado 50
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 101
+    PARENTESIS_APERTURA  shift, and go to state 50
 
-    exp  ir al estado 174
+    exp  go to state 174
 
 
-Estado 127
+State 127
 
    57 exp: exp PUNTO • exp
 
-    RESTA                desplazar e ir al estado 39
-    VERDADERO            desplazar e ir al estado 40
-    FALSO                desplazar e ir al estado 41
-    NO                   desplazar e ir al estado 42
-    LITERAL_ENTERO       desplazar e ir al estado 47
-    LITERAL_REAL         desplazar e ir al estado 48
-    IDENTIFICADOR        desplazar e ir al estado 101
-    PARENTESIS_APERTURA  desplazar e ir al estado 50
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 101
+    PARENTESIS_APERTURA  shift, and go to state 50
 
-    exp  ir al estado 175
+    exp  go to state 175
 
 
-Estado 128
+State 128
 
    64 exp: exp CREACION_TIPO • exp
 
-    RESTA                desplazar e ir al estado 39
-    VERDADERO            desplazar e ir al estado 40
-    FALSO                desplazar e ir al estado 41
-    NO                   desplazar e ir al estado 42
-    LITERAL_ENTERO       desplazar e ir al estado 47
-    LITERAL_REAL         desplazar e ir al estado 48
-    IDENTIFICADOR        desplazar e ir al estado 101
-    PARENTESIS_APERTURA  desplazar e ir al estado 50
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 101
+    PARENTESIS_APERTURA  shift, and go to state 50
 
-    exp  ir al estado 176
+    exp  go to state 176
 
 
-Estado 129
+State 129
 
    58 exp: exp INICIO_ARRAY • exp FIN_ARRAY
 
-    RESTA                desplazar e ir al estado 39
-    VERDADERO            desplazar e ir al estado 40
-    FALSO                desplazar e ir al estado 41
-    NO                   desplazar e ir al estado 42
-    LITERAL_ENTERO       desplazar e ir al estado 47
-    LITERAL_REAL         desplazar e ir al estado 48
-    IDENTIFICADOR        desplazar e ir al estado 101
-    PARENTESIS_APERTURA  desplazar e ir al estado 50
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 101
+    PARENTESIS_APERTURA  shift, and go to state 50
 
-    exp  ir al estado 177
+    exp  go to state 177
 
 
-Estado 130
+State 130
 
    80 instrucciones: instruccion COMPOSICION • instrucciones
 
-    RESTA                desplazar e ir al estado 39
-    VERDADERO            desplazar e ir al estado 40
-    FALSO                desplazar e ir al estado 41
-    NO                   desplazar e ir al estado 42
-    SI                   desplazar e ir al estado 43
-    MIENTRAS             desplazar e ir al estado 44
-    PARA                 desplazar e ir al estado 45
-    CONTINUAR            desplazar e ir al estado 46
-    LITERAL_ENTERO       desplazar e ir al estado 47
-    LITERAL_REAL         desplazar e ir al estado 48
-    IDENTIFICADOR        desplazar e ir al estado 49
-    PARENTESIS_APERTURA  desplazar e ir al estado 50
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    SI                   shift, and go to state 43
+    MIENTRAS             shift, and go to state 44
+    PARA                 shift, and go to state 45
+    CONTINUAR            shift, and go to state 46
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 49
+    PARENTESIS_APERTURA  shift, and go to state 50
 
-    exp            ir al estado 51
-    instrucciones  ir al estado 178
-    instruccion    ir al estado 53
-    asignacion     ir al estado 54
-    alternativa    ir al estado 55
-    iteracion      ir al estado 56
-    it_cota_exp    ir al estado 57
-    it_cota_fija   ir al estado 58
-    accion_ll      ir al estado 59
+    exp            go to state 51
+    instrucciones  go to state 178
+    instruccion    go to state 53
+    asignacion     go to state 54
+    alternativa    go to state 55
+    iteracion      go to state 56
+    it_cota_exp    go to state 57
+    it_cota_fija   go to state 58
+    accion_ll      go to state 59
 
 
-Estado 131
+State 131
 
    98 f_cabecera: IDENTIFICADOR PARENTESIS_APERTURA • lista_d_var PARENTESIS_CIERRE DEV d_tipo COMPOSICION
 
-    IDENTIFICADOR  desplazar e ir al estado 34
+    IDENTIFICADOR  shift, and go to state 34
 
-    $default  reduce usando la regla 43 (lista_d_var)
+    $default  reduce using rule 43 (lista_d_var)
 
-    lista_d_var  ir al estado 179
-    lista_id     ir al estado 36
+    lista_d_var  go to state 179
+    lista_id     go to state 36
 
 
-Estado 132
+State 132
 
    96 funcion_d: FUNCION f_cabecera bloque • DEV expresion FFUNCION
 
-    DEV  desplazar e ir al estado 180
+    DEV  shift, and go to state 180
 
 
-Estado 133
+State 133
 
    97 a_cabecera: IDENTIFICADOR PARENTESIS_APERTURA • d_par_form PARENTESIS_CIERRE COMPOSICION
 
-    ES   desplazar e ir al estado 181
-    ENT  desplazar e ir al estado 182
-    SAL  desplazar e ir al estado 183
+    ES   shift, and go to state 181
+    ENT  shift, and go to state 182
+    SAL  shift, and go to state 183
 
-    $default  reduce usando la regla 100 (d_par_form)
+    $default  reduce using rule 100 (d_par_form)
 
-    d_par_form  ir al estado 184
-    d_p_form    ir al estado 185
+    d_par_form  go to state 184
+    d_p_form    go to state 185
 
 
-Estado 134
+State 134
 
    95 accion_d: ACCION a_cabecera bloque • FACCION
 
-    FACCION  desplazar e ir al estado 186
+    FACCION  shift, and go to state 186
 
 
-Estado 135
+State 135
 
    49 decl_ent: ENT lista_d_var •
 
-    $default  reduce usando la regla 49 (decl_ent)
+    $default  reduce using rule 49 (decl_ent)
 
 
-Estado 136
+State 136
 
    50 decl_sal: SAL lista_d_var •
 
-    $default  reduce usando la regla 50 (decl_sal)
+    $default  reduce using rule 50 (decl_sal)
 
 
-Estado 137
+State 137
 
     2 cabecera_alg: decl_globales decl_a_f decl_ent_sal COMENTARIO •
 
-    $default  reduce usando la regla 2 (cabecera_alg)
+    $default  reduce using rule 2 (cabecera_alg)
 
 
-Estado 138
+State 138
 
    47 decl_ent_sal: decl_ent decl_sal •
 
-    $default  reduce usando la regla 47 (decl_ent_sal)
+    $default  reduce using rule 47 (decl_ent_sal)
 
 
-Estado 139
+State 139
 
    38 lista_d_cte: IDENTIFICADOR CREACION_TIPO REAL COMPOSICION • lista_d_cte
 
-    IDENTIFICADOR  desplazar e ir al estado 12
+    IDENTIFICADOR  shift, and go to state 12
 
-    $default  reduce usando la regla 40 (lista_d_cte)
+    $default  reduce using rule 40 (lista_d_cte)
 
-    lista_d_cte  ir al estado 187
+    lista_d_cte  go to state 187
 
 
-Estado 140
+State 140
 
    35 lista_d_cte: IDENTIFICADOR CREACION_TIPO ENTERO COMPOSICION • lista_d_cte
 
-    IDENTIFICADOR  desplazar e ir al estado 12
+    IDENTIFICADOR  shift, and go to state 12
 
-    $default  reduce usando la regla 40 (lista_d_cte)
+    $default  reduce using rule 40 (lista_d_cte)
 
-    lista_d_cte  ir al estado 188
+    lista_d_cte  go to state 188
 
 
-Estado 141
+State 141
 
    36 lista_d_cte: IDENTIFICADOR CREACION_TIPO BOOLEANO COMPOSICION • lista_d_cte
 
-    IDENTIFICADOR  desplazar e ir al estado 12
+    IDENTIFICADOR  shift, and go to state 12
 
-    $default  reduce usando la regla 40 (lista_d_cte)
+    $default  reduce using rule 40 (lista_d_cte)
 
-    lista_d_cte  ir al estado 189
+    lista_d_cte  go to state 189
 
 
-Estado 142
+State 142
 
    37 lista_d_cte: IDENTIFICADOR CREACION_TIPO CARACACTER COMPOSICION • lista_d_cte
 
-    IDENTIFICADOR  desplazar e ir al estado 12
+    IDENTIFICADOR  shift, and go to state 12
 
-    $default  reduce usando la regla 40 (lista_d_cte)
+    $default  reduce using rule 40 (lista_d_cte)
 
-    lista_d_cte  ir al estado 190
+    lista_d_cte  go to state 190
 
 
-Estado 143
+State 143
 
    39 lista_d_cte: IDENTIFICADOR CREACION_TIPO CADENA COMPOSICION • lista_d_cte
 
-    IDENTIFICADOR  desplazar e ir al estado 12
+    IDENTIFICADOR  shift, and go to state 12
 
-    $default  reduce usando la regla 40 (lista_d_cte)
+    $default  reduce using rule 40 (lista_d_cte)
 
-    lista_d_cte  ir al estado 191
+    lista_d_cte  go to state 191
 
 
-Estado 144
+State 144
 
    21 d_tipo: TABLA INICIO_ARRAY • expresion_t SUBRANGO expresion_t FIN_ARRAY DE d_tipo
 
-    RESTA                desplazar e ir al estado 39
-    VERDADERO            desplazar e ir al estado 40
-    FALSO                desplazar e ir al estado 41
-    NO                   desplazar e ir al estado 42
-    LITERAL_ENTERO       desplazar e ir al estado 47
-    LITERAL_REAL         desplazar e ir al estado 48
-    IDENTIFICADOR        desplazar e ir al estado 104
-    LITERAL_CARACTER     desplazar e ir al estado 89
-    PARENTESIS_APERTURA  desplazar e ir al estado 50
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 104
+    LITERAL_CARACTER     shift, and go to state 89
+    PARENTESIS_APERTURA  shift, and go to state 50
 
-    expresion_t  ir al estado 192
-    expresion    ir al estado 93
-    exp          ir al estado 94
-    funcion_ll   ir al estado 95
+    expresion_t  go to state 192
+    expresion    go to state 93
+    exp          go to state 94
+    funcion_ll   go to state 95
 
 
-Estado 145
+State 145
 
    28 lista_campos: IDENTIFICADOR • DEF_TIPO d_tipo COMPOSICION lista_campos
 
-    DEF_TIPO  desplazar e ir al estado 193
+    DEF_TIPO  shift, and go to state 193
 
 
-Estado 146
+State 146
 
    20 d_tipo: TUPLA lista_campos • FTUPLA
 
-    FTUPLA  desplazar e ir al estado 194
+    FTUPLA  shift, and go to state 194
 
 
-Estado 147
+State 147
 
    24 d_tipo: REF d_tipo •
 
-    $default  reduce usando la regla 24 (d_tipo)
+    $default  reduce using rule 24 (d_tipo)
 
 
-Estado 148
+State 148
 
   105 funcion_ll: IDENTIFICADOR PARENTESIS_APERTURA • l_ll PARENTESIS_CIERRE
 
-    RESTA                desplazar e ir al estado 39
-    VERDADERO            desplazar e ir al estado 40
-    FALSO                desplazar e ir al estado 41
-    NO                   desplazar e ir al estado 42
-    LITERAL_ENTERO       desplazar e ir al estado 47
-    LITERAL_REAL         desplazar e ir al estado 48
-    IDENTIFICADOR        desplazar e ir al estado 104
-    PARENTESIS_APERTURA  desplazar e ir al estado 50
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 104
+    PARENTESIS_APERTURA  shift, and go to state 50
 
-    expresion   ir al estado 158
-    exp         ir al estado 94
-    funcion_ll  ir al estado 95
-    l_ll        ir al estado 195
+    expresion   go to state 158
+    exp         go to state 94
+    funcion_ll  go to state 95
+    l_ll        go to state 195
 
 
-Estado 149
+State 149
 
    18 lista_d_tipo: IDENTIFICADOR CREACION_TIPO d_tipo COMPOSICION • lista_d_tipo
 
-    IDENTIFICADOR  desplazar e ir al estado 14
+    IDENTIFICADOR  shift, and go to state 14
 
-    $default  reduce usando la regla 19 (lista_d_tipo)
+    $default  reduce using rule 19 (lista_d_tipo)
 
-    lista_d_tipo  ir al estado 196
+    lista_d_tipo  go to state 196
 
 
-Estado 150
+State 150
 
    23 d_tipo: expresion_t SUBRANGO • expresion_t
 
-    RESTA                desplazar e ir al estado 39
-    VERDADERO            desplazar e ir al estado 40
-    FALSO                desplazar e ir al estado 41
-    NO                   desplazar e ir al estado 42
-    LITERAL_ENTERO       desplazar e ir al estado 47
-    LITERAL_REAL         desplazar e ir al estado 48
-    IDENTIFICADOR        desplazar e ir al estado 104
-    LITERAL_CARACTER     desplazar e ir al estado 89
-    PARENTESIS_APERTURA  desplazar e ir al estado 50
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 104
+    LITERAL_CARACTER     shift, and go to state 89
+    PARENTESIS_APERTURA  shift, and go to state 50
 
-    expresion_t  ir al estado 197
-    expresion    ir al estado 93
-    exp          ir al estado 94
-    funcion_ll   ir al estado 95
+    expresion_t  go to state 197
+    expresion    go to state 93
+    exp          go to state 94
+    funcion_ll   go to state 95
 
 
-Estado 151
+State 151
 
    44 lista_id: IDENTIFICADOR SEPARADOR lista_id •
 
-    $default  reduce usando la regla 44 (lista_id)
+    $default  reduce using rule 44 (lista_id)
 
 
-Estado 152
+State 152
 
    17 declaracion_var: VAR lista_d_var FVAR COMPOSICION •
 
-    $default  reduce usando la regla 17 (declaracion_var)
+    $default  reduce using rule 17 (declaracion_var)
 
 
-Estado 153
+State 153
 
    22 d_tipo: IDENTIFICADOR •
    41 lista_d_var: lista_id DEF_TIPO IDENTIFICADOR • COMPOSICION lista_d_var
    56 exp: IDENTIFICADOR •
   105 funcion_ll: IDENTIFICADOR • PARENTESIS_APERTURA l_ll PARENTESIS_CIERRE
 
-    COMPOSICION          desplazar e ir al estado 198
-    PARENTESIS_APERTURA  desplazar e ir al estado 148
+    COMPOSICION          shift, and go to state 198
+    PARENTESIS_APERTURA  shift, and go to state 148
 
-    COMPOSICION  [reduce usando la regla 22 (d_tipo)]
-    $default     reduce usando la regla 56 (exp)
+    COMPOSICION  [reduce using rule 22 (d_tipo)]
+    $default     reduce using rule 56 (exp)
 
 
-Estado 154
+State 154
 
    42 lista_d_var: lista_id DEF_TIPO d_tipo • COMPOSICION lista_d_var
 
-    COMPOSICION  desplazar e ir al estado 199
+    COMPOSICION  shift, and go to state 199
 
 
-Estado 155
+State 155
 
    88 alternativa: SI expresion ENTONCES • instrucciones lista_opciones FSI
 
-    RESTA                desplazar e ir al estado 39
-    VERDADERO            desplazar e ir al estado 40
-    FALSO                desplazar e ir al estado 41
-    NO                   desplazar e ir al estado 42
-    SI                   desplazar e ir al estado 43
-    MIENTRAS             desplazar e ir al estado 44
-    PARA                 desplazar e ir al estado 45
-    CONTINUAR            desplazar e ir al estado 46
-    LITERAL_ENTERO       desplazar e ir al estado 47
-    LITERAL_REAL         desplazar e ir al estado 48
-    IDENTIFICADOR        desplazar e ir al estado 49
-    PARENTESIS_APERTURA  desplazar e ir al estado 50
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    SI                   shift, and go to state 43
+    MIENTRAS             shift, and go to state 44
+    PARA                 shift, and go to state 45
+    CONTINUAR            shift, and go to state 46
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 49
+    PARENTESIS_APERTURA  shift, and go to state 50
 
-    exp            ir al estado 51
-    instrucciones  ir al estado 200
-    instruccion    ir al estado 53
-    asignacion     ir al estado 54
-    alternativa    ir al estado 55
-    iteracion      ir al estado 56
-    it_cota_exp    ir al estado 57
-    it_cota_fija   ir al estado 58
-    accion_ll      ir al estado 59
+    exp            go to state 51
+    instrucciones  go to state 200
+    instruccion    go to state 53
+    asignacion     go to state 54
+    alternativa    go to state 55
+    iteracion      go to state 56
+    it_cota_exp    go to state 57
+    it_cota_fija   go to state 58
+    accion_ll      go to state 59
 
 
-Estado 156
+State 156
 
    93 it_cota_exp: MIENTRAS expresion HACER • instrucciones FMIENTRAS
 
-    RESTA                desplazar e ir al estado 39
-    VERDADERO            desplazar e ir al estado 40
-    FALSO                desplazar e ir al estado 41
-    NO                   desplazar e ir al estado 42
-    SI                   desplazar e ir al estado 43
-    MIENTRAS             desplazar e ir al estado 44
-    PARA                 desplazar e ir al estado 45
-    CONTINUAR            desplazar e ir al estado 46
-    LITERAL_ENTERO       desplazar e ir al estado 47
-    LITERAL_REAL         desplazar e ir al estado 48
-    IDENTIFICADOR        desplazar e ir al estado 49
-    PARENTESIS_APERTURA  desplazar e ir al estado 50
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    SI                   shift, and go to state 43
+    MIENTRAS             shift, and go to state 44
+    PARA                 shift, and go to state 45
+    CONTINUAR            shift, and go to state 46
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 49
+    PARENTESIS_APERTURA  shift, and go to state 50
 
-    exp            ir al estado 51
-    instrucciones  ir al estado 201
-    instruccion    ir al estado 53
-    asignacion     ir al estado 54
-    alternativa    ir al estado 55
-    iteracion      ir al estado 56
-    it_cota_exp    ir al estado 57
-    it_cota_fija   ir al estado 58
-    accion_ll      ir al estado 59
+    exp            go to state 51
+    instrucciones  go to state 201
+    instruccion    go to state 53
+    asignacion     go to state 54
+    alternativa    go to state 55
+    iteracion      go to state 56
+    it_cota_exp    go to state 57
+    it_cota_fija   go to state 58
+    accion_ll      go to state 59
 
 
-Estado 157
+State 157
 
    94 it_cota_fija: PARA IDENTIFICADOR ASIGNACION • expresion HASTA expresion HACER instruccion FPARA
 
-    RESTA                desplazar e ir al estado 39
-    VERDADERO            desplazar e ir al estado 40
-    FALSO                desplazar e ir al estado 41
-    NO                   desplazar e ir al estado 42
-    LITERAL_ENTERO       desplazar e ir al estado 47
-    LITERAL_REAL         desplazar e ir al estado 48
-    IDENTIFICADOR        desplazar e ir al estado 104
-    PARENTESIS_APERTURA  desplazar e ir al estado 50
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 104
+    PARENTESIS_APERTURA  shift, and go to state 50
 
-    expresion   ir al estado 202
-    exp         ir al estado 94
-    funcion_ll  ir al estado 95
+    expresion   go to state 202
+    exp         go to state 94
+    funcion_ll  go to state 95
 
 
-Estado 158
+State 158
 
   106 l_ll: expresion • SEPARADOR l_ll
   107     | expresion •
 
-    SEPARADOR  desplazar e ir al estado 203
+    SEPARADOR  shift, and go to state 203
 
-    $default  reduce usando la regla 107 (l_ll)
+    $default  reduce using rule 107 (l_ll)
 
 
-Estado 159
+State 159
 
   104 accion_ll: IDENTIFICADOR PARENTESIS_APERTURA l_ll • PARENTESIS_CIERRE
 
-    PARENTESIS_CIERRE  desplazar e ir al estado 204
+    PARENTESIS_CIERRE  shift, and go to state 204
 
 
-Estado 160
+State 160
 
    68 exp: PARENTESIS_APERTURA exp PARENTESIS_CIERRE •
 
-    $default  reduce usando la regla 68 (exp)
+    $default  reduce using rule 68 (exp)
 
 
-Estado 161
+State 161
 
    53 exp: exp • Y exp
    54    | exp • O exp
@@ -2384,26 +2384,26 @@ Estado 161
    75    | exp • MOD exp
    76    | exp • DIV exp
 
-    MULTIPLICACION  desplazar e ir al estado 112
-    DIVISION        desplazar e ir al estado 113
-    DIV             desplazar e ir al estado 114
-    MOD             desplazar e ir al estado 115
-    Y               desplazar e ir al estado 116
-    O               desplazar e ir al estado 117
-    REF             desplazar e ir al estado 123
-    LITERAL_ENTERO  desplazar e ir al estado 124
-    LITERAL_REAL    desplazar e ir al estado 125
-    PUNTO           desplazar e ir al estado 127
-    INICIO_ARRAY    desplazar e ir al estado 129
+    MULTIPLICACION  shift, and go to state 112
+    DIVISION        shift, and go to state 113
+    DIV             shift, and go to state 114
+    MOD             shift, and go to state 115
+    Y               shift, and go to state 116
+    O               shift, and go to state 117
+    REF             shift, and go to state 123
+    LITERAL_ENTERO  shift, and go to state 124
+    LITERAL_REAL    shift, and go to state 125
+    PUNTO           shift, and go to state 127
+    INICIO_ARRAY    shift, and go to state 129
 
-    Y               [reduce usando la regla 71 (exp)]
-    O               [reduce usando la regla 71 (exp)]
-    LITERAL_ENTERO  [reduce usando la regla 71 (exp)]
-    LITERAL_REAL    [reduce usando la regla 71 (exp)]
-    $default        reduce usando la regla 71 (exp)
+    Y               [reduce using rule 71 (exp)]
+    O               [reduce using rule 71 (exp)]
+    LITERAL_ENTERO  [reduce using rule 71 (exp)]
+    LITERAL_REAL    [reduce using rule 71 (exp)]
+    $default        reduce using rule 71 (exp)
 
 
-Estado 162
+State 162
 
    53 exp: exp • Y exp
    54    | exp • O exp
@@ -2426,26 +2426,26 @@ Estado 162
    75    | exp • MOD exp
    76    | exp • DIV exp
 
-    MULTIPLICACION  desplazar e ir al estado 112
-    DIVISION        desplazar e ir al estado 113
-    DIV             desplazar e ir al estado 114
-    MOD             desplazar e ir al estado 115
-    Y               desplazar e ir al estado 116
-    O               desplazar e ir al estado 117
-    REF             desplazar e ir al estado 123
-    LITERAL_ENTERO  desplazar e ir al estado 124
-    LITERAL_REAL    desplazar e ir al estado 125
-    PUNTO           desplazar e ir al estado 127
-    INICIO_ARRAY    desplazar e ir al estado 129
+    MULTIPLICACION  shift, and go to state 112
+    DIVISION        shift, and go to state 113
+    DIV             shift, and go to state 114
+    MOD             shift, and go to state 115
+    Y               shift, and go to state 116
+    O               shift, and go to state 117
+    REF             shift, and go to state 123
+    LITERAL_ENTERO  shift, and go to state 124
+    LITERAL_REAL    shift, and go to state 125
+    PUNTO           shift, and go to state 127
+    INICIO_ARRAY    shift, and go to state 129
 
-    Y               [reduce usando la regla 72 (exp)]
-    O               [reduce usando la regla 72 (exp)]
-    LITERAL_ENTERO  [reduce usando la regla 72 (exp)]
-    LITERAL_REAL    [reduce usando la regla 72 (exp)]
-    $default        reduce usando la regla 72 (exp)
+    Y               [reduce using rule 72 (exp)]
+    O               [reduce using rule 72 (exp)]
+    LITERAL_ENTERO  [reduce using rule 72 (exp)]
+    LITERAL_REAL    [reduce using rule 72 (exp)]
+    $default        reduce using rule 72 (exp)
 
 
-Estado 163
+State 163
 
    53 exp: exp • Y exp
    54    | exp • O exp
@@ -2468,22 +2468,22 @@ Estado 163
    75    | exp • MOD exp
    76    | exp • DIV exp
 
-    Y               desplazar e ir al estado 116
-    O               desplazar e ir al estado 117
-    REF             desplazar e ir al estado 123
-    LITERAL_ENTERO  desplazar e ir al estado 124
-    LITERAL_REAL    desplazar e ir al estado 125
-    PUNTO           desplazar e ir al estado 127
-    INICIO_ARRAY    desplazar e ir al estado 129
+    Y               shift, and go to state 116
+    O               shift, and go to state 117
+    REF             shift, and go to state 123
+    LITERAL_ENTERO  shift, and go to state 124
+    LITERAL_REAL    shift, and go to state 125
+    PUNTO           shift, and go to state 127
+    INICIO_ARRAY    shift, and go to state 129
 
-    Y               [reduce usando la regla 73 (exp)]
-    O               [reduce usando la regla 73 (exp)]
-    LITERAL_ENTERO  [reduce usando la regla 73 (exp)]
-    LITERAL_REAL    [reduce usando la regla 73 (exp)]
-    $default        reduce usando la regla 73 (exp)
+    Y               [reduce using rule 73 (exp)]
+    O               [reduce using rule 73 (exp)]
+    LITERAL_ENTERO  [reduce using rule 73 (exp)]
+    LITERAL_REAL    [reduce using rule 73 (exp)]
+    $default        reduce using rule 73 (exp)
 
 
-Estado 164
+State 164
 
    53 exp: exp • Y exp
    54    | exp • O exp
@@ -2506,22 +2506,22 @@ Estado 164
    75    | exp • MOD exp
    76    | exp • DIV exp
 
-    Y               desplazar e ir al estado 116
-    O               desplazar e ir al estado 117
-    REF             desplazar e ir al estado 123
-    LITERAL_ENTERO  desplazar e ir al estado 124
-    LITERAL_REAL    desplazar e ir al estado 125
-    PUNTO           desplazar e ir al estado 127
-    INICIO_ARRAY    desplazar e ir al estado 129
+    Y               shift, and go to state 116
+    O               shift, and go to state 117
+    REF             shift, and go to state 123
+    LITERAL_ENTERO  shift, and go to state 124
+    LITERAL_REAL    shift, and go to state 125
+    PUNTO           shift, and go to state 127
+    INICIO_ARRAY    shift, and go to state 129
 
-    Y               [reduce usando la regla 74 (exp)]
-    O               [reduce usando la regla 74 (exp)]
-    LITERAL_ENTERO  [reduce usando la regla 74 (exp)]
-    LITERAL_REAL    [reduce usando la regla 74 (exp)]
-    $default        reduce usando la regla 74 (exp)
+    Y               [reduce using rule 74 (exp)]
+    O               [reduce using rule 74 (exp)]
+    LITERAL_ENTERO  [reduce using rule 74 (exp)]
+    LITERAL_REAL    [reduce using rule 74 (exp)]
+    $default        reduce using rule 74 (exp)
 
 
-Estado 165
+State 165
 
    53 exp: exp • Y exp
    54    | exp • O exp
@@ -2544,22 +2544,22 @@ Estado 165
    76    | exp • DIV exp
    76    | exp DIV exp •
 
-    Y               desplazar e ir al estado 116
-    O               desplazar e ir al estado 117
-    REF             desplazar e ir al estado 123
-    LITERAL_ENTERO  desplazar e ir al estado 124
-    LITERAL_REAL    desplazar e ir al estado 125
-    PUNTO           desplazar e ir al estado 127
-    INICIO_ARRAY    desplazar e ir al estado 129
+    Y               shift, and go to state 116
+    O               shift, and go to state 117
+    REF             shift, and go to state 123
+    LITERAL_ENTERO  shift, and go to state 124
+    LITERAL_REAL    shift, and go to state 125
+    PUNTO           shift, and go to state 127
+    INICIO_ARRAY    shift, and go to state 129
 
-    Y               [reduce usando la regla 76 (exp)]
-    O               [reduce usando la regla 76 (exp)]
-    LITERAL_ENTERO  [reduce usando la regla 76 (exp)]
-    LITERAL_REAL    [reduce usando la regla 76 (exp)]
-    $default        reduce usando la regla 76 (exp)
+    Y               [reduce using rule 76 (exp)]
+    O               [reduce using rule 76 (exp)]
+    LITERAL_ENTERO  [reduce using rule 76 (exp)]
+    LITERAL_REAL    [reduce using rule 76 (exp)]
+    $default        reduce using rule 76 (exp)
 
 
-Estado 166
+State 166
 
    53 exp: exp • Y exp
    54    | exp • O exp
@@ -2582,22 +2582,22 @@ Estado 166
    75    | exp MOD exp •
    76    | exp • DIV exp
 
-    Y               desplazar e ir al estado 116
-    O               desplazar e ir al estado 117
-    REF             desplazar e ir al estado 123
-    LITERAL_ENTERO  desplazar e ir al estado 124
-    LITERAL_REAL    desplazar e ir al estado 125
-    PUNTO           desplazar e ir al estado 127
-    INICIO_ARRAY    desplazar e ir al estado 129
+    Y               shift, and go to state 116
+    O               shift, and go to state 117
+    REF             shift, and go to state 123
+    LITERAL_ENTERO  shift, and go to state 124
+    LITERAL_REAL    shift, and go to state 125
+    PUNTO           shift, and go to state 127
+    INICIO_ARRAY    shift, and go to state 129
 
-    Y               [reduce usando la regla 75 (exp)]
-    O               [reduce usando la regla 75 (exp)]
-    LITERAL_ENTERO  [reduce usando la regla 75 (exp)]
-    LITERAL_REAL    [reduce usando la regla 75 (exp)]
-    $default        reduce usando la regla 75 (exp)
+    Y               [reduce using rule 75 (exp)]
+    O               [reduce using rule 75 (exp)]
+    LITERAL_ENTERO  [reduce using rule 75 (exp)]
+    LITERAL_REAL    [reduce using rule 75 (exp)]
+    $default        reduce using rule 75 (exp)
 
 
-Estado 167
+State 167
 
    53 exp: exp • Y exp
    53    | exp Y exp •
@@ -2620,49 +2620,49 @@ Estado 167
    75    | exp • MOD exp
    76    | exp • DIV exp
 
-    SUMA            desplazar e ir al estado 110
-    RESTA           desplazar e ir al estado 111
-    MULTIPLICACION  desplazar e ir al estado 112
-    DIVISION        desplazar e ir al estado 113
-    DIV             desplazar e ir al estado 114
-    MOD             desplazar e ir al estado 115
-    Y               desplazar e ir al estado 116
-    O               desplazar e ir al estado 117
-    MAYOR_IGUAL     desplazar e ir al estado 118
-    MENOR_IGUAL     desplazar e ir al estado 119
-    DISTINTO        desplazar e ir al estado 120
-    MAYOR           desplazar e ir al estado 121
-    MENOR           desplazar e ir al estado 122
-    REF             desplazar e ir al estado 123
-    LITERAL_ENTERO  desplazar e ir al estado 124
-    LITERAL_REAL    desplazar e ir al estado 125
-    PUNTO           desplazar e ir al estado 127
-    CREACION_TIPO   desplazar e ir al estado 128
-    INICIO_ARRAY    desplazar e ir al estado 129
+    SUMA            shift, and go to state 110
+    RESTA           shift, and go to state 111
+    MULTIPLICACION  shift, and go to state 112
+    DIVISION        shift, and go to state 113
+    DIV             shift, and go to state 114
+    MOD             shift, and go to state 115
+    Y               shift, and go to state 116
+    O               shift, and go to state 117
+    MAYOR_IGUAL     shift, and go to state 118
+    MENOR_IGUAL     shift, and go to state 119
+    DISTINTO        shift, and go to state 120
+    MAYOR           shift, and go to state 121
+    MENOR           shift, and go to state 122
+    REF             shift, and go to state 123
+    LITERAL_ENTERO  shift, and go to state 124
+    LITERAL_REAL    shift, and go to state 125
+    PUNTO           shift, and go to state 127
+    CREACION_TIPO   shift, and go to state 128
+    INICIO_ARRAY    shift, and go to state 129
 
-    SUMA            [reduce usando la regla 53 (exp)]
-    RESTA           [reduce usando la regla 53 (exp)]
-    MULTIPLICACION  [reduce usando la regla 53 (exp)]
-    DIVISION        [reduce usando la regla 53 (exp)]
-    DIV             [reduce usando la regla 53 (exp)]
-    MOD             [reduce usando la regla 53 (exp)]
-    Y               [reduce usando la regla 53 (exp)]
-    O               [reduce usando la regla 53 (exp)]
-    MAYOR_IGUAL     [reduce usando la regla 53 (exp)]
-    MENOR_IGUAL     [reduce usando la regla 53 (exp)]
-    DISTINTO        [reduce usando la regla 53 (exp)]
-    MAYOR           [reduce usando la regla 53 (exp)]
-    MENOR           [reduce usando la regla 53 (exp)]
-    REF             [reduce usando la regla 53 (exp)]
-    LITERAL_ENTERO  [reduce usando la regla 53 (exp)]
-    LITERAL_REAL    [reduce usando la regla 53 (exp)]
-    PUNTO           [reduce usando la regla 53 (exp)]
-    CREACION_TIPO   [reduce usando la regla 53 (exp)]
-    INICIO_ARRAY    [reduce usando la regla 53 (exp)]
-    $default        reduce usando la regla 53 (exp)
+    SUMA            [reduce using rule 53 (exp)]
+    RESTA           [reduce using rule 53 (exp)]
+    MULTIPLICACION  [reduce using rule 53 (exp)]
+    DIVISION        [reduce using rule 53 (exp)]
+    DIV             [reduce using rule 53 (exp)]
+    MOD             [reduce using rule 53 (exp)]
+    Y               [reduce using rule 53 (exp)]
+    O               [reduce using rule 53 (exp)]
+    MAYOR_IGUAL     [reduce using rule 53 (exp)]
+    MENOR_IGUAL     [reduce using rule 53 (exp)]
+    DISTINTO        [reduce using rule 53 (exp)]
+    MAYOR           [reduce using rule 53 (exp)]
+    MENOR           [reduce using rule 53 (exp)]
+    REF             [reduce using rule 53 (exp)]
+    LITERAL_ENTERO  [reduce using rule 53 (exp)]
+    LITERAL_REAL    [reduce using rule 53 (exp)]
+    PUNTO           [reduce using rule 53 (exp)]
+    CREACION_TIPO   [reduce using rule 53 (exp)]
+    INICIO_ARRAY    [reduce using rule 53 (exp)]
+    $default        reduce using rule 53 (exp)
 
 
-Estado 168
+State 168
 
    53 exp: exp • Y exp
    54    | exp • O exp
@@ -2685,49 +2685,49 @@ Estado 168
    75    | exp • MOD exp
    76    | exp • DIV exp
 
-    SUMA            desplazar e ir al estado 110
-    RESTA           desplazar e ir al estado 111
-    MULTIPLICACION  desplazar e ir al estado 112
-    DIVISION        desplazar e ir al estado 113
-    DIV             desplazar e ir al estado 114
-    MOD             desplazar e ir al estado 115
-    Y               desplazar e ir al estado 116
-    O               desplazar e ir al estado 117
-    MAYOR_IGUAL     desplazar e ir al estado 118
-    MENOR_IGUAL     desplazar e ir al estado 119
-    DISTINTO        desplazar e ir al estado 120
-    MAYOR           desplazar e ir al estado 121
-    MENOR           desplazar e ir al estado 122
-    REF             desplazar e ir al estado 123
-    LITERAL_ENTERO  desplazar e ir al estado 124
-    LITERAL_REAL    desplazar e ir al estado 125
-    PUNTO           desplazar e ir al estado 127
-    CREACION_TIPO   desplazar e ir al estado 128
-    INICIO_ARRAY    desplazar e ir al estado 129
+    SUMA            shift, and go to state 110
+    RESTA           shift, and go to state 111
+    MULTIPLICACION  shift, and go to state 112
+    DIVISION        shift, and go to state 113
+    DIV             shift, and go to state 114
+    MOD             shift, and go to state 115
+    Y               shift, and go to state 116
+    O               shift, and go to state 117
+    MAYOR_IGUAL     shift, and go to state 118
+    MENOR_IGUAL     shift, and go to state 119
+    DISTINTO        shift, and go to state 120
+    MAYOR           shift, and go to state 121
+    MENOR           shift, and go to state 122
+    REF             shift, and go to state 123
+    LITERAL_ENTERO  shift, and go to state 124
+    LITERAL_REAL    shift, and go to state 125
+    PUNTO           shift, and go to state 127
+    CREACION_TIPO   shift, and go to state 128
+    INICIO_ARRAY    shift, and go to state 129
 
-    SUMA            [reduce usando la regla 54 (exp)]
-    RESTA           [reduce usando la regla 54 (exp)]
-    MULTIPLICACION  [reduce usando la regla 54 (exp)]
-    DIVISION        [reduce usando la regla 54 (exp)]
-    DIV             [reduce usando la regla 54 (exp)]
-    MOD             [reduce usando la regla 54 (exp)]
-    Y               [reduce usando la regla 54 (exp)]
-    O               [reduce usando la regla 54 (exp)]
-    MAYOR_IGUAL     [reduce usando la regla 54 (exp)]
-    MENOR_IGUAL     [reduce usando la regla 54 (exp)]
-    DISTINTO        [reduce usando la regla 54 (exp)]
-    MAYOR           [reduce usando la regla 54 (exp)]
-    MENOR           [reduce usando la regla 54 (exp)]
-    REF             [reduce usando la regla 54 (exp)]
-    LITERAL_ENTERO  [reduce usando la regla 54 (exp)]
-    LITERAL_REAL    [reduce usando la regla 54 (exp)]
-    PUNTO           [reduce usando la regla 54 (exp)]
-    CREACION_TIPO   [reduce usando la regla 54 (exp)]
-    INICIO_ARRAY    [reduce usando la regla 54 (exp)]
-    $default        reduce usando la regla 54 (exp)
+    SUMA            [reduce using rule 54 (exp)]
+    RESTA           [reduce using rule 54 (exp)]
+    MULTIPLICACION  [reduce using rule 54 (exp)]
+    DIVISION        [reduce using rule 54 (exp)]
+    DIV             [reduce using rule 54 (exp)]
+    MOD             [reduce using rule 54 (exp)]
+    Y               [reduce using rule 54 (exp)]
+    O               [reduce using rule 54 (exp)]
+    MAYOR_IGUAL     [reduce using rule 54 (exp)]
+    MENOR_IGUAL     [reduce using rule 54 (exp)]
+    DISTINTO        [reduce using rule 54 (exp)]
+    MAYOR           [reduce using rule 54 (exp)]
+    MENOR           [reduce using rule 54 (exp)]
+    REF             [reduce using rule 54 (exp)]
+    LITERAL_ENTERO  [reduce using rule 54 (exp)]
+    LITERAL_REAL    [reduce using rule 54 (exp)]
+    PUNTO           [reduce using rule 54 (exp)]
+    CREACION_TIPO   [reduce using rule 54 (exp)]
+    INICIO_ARRAY    [reduce using rule 54 (exp)]
+    $default        reduce using rule 54 (exp)
 
 
-Estado 169
+State 169
 
    53 exp: exp • Y exp
    54    | exp • O exp
@@ -2750,34 +2750,34 @@ Estado 169
    75    | exp • MOD exp
    76    | exp • DIV exp
 
-    SUMA            desplazar e ir al estado 110
-    RESTA           desplazar e ir al estado 111
-    MULTIPLICACION  desplazar e ir al estado 112
-    DIVISION        desplazar e ir al estado 113
-    DIV             desplazar e ir al estado 114
-    MOD             desplazar e ir al estado 115
-    Y               desplazar e ir al estado 116
-    O               desplazar e ir al estado 117
-    REF             desplazar e ir al estado 123
-    LITERAL_ENTERO  desplazar e ir al estado 124
-    LITERAL_REAL    desplazar e ir al estado 125
-    PUNTO           desplazar e ir al estado 127
-    INICIO_ARRAY    desplazar e ir al estado 129
+    SUMA            shift, and go to state 110
+    RESTA           shift, and go to state 111
+    MULTIPLICACION  shift, and go to state 112
+    DIVISION        shift, and go to state 113
+    DIV             shift, and go to state 114
+    MOD             shift, and go to state 115
+    Y               shift, and go to state 116
+    O               shift, and go to state 117
+    REF             shift, and go to state 123
+    LITERAL_ENTERO  shift, and go to state 124
+    LITERAL_REAL    shift, and go to state 125
+    PUNTO           shift, and go to state 127
+    INICIO_ARRAY    shift, and go to state 129
 
-    MAYOR_IGUAL  error (no asociativo)
-    MENOR_IGUAL  error (no asociativo)
-    DISTINTO     error (no asociativo)
-    MAYOR        error (no asociativo)
-    MENOR        error (no asociativo)
+    MAYOR_IGUAL  error (nonassociative)
+    MENOR_IGUAL  error (nonassociative)
+    DISTINTO     error (nonassociative)
+    MAYOR        error (nonassociative)
+    MENOR        error (nonassociative)
 
-    Y               [reduce usando la regla 66 (exp)]
-    O               [reduce usando la regla 66 (exp)]
-    LITERAL_ENTERO  [reduce usando la regla 66 (exp)]
-    LITERAL_REAL    [reduce usando la regla 66 (exp)]
-    $default        reduce usando la regla 66 (exp)
+    Y               [reduce using rule 66 (exp)]
+    O               [reduce using rule 66 (exp)]
+    LITERAL_ENTERO  [reduce using rule 66 (exp)]
+    LITERAL_REAL    [reduce using rule 66 (exp)]
+    $default        reduce using rule 66 (exp)
 
 
-Estado 170
+State 170
 
    53 exp: exp • Y exp
    54    | exp • O exp
@@ -2800,34 +2800,34 @@ Estado 170
    75    | exp • MOD exp
    76    | exp • DIV exp
 
-    SUMA            desplazar e ir al estado 110
-    RESTA           desplazar e ir al estado 111
-    MULTIPLICACION  desplazar e ir al estado 112
-    DIVISION        desplazar e ir al estado 113
-    DIV             desplazar e ir al estado 114
-    MOD             desplazar e ir al estado 115
-    Y               desplazar e ir al estado 116
-    O               desplazar e ir al estado 117
-    REF             desplazar e ir al estado 123
-    LITERAL_ENTERO  desplazar e ir al estado 124
-    LITERAL_REAL    desplazar e ir al estado 125
-    PUNTO           desplazar e ir al estado 127
-    INICIO_ARRAY    desplazar e ir al estado 129
+    SUMA            shift, and go to state 110
+    RESTA           shift, and go to state 111
+    MULTIPLICACION  shift, and go to state 112
+    DIVISION        shift, and go to state 113
+    DIV             shift, and go to state 114
+    MOD             shift, and go to state 115
+    Y               shift, and go to state 116
+    O               shift, and go to state 117
+    REF             shift, and go to state 123
+    LITERAL_ENTERO  shift, and go to state 124
+    LITERAL_REAL    shift, and go to state 125
+    PUNTO           shift, and go to state 127
+    INICIO_ARRAY    shift, and go to state 129
 
-    MAYOR_IGUAL  error (no asociativo)
-    MENOR_IGUAL  error (no asociativo)
-    DISTINTO     error (no asociativo)
-    MAYOR        error (no asociativo)
-    MENOR        error (no asociativo)
+    MAYOR_IGUAL  error (nonassociative)
+    MENOR_IGUAL  error (nonassociative)
+    DISTINTO     error (nonassociative)
+    MAYOR        error (nonassociative)
+    MENOR        error (nonassociative)
 
-    Y               [reduce usando la regla 67 (exp)]
-    O               [reduce usando la regla 67 (exp)]
-    LITERAL_ENTERO  [reduce usando la regla 67 (exp)]
-    LITERAL_REAL    [reduce usando la regla 67 (exp)]
-    $default        reduce usando la regla 67 (exp)
+    Y               [reduce using rule 67 (exp)]
+    O               [reduce using rule 67 (exp)]
+    LITERAL_ENTERO  [reduce using rule 67 (exp)]
+    LITERAL_REAL    [reduce using rule 67 (exp)]
+    $default        reduce using rule 67 (exp)
 
 
-Estado 171
+State 171
 
    53 exp: exp • Y exp
    54    | exp • O exp
@@ -2850,34 +2850,34 @@ Estado 171
    75    | exp • MOD exp
    76    | exp • DIV exp
 
-    SUMA            desplazar e ir al estado 110
-    RESTA           desplazar e ir al estado 111
-    MULTIPLICACION  desplazar e ir al estado 112
-    DIVISION        desplazar e ir al estado 113
-    DIV             desplazar e ir al estado 114
-    MOD             desplazar e ir al estado 115
-    Y               desplazar e ir al estado 116
-    O               desplazar e ir al estado 117
-    REF             desplazar e ir al estado 123
-    LITERAL_ENTERO  desplazar e ir al estado 124
-    LITERAL_REAL    desplazar e ir al estado 125
-    PUNTO           desplazar e ir al estado 127
-    INICIO_ARRAY    desplazar e ir al estado 129
+    SUMA            shift, and go to state 110
+    RESTA           shift, and go to state 111
+    MULTIPLICACION  shift, and go to state 112
+    DIVISION        shift, and go to state 113
+    DIV             shift, and go to state 114
+    MOD             shift, and go to state 115
+    Y               shift, and go to state 116
+    O               shift, and go to state 117
+    REF             shift, and go to state 123
+    LITERAL_ENTERO  shift, and go to state 124
+    LITERAL_REAL    shift, and go to state 125
+    PUNTO           shift, and go to state 127
+    INICIO_ARRAY    shift, and go to state 129
 
-    MAYOR_IGUAL  error (no asociativo)
-    MENOR_IGUAL  error (no asociativo)
-    DISTINTO     error (no asociativo)
-    MAYOR        error (no asociativo)
-    MENOR        error (no asociativo)
+    MAYOR_IGUAL  error (nonassociative)
+    MENOR_IGUAL  error (nonassociative)
+    DISTINTO     error (nonassociative)
+    MAYOR        error (nonassociative)
+    MENOR        error (nonassociative)
 
-    Y               [reduce usando la regla 65 (exp)]
-    O               [reduce usando la regla 65 (exp)]
-    LITERAL_ENTERO  [reduce usando la regla 65 (exp)]
-    LITERAL_REAL    [reduce usando la regla 65 (exp)]
-    $default        reduce usando la regla 65 (exp)
+    Y               [reduce using rule 65 (exp)]
+    O               [reduce using rule 65 (exp)]
+    LITERAL_ENTERO  [reduce using rule 65 (exp)]
+    LITERAL_REAL    [reduce using rule 65 (exp)]
+    $default        reduce using rule 65 (exp)
 
 
-Estado 172
+State 172
 
    53 exp: exp • Y exp
    54    | exp • O exp
@@ -2900,34 +2900,34 @@ Estado 172
    75    | exp • MOD exp
    76    | exp • DIV exp
 
-    SUMA            desplazar e ir al estado 110
-    RESTA           desplazar e ir al estado 111
-    MULTIPLICACION  desplazar e ir al estado 112
-    DIVISION        desplazar e ir al estado 113
-    DIV             desplazar e ir al estado 114
-    MOD             desplazar e ir al estado 115
-    Y               desplazar e ir al estado 116
-    O               desplazar e ir al estado 117
-    REF             desplazar e ir al estado 123
-    LITERAL_ENTERO  desplazar e ir al estado 124
-    LITERAL_REAL    desplazar e ir al estado 125
-    PUNTO           desplazar e ir al estado 127
-    INICIO_ARRAY    desplazar e ir al estado 129
+    SUMA            shift, and go to state 110
+    RESTA           shift, and go to state 111
+    MULTIPLICACION  shift, and go to state 112
+    DIVISION        shift, and go to state 113
+    DIV             shift, and go to state 114
+    MOD             shift, and go to state 115
+    Y               shift, and go to state 116
+    O               shift, and go to state 117
+    REF             shift, and go to state 123
+    LITERAL_ENTERO  shift, and go to state 124
+    LITERAL_REAL    shift, and go to state 125
+    PUNTO           shift, and go to state 127
+    INICIO_ARRAY    shift, and go to state 129
 
-    MAYOR_IGUAL  error (no asociativo)
-    MENOR_IGUAL  error (no asociativo)
-    DISTINTO     error (no asociativo)
-    MAYOR        error (no asociativo)
-    MENOR        error (no asociativo)
+    MAYOR_IGUAL  error (nonassociative)
+    MENOR_IGUAL  error (nonassociative)
+    DISTINTO     error (nonassociative)
+    MAYOR        error (nonassociative)
+    MENOR        error (nonassociative)
 
-    Y               [reduce usando la regla 63 (exp)]
-    O               [reduce usando la regla 63 (exp)]
-    LITERAL_ENTERO  [reduce usando la regla 63 (exp)]
-    LITERAL_REAL    [reduce usando la regla 63 (exp)]
-    $default        reduce usando la regla 63 (exp)
+    Y               [reduce using rule 63 (exp)]
+    O               [reduce using rule 63 (exp)]
+    LITERAL_ENTERO  [reduce using rule 63 (exp)]
+    LITERAL_REAL    [reduce using rule 63 (exp)]
+    $default        reduce using rule 63 (exp)
 
 
-Estado 173
+State 173
 
    53 exp: exp • Y exp
    54    | exp • O exp
@@ -2950,34 +2950,34 @@ Estado 173
    75    | exp • MOD exp
    76    | exp • DIV exp
 
-    SUMA            desplazar e ir al estado 110
-    RESTA           desplazar e ir al estado 111
-    MULTIPLICACION  desplazar e ir al estado 112
-    DIVISION        desplazar e ir al estado 113
-    DIV             desplazar e ir al estado 114
-    MOD             desplazar e ir al estado 115
-    Y               desplazar e ir al estado 116
-    O               desplazar e ir al estado 117
-    REF             desplazar e ir al estado 123
-    LITERAL_ENTERO  desplazar e ir al estado 124
-    LITERAL_REAL    desplazar e ir al estado 125
-    PUNTO           desplazar e ir al estado 127
-    INICIO_ARRAY    desplazar e ir al estado 129
+    SUMA            shift, and go to state 110
+    RESTA           shift, and go to state 111
+    MULTIPLICACION  shift, and go to state 112
+    DIVISION        shift, and go to state 113
+    DIV             shift, and go to state 114
+    MOD             shift, and go to state 115
+    Y               shift, and go to state 116
+    O               shift, and go to state 117
+    REF             shift, and go to state 123
+    LITERAL_ENTERO  shift, and go to state 124
+    LITERAL_REAL    shift, and go to state 125
+    PUNTO           shift, and go to state 127
+    INICIO_ARRAY    shift, and go to state 129
 
-    MAYOR_IGUAL  error (no asociativo)
-    MENOR_IGUAL  error (no asociativo)
-    DISTINTO     error (no asociativo)
-    MAYOR        error (no asociativo)
-    MENOR        error (no asociativo)
+    MAYOR_IGUAL  error (nonassociative)
+    MENOR_IGUAL  error (nonassociative)
+    DISTINTO     error (nonassociative)
+    MAYOR        error (nonassociative)
+    MENOR        error (nonassociative)
 
-    Y               [reduce usando la regla 62 (exp)]
-    O               [reduce usando la regla 62 (exp)]
-    LITERAL_ENTERO  [reduce usando la regla 62 (exp)]
-    LITERAL_REAL    [reduce usando la regla 62 (exp)]
-    $default        reduce usando la regla 62 (exp)
+    Y               [reduce using rule 62 (exp)]
+    O               [reduce using rule 62 (exp)]
+    LITERAL_ENTERO  [reduce using rule 62 (exp)]
+    LITERAL_REAL    [reduce using rule 62 (exp)]
+    $default        reduce using rule 62 (exp)
 
 
-Estado 174
+State 174
 
    53 exp: exp • Y exp
    54    | exp • O exp
@@ -3000,30 +3000,30 @@ Estado 174
    76    | exp • DIV exp
    87 asignacion: exp ASIGNACION exp •
 
-    SUMA            desplazar e ir al estado 110
-    RESTA           desplazar e ir al estado 111
-    MULTIPLICACION  desplazar e ir al estado 112
-    DIVISION        desplazar e ir al estado 113
-    DIV             desplazar e ir al estado 114
-    MOD             desplazar e ir al estado 115
-    Y               desplazar e ir al estado 116
-    O               desplazar e ir al estado 117
-    MAYOR_IGUAL     desplazar e ir al estado 118
-    MENOR_IGUAL     desplazar e ir al estado 119
-    DISTINTO        desplazar e ir al estado 120
-    MAYOR           desplazar e ir al estado 121
-    MENOR           desplazar e ir al estado 122
-    REF             desplazar e ir al estado 123
-    LITERAL_ENTERO  desplazar e ir al estado 124
-    LITERAL_REAL    desplazar e ir al estado 125
-    PUNTO           desplazar e ir al estado 127
-    CREACION_TIPO   desplazar e ir al estado 128
-    INICIO_ARRAY    desplazar e ir al estado 129
+    SUMA            shift, and go to state 110
+    RESTA           shift, and go to state 111
+    MULTIPLICACION  shift, and go to state 112
+    DIVISION        shift, and go to state 113
+    DIV             shift, and go to state 114
+    MOD             shift, and go to state 115
+    Y               shift, and go to state 116
+    O               shift, and go to state 117
+    MAYOR_IGUAL     shift, and go to state 118
+    MENOR_IGUAL     shift, and go to state 119
+    DISTINTO        shift, and go to state 120
+    MAYOR           shift, and go to state 121
+    MENOR           shift, and go to state 122
+    REF             shift, and go to state 123
+    LITERAL_ENTERO  shift, and go to state 124
+    LITERAL_REAL    shift, and go to state 125
+    PUNTO           shift, and go to state 127
+    CREACION_TIPO   shift, and go to state 128
+    INICIO_ARRAY    shift, and go to state 129
 
-    $default  reduce usando la regla 87 (asignacion)
+    $default  reduce using rule 87 (asignacion)
 
 
-Estado 175
+State 175
 
    53 exp: exp • Y exp
    54    | exp • O exp
@@ -3046,20 +3046,20 @@ Estado 175
    75    | exp • MOD exp
    76    | exp • DIV exp
 
-    Y               desplazar e ir al estado 116
-    O               desplazar e ir al estado 117
-    REF             desplazar e ir al estado 123
-    LITERAL_ENTERO  desplazar e ir al estado 124
-    LITERAL_REAL    desplazar e ir al estado 125
+    Y               shift, and go to state 116
+    O               shift, and go to state 117
+    REF             shift, and go to state 123
+    LITERAL_ENTERO  shift, and go to state 124
+    LITERAL_REAL    shift, and go to state 125
 
-    Y               [reduce usando la regla 57 (exp)]
-    O               [reduce usando la regla 57 (exp)]
-    LITERAL_ENTERO  [reduce usando la regla 57 (exp)]
-    LITERAL_REAL    [reduce usando la regla 57 (exp)]
-    $default        reduce usando la regla 57 (exp)
+    Y               [reduce using rule 57 (exp)]
+    O               [reduce using rule 57 (exp)]
+    LITERAL_ENTERO  [reduce using rule 57 (exp)]
+    LITERAL_REAL    [reduce using rule 57 (exp)]
+    $default        reduce using rule 57 (exp)
 
 
-Estado 176
+State 176
 
    53 exp: exp • Y exp
    54    | exp • O exp
@@ -3082,33 +3082,33 @@ Estado 176
    75    | exp • MOD exp
    76    | exp • DIV exp
 
-    SUMA            desplazar e ir al estado 110
-    RESTA           desplazar e ir al estado 111
-    MULTIPLICACION  desplazar e ir al estado 112
-    DIVISION        desplazar e ir al estado 113
-    DIV             desplazar e ir al estado 114
-    MOD             desplazar e ir al estado 115
-    Y               desplazar e ir al estado 116
-    O               desplazar e ir al estado 117
-    MAYOR_IGUAL     desplazar e ir al estado 118
-    MENOR_IGUAL     desplazar e ir al estado 119
-    DISTINTO        desplazar e ir al estado 120
-    MAYOR           desplazar e ir al estado 121
-    MENOR           desplazar e ir al estado 122
-    REF             desplazar e ir al estado 123
-    LITERAL_ENTERO  desplazar e ir al estado 124
-    LITERAL_REAL    desplazar e ir al estado 125
-    PUNTO           desplazar e ir al estado 127
-    INICIO_ARRAY    desplazar e ir al estado 129
+    SUMA            shift, and go to state 110
+    RESTA           shift, and go to state 111
+    MULTIPLICACION  shift, and go to state 112
+    DIVISION        shift, and go to state 113
+    DIV             shift, and go to state 114
+    MOD             shift, and go to state 115
+    Y               shift, and go to state 116
+    O               shift, and go to state 117
+    MAYOR_IGUAL     shift, and go to state 118
+    MENOR_IGUAL     shift, and go to state 119
+    DISTINTO        shift, and go to state 120
+    MAYOR           shift, and go to state 121
+    MENOR           shift, and go to state 122
+    REF             shift, and go to state 123
+    LITERAL_ENTERO  shift, and go to state 124
+    LITERAL_REAL    shift, and go to state 125
+    PUNTO           shift, and go to state 127
+    INICIO_ARRAY    shift, and go to state 129
 
-    Y               [reduce usando la regla 64 (exp)]
-    O               [reduce usando la regla 64 (exp)]
-    LITERAL_ENTERO  [reduce usando la regla 64 (exp)]
-    LITERAL_REAL    [reduce usando la regla 64 (exp)]
-    $default        reduce usando la regla 64 (exp)
+    Y               [reduce using rule 64 (exp)]
+    O               [reduce using rule 64 (exp)]
+    LITERAL_ENTERO  [reduce using rule 64 (exp)]
+    LITERAL_REAL    [reduce using rule 64 (exp)]
+    $default        reduce using rule 64 (exp)
 
 
-Estado 177
+State 177
 
    53 exp: exp • Y exp
    54    | exp • O exp
@@ -3131,806 +3131,806 @@ Estado 177
    75    | exp • MOD exp
    76    | exp • DIV exp
 
-    SUMA            desplazar e ir al estado 110
-    RESTA           desplazar e ir al estado 111
-    MULTIPLICACION  desplazar e ir al estado 112
-    DIVISION        desplazar e ir al estado 113
-    DIV             desplazar e ir al estado 114
-    MOD             desplazar e ir al estado 115
-    Y               desplazar e ir al estado 116
-    O               desplazar e ir al estado 117
-    MAYOR_IGUAL     desplazar e ir al estado 118
-    MENOR_IGUAL     desplazar e ir al estado 119
-    DISTINTO        desplazar e ir al estado 120
-    MAYOR           desplazar e ir al estado 121
-    MENOR           desplazar e ir al estado 122
-    REF             desplazar e ir al estado 123
-    LITERAL_ENTERO  desplazar e ir al estado 124
-    LITERAL_REAL    desplazar e ir al estado 125
-    PUNTO           desplazar e ir al estado 127
-    CREACION_TIPO   desplazar e ir al estado 128
-    INICIO_ARRAY    desplazar e ir al estado 129
-    FIN_ARRAY       desplazar e ir al estado 205
+    SUMA            shift, and go to state 110
+    RESTA           shift, and go to state 111
+    MULTIPLICACION  shift, and go to state 112
+    DIVISION        shift, and go to state 113
+    DIV             shift, and go to state 114
+    MOD             shift, and go to state 115
+    Y               shift, and go to state 116
+    O               shift, and go to state 117
+    MAYOR_IGUAL     shift, and go to state 118
+    MENOR_IGUAL     shift, and go to state 119
+    DISTINTO        shift, and go to state 120
+    MAYOR           shift, and go to state 121
+    MENOR           shift, and go to state 122
+    REF             shift, and go to state 123
+    LITERAL_ENTERO  shift, and go to state 124
+    LITERAL_REAL    shift, and go to state 125
+    PUNTO           shift, and go to state 127
+    CREACION_TIPO   shift, and go to state 128
+    INICIO_ARRAY    shift, and go to state 129
+    FIN_ARRAY       shift, and go to state 205
 
 
-Estado 178
+State 178
 
    80 instrucciones: instruccion COMPOSICION instrucciones •
 
-    $default  reduce usando la regla 80 (instrucciones)
+    $default  reduce using rule 80 (instrucciones)
 
 
-Estado 179
+State 179
 
    98 f_cabecera: IDENTIFICADOR PARENTESIS_APERTURA lista_d_var • PARENTESIS_CIERRE DEV d_tipo COMPOSICION
 
-    PARENTESIS_CIERRE  desplazar e ir al estado 206
+    PARENTESIS_CIERRE  shift, and go to state 206
 
 
-Estado 180
+State 180
 
    96 funcion_d: FUNCION f_cabecera bloque DEV • expresion FFUNCION
 
-    RESTA                desplazar e ir al estado 39
-    VERDADERO            desplazar e ir al estado 40
-    FALSO                desplazar e ir al estado 41
-    NO                   desplazar e ir al estado 42
-    LITERAL_ENTERO       desplazar e ir al estado 47
-    LITERAL_REAL         desplazar e ir al estado 48
-    IDENTIFICADOR        desplazar e ir al estado 104
-    PARENTESIS_APERTURA  desplazar e ir al estado 50
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 104
+    PARENTESIS_APERTURA  shift, and go to state 50
 
-    expresion   ir al estado 207
-    exp         ir al estado 94
-    funcion_ll  ir al estado 95
+    expresion   go to state 207
+    exp         go to state 94
+    funcion_ll  go to state 95
 
 
-Estado 181
+State 181
 
   103 d_p_form: ES • lista_id DEF_TIPO COMPOSICION d_tipo
 
-    IDENTIFICADOR  desplazar e ir al estado 34
+    IDENTIFICADOR  shift, and go to state 34
 
-    lista_id  ir al estado 208
+    lista_id  go to state 208
 
 
-Estado 182
+State 182
 
   101 d_p_form: ENT • lista_id DEF_TIPO d_tipo
 
-    IDENTIFICADOR  desplazar e ir al estado 34
+    IDENTIFICADOR  shift, and go to state 34
 
-    lista_id  ir al estado 209
+    lista_id  go to state 209
 
 
-Estado 183
+State 183
 
   102 d_p_form: SAL • lista_id DEF_TIPO d_tipo
 
-    IDENTIFICADOR  desplazar e ir al estado 34
+    IDENTIFICADOR  shift, and go to state 34
 
-    lista_id  ir al estado 210
+    lista_id  go to state 210
 
 
-Estado 184
+State 184
 
    97 a_cabecera: IDENTIFICADOR PARENTESIS_APERTURA d_par_form • PARENTESIS_CIERRE COMPOSICION
 
-    PARENTESIS_CIERRE  desplazar e ir al estado 211
+    PARENTESIS_CIERRE  shift, and go to state 211
 
 
-Estado 185
+State 185
 
    99 d_par_form: d_p_form • COMPOSICION d_par_form
 
-    COMPOSICION  desplazar e ir al estado 212
+    COMPOSICION  shift, and go to state 212
 
 
-Estado 186
+State 186
 
    95 accion_d: ACCION a_cabecera bloque FACCION •
 
-    $default  reduce usando la regla 95 (accion_d)
+    $default  reduce using rule 95 (accion_d)
 
 
-Estado 187
+State 187
 
    38 lista_d_cte: IDENTIFICADOR CREACION_TIPO REAL COMPOSICION lista_d_cte •
 
-    $default  reduce usando la regla 38 (lista_d_cte)
+    $default  reduce using rule 38 (lista_d_cte)
 
 
-Estado 188
+State 188
 
    35 lista_d_cte: IDENTIFICADOR CREACION_TIPO ENTERO COMPOSICION lista_d_cte •
 
-    $default  reduce usando la regla 35 (lista_d_cte)
+    $default  reduce using rule 35 (lista_d_cte)
 
 
-Estado 189
+State 189
 
    36 lista_d_cte: IDENTIFICADOR CREACION_TIPO BOOLEANO COMPOSICION lista_d_cte •
 
-    $default  reduce usando la regla 36 (lista_d_cte)
+    $default  reduce using rule 36 (lista_d_cte)
 
 
-Estado 190
+State 190
 
    37 lista_d_cte: IDENTIFICADOR CREACION_TIPO CARACACTER COMPOSICION lista_d_cte •
 
-    $default  reduce usando la regla 37 (lista_d_cte)
+    $default  reduce using rule 37 (lista_d_cte)
 
 
-Estado 191
+State 191
 
    39 lista_d_cte: IDENTIFICADOR CREACION_TIPO CADENA COMPOSICION lista_d_cte •
 
-    $default  reduce usando la regla 39 (lista_d_cte)
+    $default  reduce using rule 39 (lista_d_cte)
 
 
-Estado 192
+State 192
 
    21 d_tipo: TABLA INICIO_ARRAY expresion_t • SUBRANGO expresion_t FIN_ARRAY DE d_tipo
 
-    SUBRANGO  desplazar e ir al estado 213
+    SUBRANGO  shift, and go to state 213
 
 
-Estado 193
+State 193
 
    28 lista_campos: IDENTIFICADOR DEF_TIPO • d_tipo COMPOSICION lista_campos
 
-    REAL                 desplazar e ir al estado 80
-    ENTERO               desplazar e ir al estado 81
-    BOOLEANO             desplazar e ir al estado 82
-    CARACACTER           desplazar e ir al estado 83
-    TABLA                desplazar e ir al estado 84
-    CADENA               desplazar e ir al estado 85
-    TUPLA                desplazar e ir al estado 86
-    RESTA                desplazar e ir al estado 39
-    VERDADERO            desplazar e ir al estado 40
-    FALSO                desplazar e ir al estado 41
-    NO                   desplazar e ir al estado 42
-    REF                  desplazar e ir al estado 87
-    LITERAL_ENTERO       desplazar e ir al estado 47
-    LITERAL_REAL         desplazar e ir al estado 48
-    IDENTIFICADOR        desplazar e ir al estado 88
-    LITERAL_CARACTER     desplazar e ir al estado 89
-    PARENTESIS_APERTURA  desplazar e ir al estado 50
+    REAL                 shift, and go to state 80
+    ENTERO               shift, and go to state 81
+    BOOLEANO             shift, and go to state 82
+    CARACACTER           shift, and go to state 83
+    TABLA                shift, and go to state 84
+    CADENA               shift, and go to state 85
+    TUPLA                shift, and go to state 86
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    REF                  shift, and go to state 87
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 88
+    LITERAL_CARACTER     shift, and go to state 89
+    PARENTESIS_APERTURA  shift, and go to state 50
 
-    d_tipo       ir al estado 214
-    expresion_t  ir al estado 91
-    tipo_base    ir al estado 92
-    expresion    ir al estado 93
-    exp          ir al estado 94
-    funcion_ll   ir al estado 95
+    d_tipo       go to state 214
+    expresion_t  go to state 91
+    tipo_base    go to state 92
+    expresion    go to state 93
+    exp          go to state 94
+    funcion_ll   go to state 95
 
 
-Estado 194
+State 194
 
    20 d_tipo: TUPLA lista_campos FTUPLA •
 
-    $default  reduce usando la regla 20 (d_tipo)
+    $default  reduce using rule 20 (d_tipo)
 
 
-Estado 195
+State 195
 
   105 funcion_ll: IDENTIFICADOR PARENTESIS_APERTURA l_ll • PARENTESIS_CIERRE
 
-    PARENTESIS_CIERRE  desplazar e ir al estado 215
+    PARENTESIS_CIERRE  shift, and go to state 215
 
 
-Estado 196
+State 196
 
    18 lista_d_tipo: IDENTIFICADOR CREACION_TIPO d_tipo COMPOSICION lista_d_tipo •
 
-    $default  reduce usando la regla 18 (lista_d_tipo)
+    $default  reduce using rule 18 (lista_d_tipo)
 
 
-Estado 197
+State 197
 
    23 d_tipo: expresion_t SUBRANGO expresion_t •
 
-    $default  reduce usando la regla 23 (d_tipo)
+    $default  reduce using rule 23 (d_tipo)
 
 
-Estado 198
+State 198
 
    41 lista_d_var: lista_id DEF_TIPO IDENTIFICADOR COMPOSICION • lista_d_var
 
-    IDENTIFICADOR  desplazar e ir al estado 34
+    IDENTIFICADOR  shift, and go to state 34
 
-    $default  reduce usando la regla 43 (lista_d_var)
+    $default  reduce using rule 43 (lista_d_var)
 
-    lista_d_var  ir al estado 216
-    lista_id     ir al estado 36
+    lista_d_var  go to state 216
+    lista_id     go to state 36
 
 
-Estado 199
+State 199
 
    42 lista_d_var: lista_id DEF_TIPO d_tipo COMPOSICION • lista_d_var
 
-    IDENTIFICADOR  desplazar e ir al estado 34
+    IDENTIFICADOR  shift, and go to state 34
 
-    $default  reduce usando la regla 43 (lista_d_var)
+    $default  reduce using rule 43 (lista_d_var)
 
-    lista_d_var  ir al estado 217
-    lista_id     ir al estado 36
+    lista_d_var  go to state 217
+    lista_id     go to state 36
 
 
-Estado 200
+State 200
 
    88 alternativa: SI expresion ENTONCES instrucciones • lista_opciones FSI
 
-    SI_NO_SI  desplazar e ir al estado 218
+    SI_NO_SI  shift, and go to state 218
 
-    $default  reduce usando la regla 90 (lista_opciones)
+    $default  reduce using rule 90 (lista_opciones)
 
-    lista_opciones  ir al estado 219
+    lista_opciones  go to state 219
 
 
-Estado 201
+State 201
 
    93 it_cota_exp: MIENTRAS expresion HACER instrucciones • FMIENTRAS
 
-    FMIENTRAS  desplazar e ir al estado 220
+    FMIENTRAS  shift, and go to state 220
 
 
-Estado 202
+State 202
 
    94 it_cota_fija: PARA IDENTIFICADOR ASIGNACION expresion • HASTA expresion HACER instruccion FPARA
 
-    HASTA  desplazar e ir al estado 221
+    HASTA  shift, and go to state 221
 
 
-Estado 203
+State 203
 
   106 l_ll: expresion SEPARADOR • l_ll
 
-    RESTA                desplazar e ir al estado 39
-    VERDADERO            desplazar e ir al estado 40
-    FALSO                desplazar e ir al estado 41
-    NO                   desplazar e ir al estado 42
-    LITERAL_ENTERO       desplazar e ir al estado 47
-    LITERAL_REAL         desplazar e ir al estado 48
-    IDENTIFICADOR        desplazar e ir al estado 104
-    PARENTESIS_APERTURA  desplazar e ir al estado 50
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 104
+    PARENTESIS_APERTURA  shift, and go to state 50
 
-    expresion   ir al estado 158
-    exp         ir al estado 94
-    funcion_ll  ir al estado 95
-    l_ll        ir al estado 222
+    expresion   go to state 158
+    exp         go to state 94
+    funcion_ll  go to state 95
+    l_ll        go to state 222
 
 
-Estado 204
+State 204
 
   104 accion_ll: IDENTIFICADOR PARENTESIS_APERTURA l_ll PARENTESIS_CIERRE •
 
-    $default  reduce usando la regla 104 (accion_ll)
+    $default  reduce using rule 104 (accion_ll)
 
 
-Estado 205
+State 205
 
    58 exp: exp INICIO_ARRAY exp FIN_ARRAY •
 
-    $default  reduce usando la regla 58 (exp)
+    $default  reduce using rule 58 (exp)
 
 
-Estado 206
+State 206
 
    98 f_cabecera: IDENTIFICADOR PARENTESIS_APERTURA lista_d_var PARENTESIS_CIERRE • DEV d_tipo COMPOSICION
 
-    DEV  desplazar e ir al estado 223
+    DEV  shift, and go to state 223
 
 
-Estado 207
+State 207
 
    96 funcion_d: FUNCION f_cabecera bloque DEV expresion • FFUNCION
 
-    FFUNCION  desplazar e ir al estado 224
+    FFUNCION  shift, and go to state 224
 
 
-Estado 208
+State 208
 
   103 d_p_form: ES lista_id • DEF_TIPO COMPOSICION d_tipo
 
-    DEF_TIPO  desplazar e ir al estado 225
+    DEF_TIPO  shift, and go to state 225
 
 
-Estado 209
+State 209
 
   101 d_p_form: ENT lista_id • DEF_TIPO d_tipo
 
-    DEF_TIPO  desplazar e ir al estado 226
+    DEF_TIPO  shift, and go to state 226
 
 
-Estado 210
+State 210
 
   102 d_p_form: SAL lista_id • DEF_TIPO d_tipo
 
-    DEF_TIPO  desplazar e ir al estado 227
+    DEF_TIPO  shift, and go to state 227
 
 
-Estado 211
+State 211
 
    97 a_cabecera: IDENTIFICADOR PARENTESIS_APERTURA d_par_form PARENTESIS_CIERRE • COMPOSICION
 
-    COMPOSICION  desplazar e ir al estado 228
+    COMPOSICION  shift, and go to state 228
 
 
-Estado 212
+State 212
 
    99 d_par_form: d_p_form COMPOSICION • d_par_form
 
-    ES   desplazar e ir al estado 181
-    ENT  desplazar e ir al estado 182
-    SAL  desplazar e ir al estado 183
+    ES   shift, and go to state 181
+    ENT  shift, and go to state 182
+    SAL  shift, and go to state 183
 
-    $default  reduce usando la regla 100 (d_par_form)
+    $default  reduce using rule 100 (d_par_form)
 
-    d_par_form  ir al estado 229
-    d_p_form    ir al estado 185
+    d_par_form  go to state 229
+    d_p_form    go to state 185
 
 
-Estado 213
+State 213
 
    21 d_tipo: TABLA INICIO_ARRAY expresion_t SUBRANGO • expresion_t FIN_ARRAY DE d_tipo
 
-    RESTA                desplazar e ir al estado 39
-    VERDADERO            desplazar e ir al estado 40
-    FALSO                desplazar e ir al estado 41
-    NO                   desplazar e ir al estado 42
-    LITERAL_ENTERO       desplazar e ir al estado 47
-    LITERAL_REAL         desplazar e ir al estado 48
-    IDENTIFICADOR        desplazar e ir al estado 104
-    LITERAL_CARACTER     desplazar e ir al estado 89
-    PARENTESIS_APERTURA  desplazar e ir al estado 50
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 104
+    LITERAL_CARACTER     shift, and go to state 89
+    PARENTESIS_APERTURA  shift, and go to state 50
 
-    expresion_t  ir al estado 230
-    expresion    ir al estado 93
-    exp          ir al estado 94
-    funcion_ll   ir al estado 95
+    expresion_t  go to state 230
+    expresion    go to state 93
+    exp          go to state 94
+    funcion_ll   go to state 95
 
 
-Estado 214
+State 214
 
    28 lista_campos: IDENTIFICADOR DEF_TIPO d_tipo • COMPOSICION lista_campos
 
-    COMPOSICION  desplazar e ir al estado 231
+    COMPOSICION  shift, and go to state 231
 
 
-Estado 215
+State 215
 
   105 funcion_ll: IDENTIFICADOR PARENTESIS_APERTURA l_ll PARENTESIS_CIERRE •
 
-    $default  reduce usando la regla 105 (funcion_ll)
+    $default  reduce using rule 105 (funcion_ll)
 
 
-Estado 216
+State 216
 
    41 lista_d_var: lista_id DEF_TIPO IDENTIFICADOR COMPOSICION lista_d_var •
 
-    $default  reduce usando la regla 41 (lista_d_var)
+    $default  reduce using rule 41 (lista_d_var)
 
 
-Estado 217
+State 217
 
    42 lista_d_var: lista_id DEF_TIPO d_tipo COMPOSICION lista_d_var •
 
-    $default  reduce usando la regla 42 (lista_d_var)
+    $default  reduce using rule 42 (lista_d_var)
 
 
-Estado 218
+State 218
 
    89 lista_opciones: SI_NO_SI • expresion ENTONCES instrucciones lista_opciones
 
-    RESTA                desplazar e ir al estado 39
-    VERDADERO            desplazar e ir al estado 40
-    FALSO                desplazar e ir al estado 41
-    NO                   desplazar e ir al estado 42
-    LITERAL_ENTERO       desplazar e ir al estado 47
-    LITERAL_REAL         desplazar e ir al estado 48
-    IDENTIFICADOR        desplazar e ir al estado 104
-    PARENTESIS_APERTURA  desplazar e ir al estado 50
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 104
+    PARENTESIS_APERTURA  shift, and go to state 50
 
-    expresion   ir al estado 232
-    exp         ir al estado 94
-    funcion_ll  ir al estado 95
+    expresion   go to state 232
+    exp         go to state 94
+    funcion_ll  go to state 95
 
 
-Estado 219
+State 219
 
    88 alternativa: SI expresion ENTONCES instrucciones lista_opciones • FSI
 
-    FSI  desplazar e ir al estado 233
+    FSI  shift, and go to state 233
 
 
-Estado 220
+State 220
 
    93 it_cota_exp: MIENTRAS expresion HACER instrucciones FMIENTRAS •
 
-    $default  reduce usando la regla 93 (it_cota_exp)
+    $default  reduce using rule 93 (it_cota_exp)
 
 
-Estado 221
+State 221
 
    94 it_cota_fija: PARA IDENTIFICADOR ASIGNACION expresion HASTA • expresion HACER instruccion FPARA
 
-    RESTA                desplazar e ir al estado 39
-    VERDADERO            desplazar e ir al estado 40
-    FALSO                desplazar e ir al estado 41
-    NO                   desplazar e ir al estado 42
-    LITERAL_ENTERO       desplazar e ir al estado 47
-    LITERAL_REAL         desplazar e ir al estado 48
-    IDENTIFICADOR        desplazar e ir al estado 104
-    PARENTESIS_APERTURA  desplazar e ir al estado 50
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 104
+    PARENTESIS_APERTURA  shift, and go to state 50
 
-    expresion   ir al estado 234
-    exp         ir al estado 94
-    funcion_ll  ir al estado 95
+    expresion   go to state 234
+    exp         go to state 94
+    funcion_ll  go to state 95
 
 
-Estado 222
+State 222
 
   106 l_ll: expresion SEPARADOR l_ll •
 
-    $default  reduce usando la regla 106 (l_ll)
+    $default  reduce using rule 106 (l_ll)
 
 
-Estado 223
+State 223
 
    98 f_cabecera: IDENTIFICADOR PARENTESIS_APERTURA lista_d_var PARENTESIS_CIERRE DEV • d_tipo COMPOSICION
 
-    REAL                 desplazar e ir al estado 80
-    ENTERO               desplazar e ir al estado 81
-    BOOLEANO             desplazar e ir al estado 82
-    CARACACTER           desplazar e ir al estado 83
-    TABLA                desplazar e ir al estado 84
-    CADENA               desplazar e ir al estado 85
-    TUPLA                desplazar e ir al estado 86
-    RESTA                desplazar e ir al estado 39
-    VERDADERO            desplazar e ir al estado 40
-    FALSO                desplazar e ir al estado 41
-    NO                   desplazar e ir al estado 42
-    REF                  desplazar e ir al estado 87
-    LITERAL_ENTERO       desplazar e ir al estado 47
-    LITERAL_REAL         desplazar e ir al estado 48
-    IDENTIFICADOR        desplazar e ir al estado 88
-    LITERAL_CARACTER     desplazar e ir al estado 89
-    PARENTESIS_APERTURA  desplazar e ir al estado 50
+    REAL                 shift, and go to state 80
+    ENTERO               shift, and go to state 81
+    BOOLEANO             shift, and go to state 82
+    CARACACTER           shift, and go to state 83
+    TABLA                shift, and go to state 84
+    CADENA               shift, and go to state 85
+    TUPLA                shift, and go to state 86
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    REF                  shift, and go to state 87
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 88
+    LITERAL_CARACTER     shift, and go to state 89
+    PARENTESIS_APERTURA  shift, and go to state 50
 
-    d_tipo       ir al estado 235
-    expresion_t  ir al estado 91
-    tipo_base    ir al estado 92
-    expresion    ir al estado 93
-    exp          ir al estado 94
-    funcion_ll   ir al estado 95
+    d_tipo       go to state 235
+    expresion_t  go to state 91
+    tipo_base    go to state 92
+    expresion    go to state 93
+    exp          go to state 94
+    funcion_ll   go to state 95
 
 
-Estado 224
+State 224
 
    96 funcion_d: FUNCION f_cabecera bloque DEV expresion FFUNCION •
 
-    $default  reduce usando la regla 96 (funcion_d)
+    $default  reduce using rule 96 (funcion_d)
 
 
-Estado 225
+State 225
 
   103 d_p_form: ES lista_id DEF_TIPO • COMPOSICION d_tipo
 
-    COMPOSICION  desplazar e ir al estado 236
+    COMPOSICION  shift, and go to state 236
 
 
-Estado 226
+State 226
 
   101 d_p_form: ENT lista_id DEF_TIPO • d_tipo
 
-    REAL                 desplazar e ir al estado 80
-    ENTERO               desplazar e ir al estado 81
-    BOOLEANO             desplazar e ir al estado 82
-    CARACACTER           desplazar e ir al estado 83
-    TABLA                desplazar e ir al estado 84
-    CADENA               desplazar e ir al estado 85
-    TUPLA                desplazar e ir al estado 86
-    RESTA                desplazar e ir al estado 39
-    VERDADERO            desplazar e ir al estado 40
-    FALSO                desplazar e ir al estado 41
-    NO                   desplazar e ir al estado 42
-    REF                  desplazar e ir al estado 87
-    LITERAL_ENTERO       desplazar e ir al estado 47
-    LITERAL_REAL         desplazar e ir al estado 48
-    IDENTIFICADOR        desplazar e ir al estado 88
-    LITERAL_CARACTER     desplazar e ir al estado 89
-    PARENTESIS_APERTURA  desplazar e ir al estado 50
+    REAL                 shift, and go to state 80
+    ENTERO               shift, and go to state 81
+    BOOLEANO             shift, and go to state 82
+    CARACACTER           shift, and go to state 83
+    TABLA                shift, and go to state 84
+    CADENA               shift, and go to state 85
+    TUPLA                shift, and go to state 86
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    REF                  shift, and go to state 87
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 88
+    LITERAL_CARACTER     shift, and go to state 89
+    PARENTESIS_APERTURA  shift, and go to state 50
 
-    d_tipo       ir al estado 237
-    expresion_t  ir al estado 91
-    tipo_base    ir al estado 92
-    expresion    ir al estado 93
-    exp          ir al estado 94
-    funcion_ll   ir al estado 95
+    d_tipo       go to state 237
+    expresion_t  go to state 91
+    tipo_base    go to state 92
+    expresion    go to state 93
+    exp          go to state 94
+    funcion_ll   go to state 95
 
 
-Estado 227
+State 227
 
   102 d_p_form: SAL lista_id DEF_TIPO • d_tipo
 
-    REAL                 desplazar e ir al estado 80
-    ENTERO               desplazar e ir al estado 81
-    BOOLEANO             desplazar e ir al estado 82
-    CARACACTER           desplazar e ir al estado 83
-    TABLA                desplazar e ir al estado 84
-    CADENA               desplazar e ir al estado 85
-    TUPLA                desplazar e ir al estado 86
-    RESTA                desplazar e ir al estado 39
-    VERDADERO            desplazar e ir al estado 40
-    FALSO                desplazar e ir al estado 41
-    NO                   desplazar e ir al estado 42
-    REF                  desplazar e ir al estado 87
-    LITERAL_ENTERO       desplazar e ir al estado 47
-    LITERAL_REAL         desplazar e ir al estado 48
-    IDENTIFICADOR        desplazar e ir al estado 88
-    LITERAL_CARACTER     desplazar e ir al estado 89
-    PARENTESIS_APERTURA  desplazar e ir al estado 50
+    REAL                 shift, and go to state 80
+    ENTERO               shift, and go to state 81
+    BOOLEANO             shift, and go to state 82
+    CARACACTER           shift, and go to state 83
+    TABLA                shift, and go to state 84
+    CADENA               shift, and go to state 85
+    TUPLA                shift, and go to state 86
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    REF                  shift, and go to state 87
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 88
+    LITERAL_CARACTER     shift, and go to state 89
+    PARENTESIS_APERTURA  shift, and go to state 50
 
-    d_tipo       ir al estado 238
-    expresion_t  ir al estado 91
-    tipo_base    ir al estado 92
-    expresion    ir al estado 93
-    exp          ir al estado 94
-    funcion_ll   ir al estado 95
+    d_tipo       go to state 238
+    expresion_t  go to state 91
+    tipo_base    go to state 92
+    expresion    go to state 93
+    exp          go to state 94
+    funcion_ll   go to state 95
 
 
-Estado 228
+State 228
 
    97 a_cabecera: IDENTIFICADOR PARENTESIS_APERTURA d_par_form PARENTESIS_CIERRE COMPOSICION •
 
-    $default  reduce usando la regla 97 (a_cabecera)
+    $default  reduce using rule 97 (a_cabecera)
 
 
-Estado 229
+State 229
 
    99 d_par_form: d_p_form COMPOSICION d_par_form •
 
-    $default  reduce usando la regla 99 (d_par_form)
+    $default  reduce using rule 99 (d_par_form)
 
 
-Estado 230
+State 230
 
    21 d_tipo: TABLA INICIO_ARRAY expresion_t SUBRANGO expresion_t • FIN_ARRAY DE d_tipo
 
-    FIN_ARRAY  desplazar e ir al estado 239
+    FIN_ARRAY  shift, and go to state 239
 
 
-Estado 231
+State 231
 
    28 lista_campos: IDENTIFICADOR DEF_TIPO d_tipo COMPOSICION • lista_campos
 
-    IDENTIFICADOR  desplazar e ir al estado 145
+    IDENTIFICADOR  shift, and go to state 145
 
-    $default  reduce usando la regla 29 (lista_campos)
+    $default  reduce using rule 29 (lista_campos)
 
-    lista_campos  ir al estado 240
+    lista_campos  go to state 240
 
 
-Estado 232
+State 232
 
    89 lista_opciones: SI_NO_SI expresion • ENTONCES instrucciones lista_opciones
 
-    ENTONCES  desplazar e ir al estado 241
+    ENTONCES  shift, and go to state 241
 
 
-Estado 233
+State 233
 
    88 alternativa: SI expresion ENTONCES instrucciones lista_opciones FSI •
 
-    $default  reduce usando la regla 88 (alternativa)
+    $default  reduce using rule 88 (alternativa)
 
 
-Estado 234
+State 234
 
    94 it_cota_fija: PARA IDENTIFICADOR ASIGNACION expresion HASTA expresion • HACER instruccion FPARA
 
-    HACER  desplazar e ir al estado 242
+    HACER  shift, and go to state 242
 
 
-Estado 235
+State 235
 
    98 f_cabecera: IDENTIFICADOR PARENTESIS_APERTURA lista_d_var PARENTESIS_CIERRE DEV d_tipo • COMPOSICION
 
-    COMPOSICION  desplazar e ir al estado 243
+    COMPOSICION  shift, and go to state 243
 
 
-Estado 236
+State 236
 
   103 d_p_form: ES lista_id DEF_TIPO COMPOSICION • d_tipo
 
-    REAL                 desplazar e ir al estado 80
-    ENTERO               desplazar e ir al estado 81
-    BOOLEANO             desplazar e ir al estado 82
-    CARACACTER           desplazar e ir al estado 83
-    TABLA                desplazar e ir al estado 84
-    CADENA               desplazar e ir al estado 85
-    TUPLA                desplazar e ir al estado 86
-    RESTA                desplazar e ir al estado 39
-    VERDADERO            desplazar e ir al estado 40
-    FALSO                desplazar e ir al estado 41
-    NO                   desplazar e ir al estado 42
-    REF                  desplazar e ir al estado 87
-    LITERAL_ENTERO       desplazar e ir al estado 47
-    LITERAL_REAL         desplazar e ir al estado 48
-    IDENTIFICADOR        desplazar e ir al estado 88
-    LITERAL_CARACTER     desplazar e ir al estado 89
-    PARENTESIS_APERTURA  desplazar e ir al estado 50
+    REAL                 shift, and go to state 80
+    ENTERO               shift, and go to state 81
+    BOOLEANO             shift, and go to state 82
+    CARACACTER           shift, and go to state 83
+    TABLA                shift, and go to state 84
+    CADENA               shift, and go to state 85
+    TUPLA                shift, and go to state 86
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    REF                  shift, and go to state 87
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 88
+    LITERAL_CARACTER     shift, and go to state 89
+    PARENTESIS_APERTURA  shift, and go to state 50
 
-    d_tipo       ir al estado 244
-    expresion_t  ir al estado 91
-    tipo_base    ir al estado 92
-    expresion    ir al estado 93
-    exp          ir al estado 94
-    funcion_ll   ir al estado 95
+    d_tipo       go to state 244
+    expresion_t  go to state 91
+    tipo_base    go to state 92
+    expresion    go to state 93
+    exp          go to state 94
+    funcion_ll   go to state 95
 
 
-Estado 237
+State 237
 
   101 d_p_form: ENT lista_id DEF_TIPO d_tipo •
 
-    $default  reduce usando la regla 101 (d_p_form)
+    $default  reduce using rule 101 (d_p_form)
 
 
-Estado 238
+State 238
 
   102 d_p_form: SAL lista_id DEF_TIPO d_tipo •
 
-    $default  reduce usando la regla 102 (d_p_form)
+    $default  reduce using rule 102 (d_p_form)
 
 
-Estado 239
+State 239
 
    21 d_tipo: TABLA INICIO_ARRAY expresion_t SUBRANGO expresion_t FIN_ARRAY • DE d_tipo
 
-    DE  desplazar e ir al estado 245
+    DE  shift, and go to state 245
 
 
-Estado 240
+State 240
 
    28 lista_campos: IDENTIFICADOR DEF_TIPO d_tipo COMPOSICION lista_campos •
 
-    $default  reduce usando la regla 28 (lista_campos)
+    $default  reduce using rule 28 (lista_campos)
 
 
-Estado 241
+State 241
 
    89 lista_opciones: SI_NO_SI expresion ENTONCES • instrucciones lista_opciones
 
-    RESTA                desplazar e ir al estado 39
-    VERDADERO            desplazar e ir al estado 40
-    FALSO                desplazar e ir al estado 41
-    NO                   desplazar e ir al estado 42
-    SI                   desplazar e ir al estado 43
-    MIENTRAS             desplazar e ir al estado 44
-    PARA                 desplazar e ir al estado 45
-    CONTINUAR            desplazar e ir al estado 46
-    LITERAL_ENTERO       desplazar e ir al estado 47
-    LITERAL_REAL         desplazar e ir al estado 48
-    IDENTIFICADOR        desplazar e ir al estado 49
-    PARENTESIS_APERTURA  desplazar e ir al estado 50
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    SI                   shift, and go to state 43
+    MIENTRAS             shift, and go to state 44
+    PARA                 shift, and go to state 45
+    CONTINUAR            shift, and go to state 46
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 49
+    PARENTESIS_APERTURA  shift, and go to state 50
 
-    exp            ir al estado 51
-    instrucciones  ir al estado 246
-    instruccion    ir al estado 53
-    asignacion     ir al estado 54
-    alternativa    ir al estado 55
-    iteracion      ir al estado 56
-    it_cota_exp    ir al estado 57
-    it_cota_fija   ir al estado 58
-    accion_ll      ir al estado 59
+    exp            go to state 51
+    instrucciones  go to state 246
+    instruccion    go to state 53
+    asignacion     go to state 54
+    alternativa    go to state 55
+    iteracion      go to state 56
+    it_cota_exp    go to state 57
+    it_cota_fija   go to state 58
+    accion_ll      go to state 59
 
 
-Estado 242
+State 242
 
    94 it_cota_fija: PARA IDENTIFICADOR ASIGNACION expresion HASTA expresion HACER • instruccion FPARA
 
-    RESTA                desplazar e ir al estado 39
-    VERDADERO            desplazar e ir al estado 40
-    FALSO                desplazar e ir al estado 41
-    NO                   desplazar e ir al estado 42
-    SI                   desplazar e ir al estado 43
-    MIENTRAS             desplazar e ir al estado 44
-    PARA                 desplazar e ir al estado 45
-    CONTINUAR            desplazar e ir al estado 46
-    LITERAL_ENTERO       desplazar e ir al estado 47
-    LITERAL_REAL         desplazar e ir al estado 48
-    IDENTIFICADOR        desplazar e ir al estado 49
-    PARENTESIS_APERTURA  desplazar e ir al estado 50
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    SI                   shift, and go to state 43
+    MIENTRAS             shift, and go to state 44
+    PARA                 shift, and go to state 45
+    CONTINUAR            shift, and go to state 46
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 49
+    PARENTESIS_APERTURA  shift, and go to state 50
 
-    exp           ir al estado 51
-    instruccion   ir al estado 247
-    asignacion    ir al estado 54
-    alternativa   ir al estado 55
-    iteracion     ir al estado 56
-    it_cota_exp   ir al estado 57
-    it_cota_fija  ir al estado 58
-    accion_ll     ir al estado 59
+    exp           go to state 51
+    instruccion   go to state 247
+    asignacion    go to state 54
+    alternativa   go to state 55
+    iteracion     go to state 56
+    it_cota_exp   go to state 57
+    it_cota_fija  go to state 58
+    accion_ll     go to state 59
 
 
-Estado 243
+State 243
 
    98 f_cabecera: IDENTIFICADOR PARENTESIS_APERTURA lista_d_var PARENTESIS_CIERRE DEV d_tipo COMPOSICION •
 
-    $default  reduce usando la regla 98 (f_cabecera)
+    $default  reduce using rule 98 (f_cabecera)
 
 
-Estado 244
+State 244
 
   103 d_p_form: ES lista_id DEF_TIPO COMPOSICION d_tipo •
 
-    $default  reduce usando la regla 103 (d_p_form)
+    $default  reduce using rule 103 (d_p_form)
 
 
-Estado 245
+State 245
 
    21 d_tipo: TABLA INICIO_ARRAY expresion_t SUBRANGO expresion_t FIN_ARRAY DE • d_tipo
 
-    REAL                 desplazar e ir al estado 80
-    ENTERO               desplazar e ir al estado 81
-    BOOLEANO             desplazar e ir al estado 82
-    CARACACTER           desplazar e ir al estado 83
-    TABLA                desplazar e ir al estado 84
-    CADENA               desplazar e ir al estado 85
-    TUPLA                desplazar e ir al estado 86
-    RESTA                desplazar e ir al estado 39
-    VERDADERO            desplazar e ir al estado 40
-    FALSO                desplazar e ir al estado 41
-    NO                   desplazar e ir al estado 42
-    REF                  desplazar e ir al estado 87
-    LITERAL_ENTERO       desplazar e ir al estado 47
-    LITERAL_REAL         desplazar e ir al estado 48
-    IDENTIFICADOR        desplazar e ir al estado 88
-    LITERAL_CARACTER     desplazar e ir al estado 89
-    PARENTESIS_APERTURA  desplazar e ir al estado 50
+    REAL                 shift, and go to state 80
+    ENTERO               shift, and go to state 81
+    BOOLEANO             shift, and go to state 82
+    CARACACTER           shift, and go to state 83
+    TABLA                shift, and go to state 84
+    CADENA               shift, and go to state 85
+    TUPLA                shift, and go to state 86
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    REF                  shift, and go to state 87
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 88
+    LITERAL_CARACTER     shift, and go to state 89
+    PARENTESIS_APERTURA  shift, and go to state 50
 
-    d_tipo       ir al estado 248
-    expresion_t  ir al estado 91
-    tipo_base    ir al estado 92
-    expresion    ir al estado 93
-    exp          ir al estado 94
-    funcion_ll   ir al estado 95
+    d_tipo       go to state 248
+    expresion_t  go to state 91
+    tipo_base    go to state 92
+    expresion    go to state 93
+    exp          go to state 94
+    funcion_ll   go to state 95
 
 
-Estado 246
+State 246
 
    89 lista_opciones: SI_NO_SI expresion ENTONCES instrucciones • lista_opciones
 
-    SI_NO_SI  desplazar e ir al estado 218
+    SI_NO_SI  shift, and go to state 218
 
-    $default  reduce usando la regla 90 (lista_opciones)
+    $default  reduce using rule 90 (lista_opciones)
 
-    lista_opciones  ir al estado 249
+    lista_opciones  go to state 249
 
 
-Estado 247
+State 247
 
    94 it_cota_fija: PARA IDENTIFICADOR ASIGNACION expresion HASTA expresion HACER instruccion • FPARA
 
-    FPARA  desplazar e ir al estado 250
+    FPARA  shift, and go to state 250
 
 
-Estado 248
+State 248
 
    21 d_tipo: TABLA INICIO_ARRAY expresion_t SUBRANGO expresion_t FIN_ARRAY DE d_tipo •
 
-    $default  reduce usando la regla 21 (d_tipo)
+    $default  reduce using rule 21 (d_tipo)
 
 
-Estado 249
+State 249
 
    89 lista_opciones: SI_NO_SI expresion ENTONCES instrucciones lista_opciones •
 
-    $default  reduce usando la regla 89 (lista_opciones)
+    $default  reduce using rule 89 (lista_opciones)
 
 
-Estado 250
+State 250
 
    94 it_cota_fija: PARA IDENTIFICADOR ASIGNACION expresion HASTA expresion HACER instruccion FPARA •
 
-    $default  reduce usando la regla 94 (it_cota_fija)
+    $default  reduce using rule 94 (it_cota_fija)
