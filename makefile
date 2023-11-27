@@ -4,9 +4,9 @@ compilar: scanner.l
 	@echo "Compilando Flex"
 	flex scanner.l
 	@echo "Compilando Tabla de Simbolos"
-	gcc -c 
+	gcc -c tabla_simbolos.c -o tabla_simbolos.o
 	@echo "Compilando Tabla de Cuadruplas"
-
+	gcc -c tabla_cuadruplas.c -o tabla_cuadruplas.o
 
 	@echo "Compilando GCC"
 	gcc -c lex.yy.c 
