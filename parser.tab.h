@@ -54,12 +54,12 @@ extern int yydebug;
     YYEOF = 0,                     /* "end of file"  */
     YYerror = 256,                 /* error  */
     YYUNDEF = 257,                 /* "invalid token"  */
-    REAL = 258,                    /* REAL  */
-    ENTERO = 259,                  /* ENTERO  */
+    ENTERO = 258,                  /* ENTERO  */
+    REAL = 259,                    /* REAL  */
     BOOLEANO = 260,                /* BOOLEANO  */
     CARACACTER = 261,              /* CARACACTER  */
-    TABLA = 262,                   /* TABLA  */
-    CADENA = 263,                  /* CADENA  */
+    CADENA = 262,                  /* CADENA  */
+    TABLA = 263,                   /* TABLA  */
     CONST = 264,                   /* CONST  */
     FCONST = 265,                  /* FCONST  */
     TIPO = 266,                    /* TIPO  */
@@ -135,7 +135,20 @@ extern int yydebug;
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef int YYSTYPE;
+union YYSTYPE
+{
+#line 15 "parser.y"
+
+        int literal_entero;
+        float literal_real;
+        int literal_booleano;
+        char literal_caracter;
+        char* literal_cadena;
+
+#line 149 "parser.tab.h"
+
+};
+typedef union YYSTYPE YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
 #endif

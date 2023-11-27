@@ -184,12 +184,12 @@ Terminals, with rules where they appear
 
     $end (0) 0
     error (256)
-    REAL (258) 33 38
-    ENTERO (259) 30 35
-    BOOLEANO (260) 31 36
-    CARACACTER (261) 32 37
-    TABLA (262) 21
-    CADENA (263) 34 39
+    ENTERO <literal_entero> (258) 30 35
+    REAL <literal_real> (259) 33 38
+    BOOLEANO <literal_booleano> (260) 31 36
+    CARACACTER <literal_caracter> (261) 32 37
+    CADENA <literal_cadena> (262) 34 39
+    TABLA (263) 21
     CONST (264) 16
     FCONST (265) 16
     TIPO (266) 15
@@ -735,8 +735,8 @@ State 30
    38            | IDENTIFICADOR CREACION_TIPO • REAL COMPOSICION lista_d_cte
    39            | IDENTIFICADOR CREACION_TIPO • CADENA COMPOSICION lista_d_cte
 
-    REAL        shift, and go to state 74
-    ENTERO      shift, and go to state 75
+    ENTERO      shift, and go to state 74
+    REAL        shift, and go to state 75
     BOOLEANO    shift, and go to state 76
     CARACACTER  shift, and go to state 77
     CADENA      shift, and go to state 78
@@ -753,12 +753,12 @@ State 32
 
    18 lista_d_tipo: IDENTIFICADOR CREACION_TIPO • d_tipo COMPOSICION lista_d_tipo
 
-    REAL                 shift, and go to state 80
-    ENTERO               shift, and go to state 81
+    ENTERO               shift, and go to state 80
+    REAL                 shift, and go to state 81
     BOOLEANO             shift, and go to state 82
     CARACACTER           shift, and go to state 83
-    TABLA                shift, and go to state 84
-    CADENA               shift, and go to state 85
+    CADENA               shift, and go to state 84
+    TABLA                shift, and go to state 85
     TUPLA                shift, and go to state 86
     RESTA                shift, and go to state 39
     VERDADERO            shift, and go to state 40
@@ -1200,14 +1200,14 @@ State 73
 
 State 74
 
-   38 lista_d_cte: IDENTIFICADOR CREACION_TIPO REAL • COMPOSICION lista_d_cte
+   35 lista_d_cte: IDENTIFICADOR CREACION_TIPO ENTERO • COMPOSICION lista_d_cte
 
     COMPOSICION  shift, and go to state 139
 
 
 State 75
 
-   35 lista_d_cte: IDENTIFICADOR CREACION_TIPO ENTERO • COMPOSICION lista_d_cte
+   38 lista_d_cte: IDENTIFICADOR CREACION_TIPO REAL • COMPOSICION lista_d_cte
 
     COMPOSICION  shift, and go to state 140
 
@@ -1242,16 +1242,16 @@ State 79
 
 State 80
 
-   33 tipo_base: REAL •
+   30 tipo_base: ENTERO •
 
-    $default  reduce using rule 33 (tipo_base)
+    $default  reduce using rule 30 (tipo_base)
 
 
 State 81
 
-   30 tipo_base: ENTERO •
+   33 tipo_base: REAL •
 
-    $default  reduce using rule 30 (tipo_base)
+    $default  reduce using rule 33 (tipo_base)
 
 
 State 82
@@ -1270,16 +1270,16 @@ State 83
 
 State 84
 
-   21 d_tipo: TABLA • INICIO_ARRAY expresion_t SUBRANGO expresion_t FIN_ARRAY DE d_tipo
+   34 tipo_base: CADENA •
 
-    INICIO_ARRAY  shift, and go to state 144
+    $default  reduce using rule 34 (tipo_base)
 
 
 State 85
 
-   34 tipo_base: CADENA •
+   21 d_tipo: TABLA • INICIO_ARRAY expresion_t SUBRANGO expresion_t FIN_ARRAY DE d_tipo
 
-    $default  reduce using rule 34 (tipo_base)
+    INICIO_ARRAY  shift, and go to state 144
 
 
 State 86
@@ -1297,12 +1297,12 @@ State 87
 
    24 d_tipo: REF • d_tipo
 
-    REAL                 shift, and go to state 80
-    ENTERO               shift, and go to state 81
+    ENTERO               shift, and go to state 80
+    REAL                 shift, and go to state 81
     BOOLEANO             shift, and go to state 82
     CARACACTER           shift, and go to state 83
-    TABLA                shift, and go to state 84
-    CADENA               shift, and go to state 85
+    CADENA               shift, and go to state 84
+    TABLA                shift, and go to state 85
     TUPLA                shift, and go to state 86
     RESTA                shift, and go to state 39
     VERDADERO            shift, and go to state 40
@@ -1451,12 +1451,12 @@ State 99
    41 lista_d_var: lista_id DEF_TIPO • IDENTIFICADOR COMPOSICION lista_d_var
    42            | lista_id DEF_TIPO • d_tipo COMPOSICION lista_d_var
 
-    REAL                 shift, and go to state 80
-    ENTERO               shift, and go to state 81
+    ENTERO               shift, and go to state 80
+    REAL                 shift, and go to state 81
     BOOLEANO             shift, and go to state 82
     CARACACTER           shift, and go to state 83
-    TABLA                shift, and go to state 84
-    CADENA               shift, and go to state 85
+    CADENA               shift, and go to state 84
+    TABLA                shift, and go to state 85
     TUPLA                shift, and go to state 86
     RESTA                shift, and go to state 39
     VERDADERO            shift, and go to state 40
@@ -2084,7 +2084,7 @@ State 138
 
 State 139
 
-   38 lista_d_cte: IDENTIFICADOR CREACION_TIPO REAL COMPOSICION • lista_d_cte
+   35 lista_d_cte: IDENTIFICADOR CREACION_TIPO ENTERO COMPOSICION • lista_d_cte
 
     IDENTIFICADOR  shift, and go to state 12
 
@@ -2095,7 +2095,7 @@ State 139
 
 State 140
 
-   35 lista_d_cte: IDENTIFICADOR CREACION_TIPO ENTERO COMPOSICION • lista_d_cte
+   38 lista_d_cte: IDENTIFICADOR CREACION_TIPO REAL COMPOSICION • lista_d_cte
 
     IDENTIFICADOR  shift, and go to state 12
 
@@ -3235,16 +3235,16 @@ State 186
 
 State 187
 
-   38 lista_d_cte: IDENTIFICADOR CREACION_TIPO REAL COMPOSICION lista_d_cte •
+   35 lista_d_cte: IDENTIFICADOR CREACION_TIPO ENTERO COMPOSICION lista_d_cte •
 
-    $default  reduce using rule 38 (lista_d_cte)
+    $default  reduce using rule 35 (lista_d_cte)
 
 
 State 188
 
-   35 lista_d_cte: IDENTIFICADOR CREACION_TIPO ENTERO COMPOSICION lista_d_cte •
+   38 lista_d_cte: IDENTIFICADOR CREACION_TIPO REAL COMPOSICION lista_d_cte •
 
-    $default  reduce using rule 35 (lista_d_cte)
+    $default  reduce using rule 38 (lista_d_cte)
 
 
 State 189
@@ -3279,12 +3279,12 @@ State 193
 
    28 lista_campos: IDENTIFICADOR DEF_TIPO • d_tipo COMPOSICION lista_campos
 
-    REAL                 shift, and go to state 80
-    ENTERO               shift, and go to state 81
+    ENTERO               shift, and go to state 80
+    REAL                 shift, and go to state 81
     BOOLEANO             shift, and go to state 82
     CARACACTER           shift, and go to state 83
-    TABLA                shift, and go to state 84
-    CADENA               shift, and go to state 85
+    CADENA               shift, and go to state 84
+    TABLA                shift, and go to state 85
     TUPLA                shift, and go to state 86
     RESTA                shift, and go to state 39
     VERDADERO            shift, and go to state 40
@@ -3580,12 +3580,12 @@ State 223
 
    98 f_cabecera: IDENTIFICADOR PARENTESIS_APERTURA lista_d_var PARENTESIS_CIERRE DEV • d_tipo COMPOSICION
 
-    REAL                 shift, and go to state 80
-    ENTERO               shift, and go to state 81
+    ENTERO               shift, and go to state 80
+    REAL                 shift, and go to state 81
     BOOLEANO             shift, and go to state 82
     CARACACTER           shift, and go to state 83
-    TABLA                shift, and go to state 84
-    CADENA               shift, and go to state 85
+    CADENA               shift, and go to state 84
+    TABLA                shift, and go to state 85
     TUPLA                shift, and go to state 86
     RESTA                shift, and go to state 39
     VERDADERO            shift, and go to state 40
@@ -3624,12 +3624,12 @@ State 226
 
   101 d_p_form: ENT lista_id DEF_TIPO • d_tipo
 
-    REAL                 shift, and go to state 80
-    ENTERO               shift, and go to state 81
+    ENTERO               shift, and go to state 80
+    REAL                 shift, and go to state 81
     BOOLEANO             shift, and go to state 82
     CARACACTER           shift, and go to state 83
-    TABLA                shift, and go to state 84
-    CADENA               shift, and go to state 85
+    CADENA               shift, and go to state 84
+    TABLA                shift, and go to state 85
     TUPLA                shift, and go to state 86
     RESTA                shift, and go to state 39
     VERDADERO            shift, and go to state 40
@@ -3654,12 +3654,12 @@ State 227
 
   102 d_p_form: SAL lista_id DEF_TIPO • d_tipo
 
-    REAL                 shift, and go to state 80
-    ENTERO               shift, and go to state 81
+    ENTERO               shift, and go to state 80
+    REAL                 shift, and go to state 81
     BOOLEANO             shift, and go to state 82
     CARACACTER           shift, and go to state 83
-    TABLA                shift, and go to state 84
-    CADENA               shift, and go to state 85
+    CADENA               shift, and go to state 84
+    TABLA                shift, and go to state 85
     TUPLA                shift, and go to state 86
     RESTA                shift, and go to state 39
     VERDADERO            shift, and go to state 40
@@ -3744,12 +3744,12 @@ State 236
 
   103 d_p_form: ES lista_id DEF_TIPO COMPOSICION • d_tipo
 
-    REAL                 shift, and go to state 80
-    ENTERO               shift, and go to state 81
+    ENTERO               shift, and go to state 80
+    REAL                 shift, and go to state 81
     BOOLEANO             shift, and go to state 82
     CARACACTER           shift, and go to state 83
-    TABLA                shift, and go to state 84
-    CADENA               shift, and go to state 85
+    CADENA               shift, and go to state 84
+    TABLA                shift, and go to state 85
     TUPLA                shift, and go to state 86
     RESTA                shift, and go to state 39
     VERDADERO            shift, and go to state 40
@@ -3871,12 +3871,12 @@ State 245
 
    21 d_tipo: TABLA INICIO_ARRAY expresion_t SUBRANGO expresion_t FIN_ARRAY DE • d_tipo
 
-    REAL                 shift, and go to state 80
-    ENTERO               shift, and go to state 81
+    ENTERO               shift, and go to state 80
+    REAL                 shift, and go to state 81
     BOOLEANO             shift, and go to state 82
     CARACACTER           shift, and go to state 83
-    TABLA                shift, and go to state 84
-    CADENA               shift, and go to state 85
+    CADENA               shift, and go to state 84
+    TABLA                shift, and go to state 85
     TUPLA                shift, and go to state 86
     RESTA                shift, and go to state 39
     VERDADERO            shift, and go to state 40

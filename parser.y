@@ -18,13 +18,21 @@ extern FILE * yyin;
         int literal_booleano;
         char literal_caracter;
         char* literal_cadena;
-}
+};
 
+%token <literal_entero> ENTERO
+%token <literal_real> REAL
+%token <literal_booleano> BOOLEANO
+%token <literal_caracter> CARACACTER
+%token <literal_cadena> CADENA
+
+/*
 %type <literal_entero> ENTERO
 %type <literal_real> REAL
 %type <literal_booleano> BOOLEANO
 %type <literal_caracter> CARACACTER
 %type <literal_cadena> CADENA
+*/
 
 %token TABLA
 %token CONST
