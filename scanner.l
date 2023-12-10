@@ -147,7 +147,7 @@ PARENTESIS_CIERRE   "\)"
 
 
     /*Tipo de dato*/
-{REAL}                  { printf("[%d]: TOKEN: TIPO DE DATO, VALOR %s\n", yylineno, yytext); yyval.tipo = real; return REAL;}
+{REAL}                  { printf("[%d]: TOKEN: TIPO DE DATO, VALOR %s\n", yylineno, yytext); return REAL;}
 {ENTERO}                { printf("[%d]: TOKEN: TIPO DE DATO, VALOR %s\n", yylineno, yytext); return ENTERO;}
 {BOOLEANO}              { printf("[%d]: TOKEN: TIPO DE DATO, VALOR %s\n", yylineno, yytext); return BOOLEANO;}
 {CARACTER}              { printf("[%d]: TOKEN: TIPO DE DATO, VALOR %s\n", yylineno, yytext); return CARACACTER;}
@@ -199,11 +199,11 @@ PARENTESIS_CIERRE   "\)"
 {PARENTESIS_CIERRE}     { printf("[%d]: TOKEN: ESTRUCTURA, VALOR: %s\n", yylineno, yytext); return PARENTESIS_CIERRE;}
 
     /*Otros*/
-{LITERAL_REAL}          { printf("[%d]: TOKEN: LITERAL REAL, VALOR %s\n", yylineno, yytext); yyval.ctype; return LITERAL_REAL;} 
-{LITERAL_ENTERO}        { printf("[%d]: TOKEN: LITERAL ENTERO, VALOR %s\n", yylineno, yytext); return LITERAL_ENTERO;} 
-{IDENTIFICADOR}         { printf("[%d]: TOKEN: IDENTIFICADOR, VALOR: %s\n", yylineno, yytext); return IDENTIFICADOR; }
-{LITERAL_CARACTER}      { printf("[%d]: TOKEN: LITERAL CARACTER, VALOR: %s\n", yylineno, yytext); return LITERAL_CARACTER;}
-{LITERAL_CADENA}        { printf("[%d]: TOKEN: LITERAL CADENA, VALOR: %s\n", yylineno, yytext); return LITERAL_CADENA;}
+{LITERAL_REAL}          { printf("[%d]: TOKEN: LITERAL REAL, VALOR %s\n", yylineno, yytext); yylval.literal_real = atof(yytext); return LITERAL_REAL;} 
+{LITERAL_ENTERO}        { printf("[%d]: TOKEN: LITERAL ENTERO, VALOR %s\n", yylineno, yytext); yylval.literal_entero = atoi(yytext); return LITERAL_ENTERO;} 
+{IDENTIFICADOR}         { printf("[%d]: TOKEN: IDENTIFICADOR, VALOR: %s\n", yylineno, yytext); yylval.literal_cadena = yytext; return IDENTIFICADOR; }
+{LITERAL_CARACTER}      { printf("[%d]: TOKEN: LITERAL CARACTER, VALOR: %s\n", yylineno, yytext); yylval.literal_caracter = yytext; return LITERAL_CARACTER;}
+{LITERAL_CADENA}        { printf("[%d]: TOKEN: LITERAL CADENA, VALOR: %s\n", yylineno, yytext); yylval.literal_cadena = yytext; return LITERAL_CADENA;}
 {ASIGNACION}            { printf("[%d]: TOKEN: ASIGNACION, VALOR: %s\n", yylineno, yytext);return ASIGNACION; }
 {COMPOSICION}           { printf("[%d]: TOKEN: COMPOSICION, VALOR: %s\n", yylineno, yytext); return COMPOSICION; }
 {SEPARADOR}             { printf("[%d]: TOKEN: SEPARADOR, VALOR: %s\n", yylineno, yytext); return SEPARADOR; }
@@ -222,7 +222,7 @@ PARENTESIS_CIERRE   "\)"
 
 [ \n]                   {/*Ignorar*/}
 [ \t]                   {/*Ignorar*/}
-.                       {printf("[%d]: ERROR:\n\tCARACTER INVALIDO, VALOR: %s\n", yylineno, yytext);}
+.                       {/*printf("[%d]: ERROR:\n\tCARACTER INVALIDO, VALOR: %s\n", yylineno, yytext);*/}
 
 %%
 

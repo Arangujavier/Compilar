@@ -4,10 +4,13 @@
 #include <string.h>
 #include<errno.h>
 #include "parser.tab.h"
+#include "tablaSimbolos.h"
 
 int yylex(void);    // Declare the lexer function
 void yyerror(char *s);
+int yylex(void);
 int yyparse(void);
+
 extern FILE * yyin;
 
 %}
@@ -18,22 +21,14 @@ extern FILE * yyin;
         int literal_booleano;
         char literal_caracter;
         char* literal_cadena;
+        char* identificador;
 };
 
-%token <literal_entero> ENTERO
-%token <literal_real> REAL
-%token <literal_booleano> BOOLEANO
-%token <literal_caracter> CARACACTER
-%token <literal_cadena> CADENA
-
-/*
-%type <literal_entero> ENTERO
-%type <literal_real> REAL
-%type <literal_booleano> BOOLEANO
-%type <literal_caracter> CARACACTER
-%type <literal_cadena> CADENA
-*/
-
+%token ENTERO
+%token REAL
+%token BOOLEANO
+%token CARACACTER
+%token CADENA
 %token TABLA
 %token CONST
 %token FCONST
@@ -87,11 +82,11 @@ extern FILE * yyin;
 %token PRECONDICION
 %token POSTCONDICION
 
-%token LITERAL_ENTERO
-%token LITERAL_REAL
-%token IDENTIFICADOR
-%token LITERAL_CARACTER
-%token LITERAL_CADENA
+%token <literal_entero> LITERAL_ENTERO
+%token <literal_real> LITERAL_REAL
+%token <literal_cadena> IDENTIFICADOR
+%token <literal_caracter> LITERAL_CARACTER
+%token <literal_cadena> LITERAL_CADENA
 %token ASIGNACION
 %token COMPOSICION
 %token SEPARADOR
@@ -184,11 +179,11 @@ lista_campos:
         | /*Epsilon*/
 ;
 tipo_base:
-        ENTERO
-        | BOOLEANO
-        | CARACACTER
-        | REAL
-        | CADENA
+        ENTERO {}
+        | BOOLEANO {}
+        | CARACACTER {}
+        | REAL {}
+        | CADENA {}
 ;
 
 /* CONSTANTES Y VARIABLES */
@@ -201,8 +196,8 @@ lista_d_cte:
         | /*Epsilon*/
 ;
 lista_d_var:
-        lista_id DEF_TIPO IDENTIFICADOR COMPOSICION lista_d_var
-        | lista_id DEF_TIPO d_tipo COMPOSICION lista_d_var
+        lista_id DEF_TIPO IDENTIFICADOR COMPOSICION {printf("Identificador: %s, Tipo: %s\n", $3, $3);} lista_d_var 
+        | lista_id DEF_TIPO d_tipo COMPOSICION {printf("Identificador: %s, Tipo: %s\n", $3, $3);} lista_d_var
         | /*Epsilon*/
 ;
 lista_id:
