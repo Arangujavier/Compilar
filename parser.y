@@ -16,12 +16,12 @@ extern FILE * yyin;
 %}
 
 %union {
+        int tipo;
         int literal_entero;
         float literal_real;
         int literal_booleano;
         char literal_caracter;
         char* literal_cadena;
-        char* identificador;
 };
 
 %token ENTERO
@@ -103,6 +103,9 @@ extern FILE * yyin;
 %token PARENTESIS_APERTURA
 %token PARENTESIS_CIERRE
 
+%type <literal_cadena> lista_id
+%type <tipo> d_tipo
+
 %left CREACION_TIPO
 %nonassoc MENOR_IGUAL MAYOR_IGUAL MAYOR MENOR IGUAL DISTINTO
 %left SUMA RESTA 
@@ -179,11 +182,11 @@ lista_campos:
         | /*Epsilon*/
 ;
 tipo_base:
-        ENTERO {}
-        | BOOLEANO {}
-        | CARACACTER {}
-        | REAL {}
-        | CADENA {}
+        ENTERO { $<tipo>$ = 0;}
+        | BOOLEANO { $<tipo>$ = 1;}
+        | CARACACTER { $<tipo>$ = 2;}
+        | REAL { $<tipo>$ = 3;}
+        | CADENA { $<tipo>$ = 4;}
 ;
 
 /* CONSTANTES Y VARIABLES */
@@ -196,8 +199,12 @@ lista_d_cte:
         | /*Epsilon*/
 ;
 lista_d_var:
-        lista_id DEF_TIPO IDENTIFICADOR COMPOSICION {printf("Identificador: %s, Tipo: %s\n", $3, $3);} lista_d_var 
-        | lista_id DEF_TIPO d_tipo COMPOSICION {printf("Identificador: %s, Tipo: %s\n", $3, $3);} lista_d_var
+        lista_id DEF_TIPO IDENTIFICADOR COMPOSICION lista_d_var 
+        | lista_id DEF_TIPO d_tipo COMPOSICION {
+            char variables[100];
+            obtenerListaIdentificadoresVariables($1, variables);
+            printf("IDENTIFICADOR: %s, ID: %d\n", variables ,$3);
+            } lista_d_var
         | /*Epsilon*/
 ;
 lista_id:
@@ -348,4 +355,12 @@ int main (int argc, char **argv ) {
     fclose(yyin);
     //yylex_destroy(); //Destruir scanner
     return 0;
+}
+
+void obtenerListaIdentificadoresVariables(char *cadena, char *salida){
+    // Eliminar :...
+    char *posicion_dos_puntos = strchr(cadena, ':');
+    int posicion = posicion_dos_puntos - cadena;
+    strncpy(salida, cadena, posicion);
+    salida[posicion] = '\0';
 }
