@@ -1,18 +1,21 @@
-
 #ifndef TABLA_SIMBOLOS_H
 #define TABLA_SIMBOLOS_H
 
-#define MAX_SYMBOLS 1000
+#include <stdbool.h>
+
+#define TAMANO 1000
 
 typedef struct {
-    char nombre[256]; // Asumiendo que el nombre no excederá 255 caracteres
-    int tipo;
-    int sid; // Identificador único
+    char nombre[50];   // Nombre de la variable
+    int tipo;           // Tipo de la variable
+    int sid;            // Identificador de la variable ¿Para que?
 } Simbolo;
 
-void inicializarTablaSimbolos();
-void agregarSimbolo(char *nombre, int tipo, int sid);
-Simbolo *buscarSimbolo(char *nombre);
-void mostrarTablaSimbolos();
+bool estaIncluido(char *nombre);                                  // Determinar si un nombre esta incluido en la tabla.
+void agregarNombre(char *nombre, int tipo, int sid);              // Añadir un nuevo nombre a la tabla.
+Simbolo *accederInfo(char *nombre);                               // Acceder a la información asociada a un nombre.
+void actualizarInfo(char *nombre, int nuevoTipo, int nuevoSid);   // Añadir información a la ya existente sobre un nombre.
+void borrarNombre(char *nombre);                                  // Borrar un nombre
+void mostrarTabla();                                              // Muestra el contenido de la tabla de simbolos                        
 
-#endif //TABLA_SIMBOLOS_H
+#endif

@@ -171,8 +171,10 @@ d_tipo:
         IDENTIFICADOR
         | expresion_t SUBRANGO expresion_t
         | REF d_tipo
-        | tipo_base
+        | tipo_base {printf("Contenido: %d.\n",$$);}
 ;
+
+
 expresion_t:
         expresion
         | LITERAL_CARACTER
@@ -200,15 +202,11 @@ lista_d_cte:
 ;
 lista_d_var:
         lista_id DEF_TIPO IDENTIFICADOR COMPOSICION lista_d_var 
-        | lista_id DEF_TIPO d_tipo COMPOSICION {
-            char variables[100];
-            obtenerListaIdentificadoresVariables($1, variables);
-            printf("IDENTIFICADOR: %s, ID: %d\n", variables ,$3);
-            } lista_d_var
+        | lista_id DEF_TIPO d_tipo COMPOSICION { printf("Variable: %s, tipo: %d\n",$1,$3);} lista_d_var
         | /*Epsilon*/
 ;
 lista_id:
-        IDENTIFICADOR SEPARADOR lista_id
+        IDENTIFICADOR SEPARADOR lista_id {printf("Lista id: %s\n", $$);}
         | IDENTIFICADOR
 ;
 decl_ent_sal:

@@ -627,15 +627,15 @@ static const yytype_int16 yyrline[] =
 {
        0,   122,   122,   125,   128,   131,   132,   133,   136,   137,
      138,   141,   144,   145,   146,   147,   152,   155,   158,   163,
-     164,   167,   168,   171,   172,   173,   174,   177,   178,   181,
-     182,   185,   186,   187,   188,   189,   194,   195,   196,   197,
-     198,   199,   202,   203,   203,   208,   211,   212,   215,   216,
-     217,   220,   223,   228,   229,   232,   233,   234,   235,   236,
-     237,   238,   239,   240,   241,   242,   243,   244,   245,   246,
-     247,   248,   249,   250,   251,   252,   253,   254,   255,   256,
-     257,   258,   264,   265,   268,   269,   270,   271,   272,   275,
-     279,   282,   283,   286,   287,   290,   293,   298,   301,   304,
-     307,   310,   311,   314,   315,   316,   319,   322,   325,   326
+     164,   167,   168,   171,   172,   173,   174,   179,   180,   183,
+     184,   187,   188,   189,   190,   191,   196,   197,   198,   199,
+     200,   201,   204,   205,   205,   206,   209,   210,   213,   214,
+     215,   218,   221,   226,   227,   230,   231,   232,   233,   234,
+     235,   236,   237,   238,   239,   240,   241,   242,   243,   244,
+     245,   246,   247,   248,   249,   250,   251,   252,   253,   254,
+     255,   256,   262,   263,   266,   267,   268,   269,   270,   273,
+     277,   280,   281,   284,   285,   288,   291,   296,   299,   302,
+     305,   308,   309,   312,   313,   314,   317,   320,   323,   324
 };
 #endif
 
@@ -1416,48 +1416,56 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-  case 31: /* tipo_base: ENTERO  */
-#line 185 "parser.y"
-               { (yyval.tipo) = 0;}
+  case 26: /* d_tipo: tipo_base  */
+#line 174 "parser.y"
+                    {printf("Contenido: %d.\n",(yyval.tipo));}
 #line 1423 "parser.tab.c"
     break;
 
-  case 32: /* tipo_base: BOOLEANO  */
-#line 186 "parser.y"
-                   { (yyval.tipo) = 1;}
+  case 31: /* tipo_base: ENTERO  */
+#line 187 "parser.y"
+               { (yyval.tipo) = 0;}
 #line 1429 "parser.tab.c"
     break;
 
-  case 33: /* tipo_base: CARACACTER  */
-#line 187 "parser.y"
-                     { (yyval.tipo) = 2;}
+  case 32: /* tipo_base: BOOLEANO  */
+#line 188 "parser.y"
+                   { (yyval.tipo) = 1;}
 #line 1435 "parser.tab.c"
     break;
 
-  case 34: /* tipo_base: REAL  */
-#line 188 "parser.y"
-               { (yyval.tipo) = 3;}
+  case 33: /* tipo_base: CARACACTER  */
+#line 189 "parser.y"
+                     { (yyval.tipo) = 2;}
 #line 1441 "parser.tab.c"
     break;
 
-  case 35: /* tipo_base: CADENA  */
-#line 189 "parser.y"
-                 { (yyval.tipo) = 4;}
+  case 34: /* tipo_base: REAL  */
+#line 190 "parser.y"
+               { (yyval.tipo) = 3;}
 #line 1447 "parser.tab.c"
     break;
 
+  case 35: /* tipo_base: CADENA  */
+#line 191 "parser.y"
+                 { (yyval.tipo) = 4;}
+#line 1453 "parser.tab.c"
+    break;
+
   case 43: /* $@1: %empty  */
-#line 203 "parser.y"
-                                               {
-            char variables[100];
-            obtenerListaIdentificadoresVariables((yyvsp[-3].literal_cadena), variables);
-            printf("IDENTIFICADOR: %s, ID: %d\n", variables ,(yyvsp[-1].tipo));
-            }
-#line 1457 "parser.tab.c"
+#line 205 "parser.y"
+                                               { printf("Variable: %s, tipo: %d\n",(yyvsp[-3].literal_cadena),(yyvsp[-1].tipo));}
+#line 1459 "parser.tab.c"
+    break;
+
+  case 46: /* lista_id: IDENTIFICADOR SEPARADOR lista_id  */
+#line 209 "parser.y"
+                                         {printf("Lista id: %s\n", (yyval.literal_cadena));}
+#line 1465 "parser.tab.c"
     break;
 
 
-#line 1461 "parser.tab.c"
+#line 1469 "parser.tab.c"
 
       default: break;
     }
@@ -1650,7 +1658,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 329 "parser.y"
+#line 327 "parser.y"
 
     //CODIGO
 
