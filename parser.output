@@ -10,22 +10,21 @@ Terminals unused in grammar
 
 State 102 conflicts: 4 shift/reduce
 State 103 conflicts: 19 shift/reduce
-State 153 conflicts: 1 shift/reduce
+State 160 conflicts: 4 shift/reduce
 State 161 conflicts: 4 shift/reduce
 State 162 conflicts: 4 shift/reduce
 State 163 conflicts: 4 shift/reduce
 State 164 conflicts: 4 shift/reduce
 State 165 conflicts: 4 shift/reduce
-State 166 conflicts: 4 shift/reduce
+State 166 conflicts: 19 shift/reduce
 State 167 conflicts: 19 shift/reduce
-State 168 conflicts: 19 shift/reduce
+State 168 conflicts: 4 shift/reduce
 State 169 conflicts: 4 shift/reduce
 State 170 conflicts: 4 shift/reduce
 State 171 conflicts: 4 shift/reduce
 State 172 conflicts: 4 shift/reduce
-State 173 conflicts: 4 shift/reduce
+State 174 conflicts: 4 shift/reduce
 State 175 conflicts: 4 shift/reduce
-State 176 conflicts: 4 shift/reduce
 
 
 Grammar
@@ -88,99 +87,95 @@ Grammar
    39            | IDENTIFICADOR CREACION_TIPO CADENA COMPOSICION lista_d_cte
    40            | ε
 
-   41 lista_d_var: lista_id DEF_TIPO IDENTIFICADOR COMPOSICION lista_d_var
+   41 lista_d_var: lista_id DEF_TIPO d_tipo COMPOSICION lista_d_var
+   42            | ε
 
-   42 $@1: ε
+   43 lista_id: IDENTIFICADOR SEPARADOR lista_id
+   44         | IDENTIFICADOR
 
-   43 lista_d_var: lista_id DEF_TIPO d_tipo COMPOSICION $@1 lista_d_var
-   44            | ε
+   45 decl_ent_sal: decl_ent
+   46             | decl_ent decl_sal
+   47             | decl_sal
 
-   45 lista_id: IDENTIFICADOR SEPARADOR lista_id
-   46         | IDENTIFICADOR
+   48 decl_ent: ENT lista_d_var
 
-   47 decl_ent_sal: decl_ent
-   48             | decl_ent decl_sal
-   49             | decl_sal
+   49 decl_sal: SAL lista_d_var
 
-   50 decl_ent: ENT lista_d_var
+   50 expresion: exp
+   51          | funcion_ll
 
-   51 decl_sal: SAL lista_d_var
+   52 exp: exp Y exp
+   53    | exp O exp
+   54    | NO exp
+   55    | IDENTIFICADOR
+   56    | exp PUNTO exp
+   57    | exp INICIO_ARRAY exp FIN_ARRAY
+   58    | exp REF
+   59    | VERDADERO
+   60    | FALSO
+   61    | exp MENOR exp
+   62    | exp MAYOR exp
+   63    | exp CREACION_TIPO exp
+   64    | exp DISTINTO exp
+   65    | exp MAYOR_IGUAL exp
+   66    | exp MENOR_IGUAL exp
+   67    | PARENTESIS_APERTURA exp PARENTESIS_CIERRE
+   68    | exp LITERAL_ENTERO
+   69    | exp LITERAL_REAL
+   70    | exp SUMA exp
+   71    | exp RESTA exp
+   72    | exp MULTIPLICACION exp
+   73    | exp DIVISION exp
+   74    | exp MOD exp
+   75    | exp DIV exp
+   76    | LITERAL_REAL
+   77    | LITERAL_ENTERO
+   78    | RESTA exp
 
-   52 expresion: exp
-   53          | funcion_ll
+   79 instrucciones: instruccion COMPOSICION instrucciones
+   80              | instruccion
 
-   54 exp: exp Y exp
-   55    | exp O exp
-   56    | NO exp
-   57    | IDENTIFICADOR
-   58    | exp PUNTO exp
-   59    | exp INICIO_ARRAY exp FIN_ARRAY
-   60    | exp REF
-   61    | VERDADERO
-   62    | FALSO
-   63    | exp MENOR exp
-   64    | exp MAYOR exp
-   65    | exp CREACION_TIPO exp
-   66    | exp DISTINTO exp
-   67    | exp MAYOR_IGUAL exp
-   68    | exp MENOR_IGUAL exp
-   69    | PARENTESIS_APERTURA exp PARENTESIS_CIERRE
-   70    | exp LITERAL_ENTERO
-   71    | exp LITERAL_REAL
-   72    | exp SUMA exp
-   73    | exp RESTA exp
-   74    | exp MULTIPLICACION exp
-   75    | exp DIVISION exp
-   76    | exp MOD exp
-   77    | exp DIV exp
-   78    | LITERAL_REAL
-   79    | LITERAL_ENTERO
-   80    | RESTA exp
+   81 instruccion: CONTINUAR
+   82            | asignacion
+   83            | alternativa
+   84            | iteracion
+   85            | accion_ll
 
-   81 instrucciones: instruccion COMPOSICION instrucciones
-   82              | instruccion
+   86 asignacion: exp ASIGNACION exp
 
-   83 instruccion: CONTINUAR
-   84            | asignacion
-   85            | alternativa
-   86            | iteracion
-   87            | accion_ll
+   87 alternativa: SI expresion ENTONCES instrucciones lista_opciones FSI
 
-   88 asignacion: exp ASIGNACION exp
+   88 lista_opciones: SI_NO_SI expresion ENTONCES instrucciones lista_opciones
+   89               | ε
 
-   89 alternativa: SI expresion ENTONCES instrucciones lista_opciones FSI
+   90 iteracion: it_cota_fija
+   91          | it_cota_exp
 
-   90 lista_opciones: SI_NO_SI expresion ENTONCES instrucciones lista_opciones
-   91               | ε
+   92 it_cota_exp: MIENTRAS expresion HACER instrucciones FMIENTRAS
 
-   92 iteracion: it_cota_fija
-   93          | it_cota_exp
+   93 it_cota_fija: PARA IDENTIFICADOR ASIGNACION expresion HASTA expresion HACER instruccion FPARA
 
-   94 it_cota_exp: MIENTRAS expresion HACER instrucciones FMIENTRAS
+   94 accion_d: ACCION a_cabecera bloque FACCION
 
-   95 it_cota_fija: PARA IDENTIFICADOR ASIGNACION expresion HASTA expresion HACER instruccion FPARA
+   95 funcion_d: FUNCION f_cabecera bloque DEV expresion FFUNCION
 
-   96 accion_d: ACCION a_cabecera bloque FACCION
+   96 a_cabecera: IDENTIFICADOR PARENTESIS_APERTURA d_par_form PARENTESIS_CIERRE COMPOSICION
 
-   97 funcion_d: FUNCION f_cabecera bloque DEV expresion FFUNCION
+   97 f_cabecera: IDENTIFICADOR PARENTESIS_APERTURA lista_d_var PARENTESIS_CIERRE DEV d_tipo COMPOSICION
 
-   98 a_cabecera: IDENTIFICADOR PARENTESIS_APERTURA d_par_form PARENTESIS_CIERRE COMPOSICION
+   98 d_par_form: d_p_form COMPOSICION d_par_form
+   99           | ε
 
-   99 f_cabecera: IDENTIFICADOR PARENTESIS_APERTURA lista_d_var PARENTESIS_CIERRE DEV d_tipo COMPOSICION
+  100 d_p_form: ENT lista_id DEF_TIPO d_tipo
+  101         | SAL lista_id DEF_TIPO d_tipo
+  102         | ES lista_id DEF_TIPO COMPOSICION d_tipo
 
-  100 d_par_form: d_p_form COMPOSICION d_par_form
-  101           | ε
+  103 accion_ll: IDENTIFICADOR PARENTESIS_APERTURA l_ll PARENTESIS_CIERRE
 
-  102 d_p_form: ENT lista_id DEF_TIPO d_tipo
-  103         | SAL lista_id DEF_TIPO d_tipo
-  104         | ES lista_id DEF_TIPO COMPOSICION d_tipo
+  104 funcion_ll: IDENTIFICADOR PARENTESIS_APERTURA l_ll PARENTESIS_CIERRE
 
-  105 accion_ll: IDENTIFICADOR PARENTESIS_APERTURA l_ll PARENTESIS_CIERRE
-
-  106 funcion_ll: IDENTIFICADOR PARENTESIS_APERTURA l_ll PARENTESIS_CIERRE
-
-  107 l_ll: expresion SEPARADOR l_ll
-  108     | expresion
+  105 l_ll: expresion SEPARADOR l_ll
+  106     | expresion
 
 
 Terminals, with rules where they appear
@@ -201,66 +196,66 @@ Terminals, with rules where they appear
     FTUPLA (269) 20
     VAR (270) 17
     FVAR (271) 17
-    ES (272) 104
-    ENT (273) 50 102
-    SAL (274) 51 103
-    SUMA (275) 72
-    RESTA (276) 73 80
-    MULTIPLICACION (277) 74
-    DIVISION (278) 75
-    DIV (279) 77
-    VERDADERO (280) 61
-    FALSO (281) 62
-    MOD (282) 76
-    NO (283) 56
-    Y (284) 54
-    O (285) 55
-    MAYOR_IGUAL (286) 67
-    MENOR_IGUAL (287) 68
-    DISTINTO (288) 66
-    MAYOR (289) 64
-    MENOR (290) 63
+    ES (272) 102
+    ENT (273) 48 100
+    SAL (274) 49 101
+    SUMA (275) 70
+    RESTA (276) 71 78
+    MULTIPLICACION (277) 72
+    DIVISION (278) 73
+    DIV (279) 75
+    VERDADERO (280) 59
+    FALSO (281) 60
+    MOD (282) 74
+    NO (283) 54
+    Y (284) 52
+    O (285) 53
+    MAYOR_IGUAL (286) 65
+    MENOR_IGUAL (287) 66
+    DISTINTO (288) 64
+    MAYOR (289) 62
+    MENOR (290) 61
     ALGORITMO (291) 1
     FALGORITMO (292) 1
-    FUNCION (293) 97
-    FFUNCION (294) 97
-    ACCION (295) 96
-    FACCION (296) 96
-    SI (297) 89
-    FSI (298) 89
-    MIENTRAS (299) 94
-    FMIENTRAS (300) 94
-    PARA (301) 95
-    FPARA (302) 95
-    CONTINUAR (303) 83
+    FUNCION (293) 95
+    FFUNCION (294) 95
+    ACCION (295) 94
+    FACCION (296) 94
+    SI (297) 87
+    FSI (298) 87
+    MIENTRAS (299) 92
+    FMIENTRAS (300) 92
+    PARA (301) 93
+    FPARA (302) 93
+    CONTINUAR (303) 81
     DE (304) 21
-    HASTA (305) 95
-    HACER (306) 94 95
-    REF (307) 24 60
-    DEV (308) 97 99
+    HASTA (305) 93
+    HACER (306) 92 93
+    REF (307) 24 58
+    DEV (308) 95 97
     COMENTARIO (309) 2 3
     PRECONDICION (310)
     POSTCONDICION (311)
-    LITERAL_ENTERO <literal_entero> (312) 70 79
-    LITERAL_REAL <literal_real> (313) 71 78
-    IDENTIFICADOR <literal_cadena> (314) 1 18 22 28 35 36 37 38 39 41 45 46 57 95 98 99 105 106
+    LITERAL_ENTERO <literal_entero> (312) 68 77
+    LITERAL_REAL <literal_real> (313) 69 76
+    IDENTIFICADOR <identificador> (314) 1 18 22 28 35 36 37 38 39 43 44 55 93 96 97 103 104
     LITERAL_CARACTER <literal_caracter> (315) 27
     LITERAL_CADENA <literal_cadena> (316)
-    ASIGNACION (317) 88 95
-    COMPOSICION (318) 1 15 16 17 18 28 35 36 37 38 39 41 43 81 98 99 100 104
-    SEPARADOR (319) 45 107
+    ASIGNACION (317) 86 93
+    COMPOSICION (318) 1 15 16 17 18 28 35 36 37 38 39 41 79 96 97 98 102
+    SEPARADOR (319) 43 105
     SUBRANGO (320) 21 23
-    PUNTO (321) 1 58
-    DEF_TIPO (322) 28 41 43 102 103 104
-    ENTONCES (323) 89 90
-    SI_NO_SI (324) 90
-    CREACION_TIPO (325) 18 35 36 37 38 39 65
-    INICIO_ARRAY (326) 21 59
-    FIN_ARRAY (327) 21 59
+    PUNTO (321) 1 56
+    DEF_TIPO (322) 28 41 100 101 102
+    ENTONCES (323) 87 88
+    SI_NO_SI (324) 88
+    CREACION_TIPO (325) 18 35 36 37 38 39 63
+    INICIO_ARRAY (326) 21 57
+    FIN_ARRAY (327) 21 57
     INICIO_LLAVE (328)
     FIN_LLAVE (329)
-    PARENTESIS_APERTURA (330) 69 98 99 105 106
-    PARENTESIS_CIERRE (331) 69 98 99 105 106
+    PARENTESIS_APERTURA (330) 67 96 97 103 104
+    PARENTESIS_CIERRE (331) 67 96 97 103 104
     IGUAL (332)
 
 
@@ -285,7 +280,7 @@ Nonterminals, with rules where they appear
         on right: 2 7 8
     bloque (84)
         on left: 10
-        on right: 3 96 97
+        on right: 3 94 95
     declaraciones (85)
         on left: 11 12 13 14
         on right: 10 11 12 13
@@ -303,7 +298,7 @@ Nonterminals, with rules where they appear
         on right: 15 18
     d_tipo <tipo> (90)
         on left: 20 21 22 23 24 25
-        on right: 18 21 24 28 43 99 102 103 104
+        on right: 18 21 24 28 41 97 100 101 102
     expresion_t (91)
         on left: 26 27
         on right: 21 23
@@ -317,80 +312,77 @@ Nonterminals, with rules where they appear
         on left: 35 36 37 38 39 40
         on right: 16 35 36 37 38 39
     lista_d_var (95)
-        on left: 41 43 44
-        on right: 17 41 43 50 51 99
-    $@1 (96)
-        on left: 42
-        on right: 43
-    lista_id <literal_cadena> (97)
-        on left: 45 46
-        on right: 41 43 45 102 103 104
-    decl_ent_sal (98)
-        on left: 47 48 49
+        on left: 41 42
+        on right: 17 41 48 49 97
+    lista_id <identificador> (96)
+        on left: 43 44
+        on right: 41 43 100 101 102
+    decl_ent_sal (97)
+        on left: 45 46 47
         on right: 2
-    decl_ent (99)
-        on left: 50
-        on right: 47 48
-    decl_sal (100)
-        on left: 51
-        on right: 48 49
-    expresion (101)
-        on left: 52 53
-        on right: 26 89 90 94 95 97 107 108
-    exp (102)
-        on left: 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80
-        on right: 52 54 55 56 58 59 60 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 80 88
-    instrucciones (103)
-        on left: 81 82
-        on right: 10 81 89 90 94
-    instruccion (104)
-        on left: 83 84 85 86 87
-        on right: 81 82 95
-    asignacion (105)
-        on left: 88
-        on right: 84
-    alternativa (106)
-        on left: 89
-        on right: 85
-    lista_opciones (107)
+    decl_ent (98)
+        on left: 48
+        on right: 45 46
+    decl_sal (99)
+        on left: 49
+        on right: 46 47
+    expresion (100)
+        on left: 50 51
+        on right: 26 87 88 92 93 95 105 106
+    exp (101)
+        on left: 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78
+        on right: 50 52 53 54 56 57 58 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 78 86
+    instrucciones (102)
+        on left: 79 80
+        on right: 10 79 87 88 92
+    instruccion (103)
+        on left: 81 82 83 84 85
+        on right: 79 80 93
+    asignacion (104)
+        on left: 86
+        on right: 82
+    alternativa (105)
+        on left: 87
+        on right: 83
+    lista_opciones (106)
+        on left: 88 89
+        on right: 87 88
+    iteracion (107)
         on left: 90 91
-        on right: 89 90
-    iteracion (108)
-        on left: 92 93
-        on right: 86
-    it_cota_exp (109)
+        on right: 84
+    it_cota_exp (108)
+        on left: 92
+        on right: 91
+    it_cota_fija (109)
+        on left: 93
+        on right: 90
+    accion_d (110)
         on left: 94
-        on right: 93
-    it_cota_fija (110)
-        on left: 95
-        on right: 92
-    accion_d (111)
-        on left: 96
         on right: 7
-    funcion_d (112)
-        on left: 97
+    funcion_d (111)
+        on left: 95
         on right: 8
-    a_cabecera (113)
-        on left: 98
-        on right: 96
-    f_cabecera (114)
-        on left: 99
-        on right: 97
-    d_par_form (115)
-        on left: 100 101
-        on right: 98 100
-    d_p_form (116)
-        on left: 102 103 104
-        on right: 100
-    accion_ll (117)
-        on left: 105
-        on right: 87
-    funcion_ll (118)
-        on left: 106
-        on right: 53
-    l_ll (119)
-        on left: 107 108
-        on right: 105 106 107
+    a_cabecera (112)
+        on left: 96
+        on right: 94
+    f_cabecera (113)
+        on left: 97
+        on right: 95
+    d_par_form (114)
+        on left: 98 99
+        on right: 96 98
+    d_p_form (115)
+        on left: 100 101 102
+        on right: 98
+    accion_ll (116)
+        on left: 103
+        on right: 85
+    funcion_ll (117)
+        on left: 104
+        on right: 51
+    l_ll (118)
+        on left: 105 106
+        on right: 103 104 105
 
 
 State 0
@@ -565,7 +557,7 @@ State 16
 
     IDENTIFICADOR  shift, and go to state 34
 
-    $default  reduce using rule 44 (lista_d_var)
+    $default  reduce using rule 42 (lista_d_var)
 
     lista_d_var  go to state 35
     lista_id     go to state 36
@@ -663,7 +655,7 @@ State 22
 
 State 23
 
-   97 funcion_d: FUNCION • f_cabecera bloque DEV expresion FFUNCION
+   95 funcion_d: FUNCION • f_cabecera bloque DEV expresion FFUNCION
 
     IDENTIFICADOR  shift, and go to state 63
 
@@ -672,7 +664,7 @@ State 23
 
 State 24
 
-   96 accion_d: ACCION • a_cabecera bloque FACCION
+   94 accion_d: ACCION • a_cabecera bloque FACCION
 
     IDENTIFICADOR  shift, and go to state 65
 
@@ -794,12 +786,12 @@ State 33
 
 State 34
 
-   45 lista_id: IDENTIFICADOR • SEPARADOR lista_id
-   46         | IDENTIFICADOR •
+   43 lista_id: IDENTIFICADOR • SEPARADOR lista_id
+   44         | IDENTIFICADOR •
 
     SEPARADOR  shift, and go to state 97
 
-    $default  reduce using rule 46 (lista_id)
+    $default  reduce using rule 44 (lista_id)
 
 
 State 35
@@ -811,8 +803,7 @@ State 35
 
 State 36
 
-   41 lista_d_var: lista_id • DEF_TIPO IDENTIFICADOR COMPOSICION lista_d_var
-   43            | lista_id • DEF_TIPO d_tipo COMPOSICION $@1 lista_d_var
+   41 lista_d_var: lista_id • DEF_TIPO d_tipo COMPOSICION lista_d_var
 
     DEF_TIPO  shift, and go to state 99
 
@@ -833,7 +824,7 @@ State 38
 
 State 39
 
-   80 exp: RESTA • exp
+   78 exp: RESTA • exp
 
     RESTA                shift, and go to state 39
     VERDADERO            shift, and go to state 40
@@ -849,21 +840,21 @@ State 39
 
 State 40
 
-   61 exp: VERDADERO •
+   59 exp: VERDADERO •
 
-    $default  reduce using rule 61 (exp)
+    $default  reduce using rule 59 (exp)
 
 
 State 41
 
-   62 exp: FALSO •
+   60 exp: FALSO •
 
-    $default  reduce using rule 62 (exp)
+    $default  reduce using rule 60 (exp)
 
 
 State 42
 
-   56 exp: NO • exp
+   54 exp: NO • exp
 
     RESTA                shift, and go to state 39
     VERDADERO            shift, and go to state 40
@@ -879,7 +870,7 @@ State 42
 
 State 43
 
-   89 alternativa: SI • expresion ENTONCES instrucciones lista_opciones FSI
+   87 alternativa: SI • expresion ENTONCES instrucciones lista_opciones FSI
 
     RESTA                shift, and go to state 39
     VERDADERO            shift, and go to state 40
@@ -897,7 +888,7 @@ State 43
 
 State 44
 
-   94 it_cota_exp: MIENTRAS • expresion HACER instrucciones FMIENTRAS
+   92 it_cota_exp: MIENTRAS • expresion HACER instrucciones FMIENTRAS
 
     RESTA                shift, and go to state 39
     VERDADERO            shift, and go to state 40
@@ -915,45 +906,45 @@ State 44
 
 State 45
 
-   95 it_cota_fija: PARA • IDENTIFICADOR ASIGNACION expresion HASTA expresion HACER instruccion FPARA
+   93 it_cota_fija: PARA • IDENTIFICADOR ASIGNACION expresion HASTA expresion HACER instruccion FPARA
 
     IDENTIFICADOR  shift, and go to state 107
 
 
 State 46
 
-   83 instruccion: CONTINUAR •
+   81 instruccion: CONTINUAR •
 
-    $default  reduce using rule 83 (instruccion)
+    $default  reduce using rule 81 (instruccion)
 
 
 State 47
 
-   79 exp: LITERAL_ENTERO •
+   77 exp: LITERAL_ENTERO •
 
-    $default  reduce using rule 79 (exp)
+    $default  reduce using rule 77 (exp)
 
 
 State 48
 
-   78 exp: LITERAL_REAL •
+   76 exp: LITERAL_REAL •
 
-    $default  reduce using rule 78 (exp)
+    $default  reduce using rule 76 (exp)
 
 
 State 49
 
-   57 exp: IDENTIFICADOR •
-  105 accion_ll: IDENTIFICADOR • PARENTESIS_APERTURA l_ll PARENTESIS_CIERRE
+   55 exp: IDENTIFICADOR •
+  103 accion_ll: IDENTIFICADOR • PARENTESIS_APERTURA l_ll PARENTESIS_CIERRE
 
     PARENTESIS_APERTURA  shift, and go to state 108
 
-    $default  reduce using rule 57 (exp)
+    $default  reduce using rule 55 (exp)
 
 
 State 50
 
-   69 exp: PARENTESIS_APERTURA • exp PARENTESIS_CIERRE
+   67 exp: PARENTESIS_APERTURA • exp PARENTESIS_CIERRE
 
     RESTA                shift, and go to state 39
     VERDADERO            shift, and go to state 40
@@ -969,26 +960,26 @@ State 50
 
 State 51
 
-   54 exp: exp • Y exp
-   55    | exp • O exp
-   58    | exp • PUNTO exp
-   59    | exp • INICIO_ARRAY exp FIN_ARRAY
-   60    | exp • REF
-   63    | exp • MENOR exp
-   64    | exp • MAYOR exp
-   65    | exp • CREACION_TIPO exp
-   66    | exp • DISTINTO exp
-   67    | exp • MAYOR_IGUAL exp
-   68    | exp • MENOR_IGUAL exp
-   70    | exp • LITERAL_ENTERO
-   71    | exp • LITERAL_REAL
-   72    | exp • SUMA exp
-   73    | exp • RESTA exp
-   74    | exp • MULTIPLICACION exp
-   75    | exp • DIVISION exp
-   76    | exp • MOD exp
-   77    | exp • DIV exp
-   88 asignacion: exp • ASIGNACION exp
+   52 exp: exp • Y exp
+   53    | exp • O exp
+   56    | exp • PUNTO exp
+   57    | exp • INICIO_ARRAY exp FIN_ARRAY
+   58    | exp • REF
+   61    | exp • MENOR exp
+   62    | exp • MAYOR exp
+   63    | exp • CREACION_TIPO exp
+   64    | exp • DISTINTO exp
+   65    | exp • MAYOR_IGUAL exp
+   66    | exp • MENOR_IGUAL exp
+   68    | exp • LITERAL_ENTERO
+   69    | exp • LITERAL_REAL
+   70    | exp • SUMA exp
+   71    | exp • RESTA exp
+   72    | exp • MULTIPLICACION exp
+   73    | exp • DIVISION exp
+   74    | exp • MOD exp
+   75    | exp • DIV exp
+   86 asignacion: exp • ASIGNACION exp
 
     SUMA            shift, and go to state 110
     RESTA           shift, and go to state 111
@@ -1021,54 +1012,54 @@ State 52
 
 State 53
 
-   81 instrucciones: instruccion • COMPOSICION instrucciones
-   82              | instruccion •
+   79 instrucciones: instruccion • COMPOSICION instrucciones
+   80              | instruccion •
 
     COMPOSICION  shift, and go to state 130
 
-    $default  reduce using rule 82 (instrucciones)
+    $default  reduce using rule 80 (instrucciones)
 
 
 State 54
 
-   84 instruccion: asignacion •
+   82 instruccion: asignacion •
 
-    $default  reduce using rule 84 (instruccion)
+    $default  reduce using rule 82 (instruccion)
 
 
 State 55
 
-   85 instruccion: alternativa •
+   83 instruccion: alternativa •
 
-    $default  reduce using rule 85 (instruccion)
+    $default  reduce using rule 83 (instruccion)
 
 
 State 56
 
-   86 instruccion: iteracion •
+   84 instruccion: iteracion •
 
-    $default  reduce using rule 86 (instruccion)
+    $default  reduce using rule 84 (instruccion)
 
 
 State 57
 
-   93 iteracion: it_cota_exp •
+   91 iteracion: it_cota_exp •
 
-    $default  reduce using rule 93 (iteracion)
+    $default  reduce using rule 91 (iteracion)
 
 
 State 58
 
-   92 iteracion: it_cota_fija •
+   90 iteracion: it_cota_fija •
 
-    $default  reduce using rule 92 (iteracion)
+    $default  reduce using rule 90 (iteracion)
 
 
 State 59
 
-   87 instruccion: accion_ll •
+   85 instruccion: accion_ll •
 
-    $default  reduce using rule 87 (instruccion)
+    $default  reduce using rule 85 (instruccion)
 
 
 State 60
@@ -1094,14 +1085,14 @@ State 62
 
 State 63
 
-   99 f_cabecera: IDENTIFICADOR • PARENTESIS_APERTURA lista_d_var PARENTESIS_CIERRE DEV d_tipo COMPOSICION
+   97 f_cabecera: IDENTIFICADOR • PARENTESIS_APERTURA lista_d_var PARENTESIS_CIERRE DEV d_tipo COMPOSICION
 
     PARENTESIS_APERTURA  shift, and go to state 131
 
 
 State 64
 
-   97 funcion_d: FUNCION f_cabecera • bloque DEV expresion FFUNCION
+   95 funcion_d: FUNCION f_cabecera • bloque DEV expresion FFUNCION
 
     CONST  shift, and go to state 6
     TIPO   shift, and go to state 7
@@ -1118,14 +1109,14 @@ State 64
 
 State 65
 
-   98 a_cabecera: IDENTIFICADOR • PARENTESIS_APERTURA d_par_form PARENTESIS_CIERRE COMPOSICION
+   96 a_cabecera: IDENTIFICADOR • PARENTESIS_APERTURA d_par_form PARENTESIS_CIERRE COMPOSICION
 
     PARENTESIS_APERTURA  shift, and go to state 133
 
 
 State 66
 
-   96 accion_d: ACCION a_cabecera • bloque FACCION
+   94 accion_d: ACCION a_cabecera • bloque FACCION
 
     CONST  shift, and go to state 6
     TIPO   shift, and go to state 7
@@ -1142,11 +1133,11 @@ State 66
 
 State 67
 
-   50 decl_ent: ENT • lista_d_var
+   48 decl_ent: ENT • lista_d_var
 
     IDENTIFICADOR  shift, and go to state 34
 
-    $default  reduce using rule 44 (lista_d_var)
+    $default  reduce using rule 42 (lista_d_var)
 
     lista_d_var  go to state 135
     lista_id     go to state 36
@@ -1154,11 +1145,11 @@ State 67
 
 State 68
 
-   51 decl_sal: SAL • lista_d_var
+   49 decl_sal: SAL • lista_d_var
 
     IDENTIFICADOR  shift, and go to state 34
 
-    $default  reduce using rule 44 (lista_d_var)
+    $default  reduce using rule 42 (lista_d_var)
 
     lista_d_var  go to state 136
     lista_id     go to state 36
@@ -1173,21 +1164,21 @@ State 69
 
 State 70
 
-   47 decl_ent_sal: decl_ent •
-   48             | decl_ent • decl_sal
+   45 decl_ent_sal: decl_ent •
+   46             | decl_ent • decl_sal
 
     SAL  shift, and go to state 68
 
-    $default  reduce using rule 47 (decl_ent_sal)
+    $default  reduce using rule 45 (decl_ent_sal)
 
     decl_sal  go to state 138
 
 
 State 71
 
-   49 decl_ent_sal: decl_sal •
+   47 decl_ent_sal: decl_sal •
 
-    $default  reduce using rule 49 (decl_ent_sal)
+    $default  reduce using rule 47 (decl_ent_sal)
 
 
 State 72
@@ -1332,13 +1323,13 @@ State 87
 State 88
 
    22 d_tipo: IDENTIFICADOR •
-   57 exp: IDENTIFICADOR •
-  106 funcion_ll: IDENTIFICADOR • PARENTESIS_APERTURA l_ll PARENTESIS_CIERRE
+   55 exp: IDENTIFICADOR •
+  104 funcion_ll: IDENTIFICADOR • PARENTESIS_APERTURA l_ll PARENTESIS_CIERRE
 
     PARENTESIS_APERTURA  shift, and go to state 148
 
     COMPOSICION  reduce using rule 22 (d_tipo)
-    $default     reduce using rule 57 (exp)
+    $default     reduce using rule 55 (exp)
 
 
 State 89
@@ -1378,26 +1369,26 @@ State 93
 
 State 94
 
-   52 expresion: exp •
-   54 exp: exp • Y exp
-   55    | exp • O exp
-   58    | exp • PUNTO exp
-   59    | exp • INICIO_ARRAY exp FIN_ARRAY
-   60    | exp • REF
-   63    | exp • MENOR exp
-   64    | exp • MAYOR exp
-   65    | exp • CREACION_TIPO exp
-   66    | exp • DISTINTO exp
-   67    | exp • MAYOR_IGUAL exp
-   68    | exp • MENOR_IGUAL exp
-   70    | exp • LITERAL_ENTERO
-   71    | exp • LITERAL_REAL
-   72    | exp • SUMA exp
-   73    | exp • RESTA exp
-   74    | exp • MULTIPLICACION exp
-   75    | exp • DIVISION exp
-   76    | exp • MOD exp
-   77    | exp • DIV exp
+   50 expresion: exp •
+   52 exp: exp • Y exp
+   53    | exp • O exp
+   56    | exp • PUNTO exp
+   57    | exp • INICIO_ARRAY exp FIN_ARRAY
+   58    | exp • REF
+   61    | exp • MENOR exp
+   62    | exp • MAYOR exp
+   63    | exp • CREACION_TIPO exp
+   64    | exp • DISTINTO exp
+   65    | exp • MAYOR_IGUAL exp
+   66    | exp • MENOR_IGUAL exp
+   68    | exp • LITERAL_ENTERO
+   69    | exp • LITERAL_REAL
+   70    | exp • SUMA exp
+   71    | exp • RESTA exp
+   72    | exp • MULTIPLICACION exp
+   73    | exp • DIVISION exp
+   74    | exp • MOD exp
+   75    | exp • DIV exp
 
     SUMA            shift, and go to state 110
     RESTA           shift, and go to state 111
@@ -1419,14 +1410,14 @@ State 94
     CREACION_TIPO   shift, and go to state 128
     INICIO_ARRAY    shift, and go to state 129
 
-    $default  reduce using rule 52 (expresion)
+    $default  reduce using rule 50 (expresion)
 
 
 State 95
 
-   53 expresion: funcion_ll •
+   51 expresion: funcion_ll •
 
-    $default  reduce using rule 53 (expresion)
+    $default  reduce using rule 51 (expresion)
 
 
 State 96
@@ -1438,7 +1429,7 @@ State 96
 
 State 97
 
-   45 lista_id: IDENTIFICADOR SEPARADOR • lista_id
+   43 lista_id: IDENTIFICADOR SEPARADOR • lista_id
 
     IDENTIFICADOR  shift, and go to state 34
 
@@ -1454,8 +1445,7 @@ State 98
 
 State 99
 
-   41 lista_d_var: lista_id DEF_TIPO • IDENTIFICADOR COMPOSICION lista_d_var
-   43            | lista_id DEF_TIPO • d_tipo COMPOSICION $@1 lista_d_var
+   41 lista_d_var: lista_id DEF_TIPO • d_tipo COMPOSICION lista_d_var
 
     ENTERO               shift, and go to state 80
     REAL                 shift, and go to state 81
@@ -1471,11 +1461,11 @@ State 99
     REF                  shift, and go to state 87
     LITERAL_ENTERO       shift, and go to state 47
     LITERAL_REAL         shift, and go to state 48
-    IDENTIFICADOR        shift, and go to state 153
+    IDENTIFICADOR        shift, and go to state 88
     LITERAL_CARACTER     shift, and go to state 89
     PARENTESIS_APERTURA  shift, and go to state 50
 
-    d_tipo       go to state 154
+    d_tipo       go to state 153
     expresion_t  go to state 91
     tipo_base    go to state 92
     expresion    go to state 93
@@ -1492,33 +1482,33 @@ State 100
 
 State 101
 
-   57 exp: IDENTIFICADOR •
+   55 exp: IDENTIFICADOR •
 
-    $default  reduce using rule 57 (exp)
+    $default  reduce using rule 55 (exp)
 
 
 State 102
 
-   54 exp: exp • Y exp
-   55    | exp • O exp
-   58    | exp • PUNTO exp
-   59    | exp • INICIO_ARRAY exp FIN_ARRAY
-   60    | exp • REF
-   63    | exp • MENOR exp
-   64    | exp • MAYOR exp
-   65    | exp • CREACION_TIPO exp
-   66    | exp • DISTINTO exp
-   67    | exp • MAYOR_IGUAL exp
-   68    | exp • MENOR_IGUAL exp
-   70    | exp • LITERAL_ENTERO
-   71    | exp • LITERAL_REAL
-   72    | exp • SUMA exp
-   73    | exp • RESTA exp
-   74    | exp • MULTIPLICACION exp
-   75    | exp • DIVISION exp
-   76    | exp • MOD exp
-   77    | exp • DIV exp
-   80    | RESTA exp •
+   52 exp: exp • Y exp
+   53    | exp • O exp
+   56    | exp • PUNTO exp
+   57    | exp • INICIO_ARRAY exp FIN_ARRAY
+   58    | exp • REF
+   61    | exp • MENOR exp
+   62    | exp • MAYOR exp
+   63    | exp • CREACION_TIPO exp
+   64    | exp • DISTINTO exp
+   65    | exp • MAYOR_IGUAL exp
+   66    | exp • MENOR_IGUAL exp
+   68    | exp • LITERAL_ENTERO
+   69    | exp • LITERAL_REAL
+   70    | exp • SUMA exp
+   71    | exp • RESTA exp
+   72    | exp • MULTIPLICACION exp
+   73    | exp • DIVISION exp
+   74    | exp • MOD exp
+   75    | exp • DIV exp
+   78    | RESTA exp •
 
     MULTIPLICACION  shift, and go to state 112
     DIVISION        shift, and go to state 113
@@ -1532,1099 +1522,35 @@ State 102
     PUNTO           shift, and go to state 127
     INICIO_ARRAY    shift, and go to state 129
 
-    Y               [reduce using rule 80 (exp)]
-    O               [reduce using rule 80 (exp)]
-    LITERAL_ENTERO  [reduce using rule 80 (exp)]
-    LITERAL_REAL    [reduce using rule 80 (exp)]
-    $default        reduce using rule 80 (exp)
+    Y               [reduce using rule 78 (exp)]
+    O               [reduce using rule 78 (exp)]
+    LITERAL_ENTERO  [reduce using rule 78 (exp)]
+    LITERAL_REAL    [reduce using rule 78 (exp)]
+    $default        reduce using rule 78 (exp)
 
 
 State 103
 
-   54 exp: exp • Y exp
-   55    | exp • O exp
-   56    | NO exp •
-   58    | exp • PUNTO exp
-   59    | exp • INICIO_ARRAY exp FIN_ARRAY
-   60    | exp • REF
-   63    | exp • MENOR exp
-   64    | exp • MAYOR exp
-   65    | exp • CREACION_TIPO exp
-   66    | exp • DISTINTO exp
-   67    | exp • MAYOR_IGUAL exp
-   68    | exp • MENOR_IGUAL exp
-   70    | exp • LITERAL_ENTERO
-   71    | exp • LITERAL_REAL
-   72    | exp • SUMA exp
-   73    | exp • RESTA exp
-   74    | exp • MULTIPLICACION exp
-   75    | exp • DIVISION exp
-   76    | exp • MOD exp
-   77    | exp • DIV exp
-
-    SUMA            shift, and go to state 110
-    RESTA           shift, and go to state 111
-    MULTIPLICACION  shift, and go to state 112
-    DIVISION        shift, and go to state 113
-    DIV             shift, and go to state 114
-    MOD             shift, and go to state 115
-    Y               shift, and go to state 116
-    O               shift, and go to state 117
-    MAYOR_IGUAL     shift, and go to state 118
-    MENOR_IGUAL     shift, and go to state 119
-    DISTINTO        shift, and go to state 120
-    MAYOR           shift, and go to state 121
-    MENOR           shift, and go to state 122
-    REF             shift, and go to state 123
-    LITERAL_ENTERO  shift, and go to state 124
-    LITERAL_REAL    shift, and go to state 125
-    PUNTO           shift, and go to state 127
-    CREACION_TIPO   shift, and go to state 128
-    INICIO_ARRAY    shift, and go to state 129
-
-    SUMA            [reduce using rule 56 (exp)]
-    RESTA           [reduce using rule 56 (exp)]
-    MULTIPLICACION  [reduce using rule 56 (exp)]
-    DIVISION        [reduce using rule 56 (exp)]
-    DIV             [reduce using rule 56 (exp)]
-    MOD             [reduce using rule 56 (exp)]
-    Y               [reduce using rule 56 (exp)]
-    O               [reduce using rule 56 (exp)]
-    MAYOR_IGUAL     [reduce using rule 56 (exp)]
-    MENOR_IGUAL     [reduce using rule 56 (exp)]
-    DISTINTO        [reduce using rule 56 (exp)]
-    MAYOR           [reduce using rule 56 (exp)]
-    MENOR           [reduce using rule 56 (exp)]
-    REF             [reduce using rule 56 (exp)]
-    LITERAL_ENTERO  [reduce using rule 56 (exp)]
-    LITERAL_REAL    [reduce using rule 56 (exp)]
-    PUNTO           [reduce using rule 56 (exp)]
-    CREACION_TIPO   [reduce using rule 56 (exp)]
-    INICIO_ARRAY    [reduce using rule 56 (exp)]
-    $default        reduce using rule 56 (exp)
-
-
-State 104
-
-   57 exp: IDENTIFICADOR •
-  106 funcion_ll: IDENTIFICADOR • PARENTESIS_APERTURA l_ll PARENTESIS_CIERRE
-
-    PARENTESIS_APERTURA  shift, and go to state 148
-
-    $default  reduce using rule 57 (exp)
-
-
-State 105
-
-   89 alternativa: SI expresion • ENTONCES instrucciones lista_opciones FSI
-
-    ENTONCES  shift, and go to state 155
-
-
-State 106
-
-   94 it_cota_exp: MIENTRAS expresion • HACER instrucciones FMIENTRAS
-
-    HACER  shift, and go to state 156
-
-
-State 107
-
-   95 it_cota_fija: PARA IDENTIFICADOR • ASIGNACION expresion HASTA expresion HACER instruccion FPARA
-
-    ASIGNACION  shift, and go to state 157
-
-
-State 108
-
-  105 accion_ll: IDENTIFICADOR PARENTESIS_APERTURA • l_ll PARENTESIS_CIERRE
-
-    RESTA                shift, and go to state 39
-    VERDADERO            shift, and go to state 40
-    FALSO                shift, and go to state 41
-    NO                   shift, and go to state 42
-    LITERAL_ENTERO       shift, and go to state 47
-    LITERAL_REAL         shift, and go to state 48
-    IDENTIFICADOR        shift, and go to state 104
-    PARENTESIS_APERTURA  shift, and go to state 50
-
-    expresion   go to state 158
-    exp         go to state 94
-    funcion_ll  go to state 95
-    l_ll        go to state 159
-
-
-State 109
-
-   54 exp: exp • Y exp
-   55    | exp • O exp
-   58    | exp • PUNTO exp
-   59    | exp • INICIO_ARRAY exp FIN_ARRAY
-   60    | exp • REF
-   63    | exp • MENOR exp
-   64    | exp • MAYOR exp
-   65    | exp • CREACION_TIPO exp
-   66    | exp • DISTINTO exp
-   67    | exp • MAYOR_IGUAL exp
-   68    | exp • MENOR_IGUAL exp
-   69    | PARENTESIS_APERTURA exp • PARENTESIS_CIERRE
-   70    | exp • LITERAL_ENTERO
-   71    | exp • LITERAL_REAL
-   72    | exp • SUMA exp
-   73    | exp • RESTA exp
-   74    | exp • MULTIPLICACION exp
-   75    | exp • DIVISION exp
-   76    | exp • MOD exp
-   77    | exp • DIV exp
-
-    SUMA               shift, and go to state 110
-    RESTA              shift, and go to state 111
-    MULTIPLICACION     shift, and go to state 112
-    DIVISION           shift, and go to state 113
-    DIV                shift, and go to state 114
-    MOD                shift, and go to state 115
-    Y                  shift, and go to state 116
-    O                  shift, and go to state 117
-    MAYOR_IGUAL        shift, and go to state 118
-    MENOR_IGUAL        shift, and go to state 119
-    DISTINTO           shift, and go to state 120
-    MAYOR              shift, and go to state 121
-    MENOR              shift, and go to state 122
-    REF                shift, and go to state 123
-    LITERAL_ENTERO     shift, and go to state 124
-    LITERAL_REAL       shift, and go to state 125
-    PUNTO              shift, and go to state 127
-    CREACION_TIPO      shift, and go to state 128
-    INICIO_ARRAY       shift, and go to state 129
-    PARENTESIS_CIERRE  shift, and go to state 160
-
-
-State 110
-
-   72 exp: exp SUMA • exp
-
-    RESTA                shift, and go to state 39
-    VERDADERO            shift, and go to state 40
-    FALSO                shift, and go to state 41
-    NO                   shift, and go to state 42
-    LITERAL_ENTERO       shift, and go to state 47
-    LITERAL_REAL         shift, and go to state 48
-    IDENTIFICADOR        shift, and go to state 101
-    PARENTESIS_APERTURA  shift, and go to state 50
-
-    exp  go to state 161
-
-
-State 111
-
-   73 exp: exp RESTA • exp
-
-    RESTA                shift, and go to state 39
-    VERDADERO            shift, and go to state 40
-    FALSO                shift, and go to state 41
-    NO                   shift, and go to state 42
-    LITERAL_ENTERO       shift, and go to state 47
-    LITERAL_REAL         shift, and go to state 48
-    IDENTIFICADOR        shift, and go to state 101
-    PARENTESIS_APERTURA  shift, and go to state 50
-
-    exp  go to state 162
-
-
-State 112
-
-   74 exp: exp MULTIPLICACION • exp
-
-    RESTA                shift, and go to state 39
-    VERDADERO            shift, and go to state 40
-    FALSO                shift, and go to state 41
-    NO                   shift, and go to state 42
-    LITERAL_ENTERO       shift, and go to state 47
-    LITERAL_REAL         shift, and go to state 48
-    IDENTIFICADOR        shift, and go to state 101
-    PARENTESIS_APERTURA  shift, and go to state 50
-
-    exp  go to state 163
-
-
-State 113
-
-   75 exp: exp DIVISION • exp
-
-    RESTA                shift, and go to state 39
-    VERDADERO            shift, and go to state 40
-    FALSO                shift, and go to state 41
-    NO                   shift, and go to state 42
-    LITERAL_ENTERO       shift, and go to state 47
-    LITERAL_REAL         shift, and go to state 48
-    IDENTIFICADOR        shift, and go to state 101
-    PARENTESIS_APERTURA  shift, and go to state 50
-
-    exp  go to state 164
-
-
-State 114
-
-   77 exp: exp DIV • exp
-
-    RESTA                shift, and go to state 39
-    VERDADERO            shift, and go to state 40
-    FALSO                shift, and go to state 41
-    NO                   shift, and go to state 42
-    LITERAL_ENTERO       shift, and go to state 47
-    LITERAL_REAL         shift, and go to state 48
-    IDENTIFICADOR        shift, and go to state 101
-    PARENTESIS_APERTURA  shift, and go to state 50
-
-    exp  go to state 165
-
-
-State 115
-
-   76 exp: exp MOD • exp
-
-    RESTA                shift, and go to state 39
-    VERDADERO            shift, and go to state 40
-    FALSO                shift, and go to state 41
-    NO                   shift, and go to state 42
-    LITERAL_ENTERO       shift, and go to state 47
-    LITERAL_REAL         shift, and go to state 48
-    IDENTIFICADOR        shift, and go to state 101
-    PARENTESIS_APERTURA  shift, and go to state 50
-
-    exp  go to state 166
-
-
-State 116
-
-   54 exp: exp Y • exp
-
-    RESTA                shift, and go to state 39
-    VERDADERO            shift, and go to state 40
-    FALSO                shift, and go to state 41
-    NO                   shift, and go to state 42
-    LITERAL_ENTERO       shift, and go to state 47
-    LITERAL_REAL         shift, and go to state 48
-    IDENTIFICADOR        shift, and go to state 101
-    PARENTESIS_APERTURA  shift, and go to state 50
-
-    exp  go to state 167
-
-
-State 117
-
-   55 exp: exp O • exp
-
-    RESTA                shift, and go to state 39
-    VERDADERO            shift, and go to state 40
-    FALSO                shift, and go to state 41
-    NO                   shift, and go to state 42
-    LITERAL_ENTERO       shift, and go to state 47
-    LITERAL_REAL         shift, and go to state 48
-    IDENTIFICADOR        shift, and go to state 101
-    PARENTESIS_APERTURA  shift, and go to state 50
-
-    exp  go to state 168
-
-
-State 118
-
-   67 exp: exp MAYOR_IGUAL • exp
-
-    RESTA                shift, and go to state 39
-    VERDADERO            shift, and go to state 40
-    FALSO                shift, and go to state 41
-    NO                   shift, and go to state 42
-    LITERAL_ENTERO       shift, and go to state 47
-    LITERAL_REAL         shift, and go to state 48
-    IDENTIFICADOR        shift, and go to state 101
-    PARENTESIS_APERTURA  shift, and go to state 50
-
-    exp  go to state 169
-
-
-State 119
-
-   68 exp: exp MENOR_IGUAL • exp
-
-    RESTA                shift, and go to state 39
-    VERDADERO            shift, and go to state 40
-    FALSO                shift, and go to state 41
-    NO                   shift, and go to state 42
-    LITERAL_ENTERO       shift, and go to state 47
-    LITERAL_REAL         shift, and go to state 48
-    IDENTIFICADOR        shift, and go to state 101
-    PARENTESIS_APERTURA  shift, and go to state 50
-
-    exp  go to state 170
-
-
-State 120
-
-   66 exp: exp DISTINTO • exp
-
-    RESTA                shift, and go to state 39
-    VERDADERO            shift, and go to state 40
-    FALSO                shift, and go to state 41
-    NO                   shift, and go to state 42
-    LITERAL_ENTERO       shift, and go to state 47
-    LITERAL_REAL         shift, and go to state 48
-    IDENTIFICADOR        shift, and go to state 101
-    PARENTESIS_APERTURA  shift, and go to state 50
-
-    exp  go to state 171
-
-
-State 121
-
-   64 exp: exp MAYOR • exp
-
-    RESTA                shift, and go to state 39
-    VERDADERO            shift, and go to state 40
-    FALSO                shift, and go to state 41
-    NO                   shift, and go to state 42
-    LITERAL_ENTERO       shift, and go to state 47
-    LITERAL_REAL         shift, and go to state 48
-    IDENTIFICADOR        shift, and go to state 101
-    PARENTESIS_APERTURA  shift, and go to state 50
-
-    exp  go to state 172
-
-
-State 122
-
-   63 exp: exp MENOR • exp
-
-    RESTA                shift, and go to state 39
-    VERDADERO            shift, and go to state 40
-    FALSO                shift, and go to state 41
-    NO                   shift, and go to state 42
-    LITERAL_ENTERO       shift, and go to state 47
-    LITERAL_REAL         shift, and go to state 48
-    IDENTIFICADOR        shift, and go to state 101
-    PARENTESIS_APERTURA  shift, and go to state 50
-
-    exp  go to state 173
-
-
-State 123
-
-   60 exp: exp REF •
-
-    $default  reduce using rule 60 (exp)
-
-
-State 124
-
-   70 exp: exp LITERAL_ENTERO •
-
-    $default  reduce using rule 70 (exp)
-
-
-State 125
-
-   71 exp: exp LITERAL_REAL •
-
-    $default  reduce using rule 71 (exp)
-
-
-State 126
-
-   88 asignacion: exp ASIGNACION • exp
-
-    RESTA                shift, and go to state 39
-    VERDADERO            shift, and go to state 40
-    FALSO                shift, and go to state 41
-    NO                   shift, and go to state 42
-    LITERAL_ENTERO       shift, and go to state 47
-    LITERAL_REAL         shift, and go to state 48
-    IDENTIFICADOR        shift, and go to state 101
-    PARENTESIS_APERTURA  shift, and go to state 50
-
-    exp  go to state 174
-
-
-State 127
-
-   58 exp: exp PUNTO • exp
-
-    RESTA                shift, and go to state 39
-    VERDADERO            shift, and go to state 40
-    FALSO                shift, and go to state 41
-    NO                   shift, and go to state 42
-    LITERAL_ENTERO       shift, and go to state 47
-    LITERAL_REAL         shift, and go to state 48
-    IDENTIFICADOR        shift, and go to state 101
-    PARENTESIS_APERTURA  shift, and go to state 50
-
-    exp  go to state 175
-
-
-State 128
-
-   65 exp: exp CREACION_TIPO • exp
-
-    RESTA                shift, and go to state 39
-    VERDADERO            shift, and go to state 40
-    FALSO                shift, and go to state 41
-    NO                   shift, and go to state 42
-    LITERAL_ENTERO       shift, and go to state 47
-    LITERAL_REAL         shift, and go to state 48
-    IDENTIFICADOR        shift, and go to state 101
-    PARENTESIS_APERTURA  shift, and go to state 50
-
-    exp  go to state 176
-
-
-State 129
-
-   59 exp: exp INICIO_ARRAY • exp FIN_ARRAY
-
-    RESTA                shift, and go to state 39
-    VERDADERO            shift, and go to state 40
-    FALSO                shift, and go to state 41
-    NO                   shift, and go to state 42
-    LITERAL_ENTERO       shift, and go to state 47
-    LITERAL_REAL         shift, and go to state 48
-    IDENTIFICADOR        shift, and go to state 101
-    PARENTESIS_APERTURA  shift, and go to state 50
-
-    exp  go to state 177
-
-
-State 130
-
-   81 instrucciones: instruccion COMPOSICION • instrucciones
-
-    RESTA                shift, and go to state 39
-    VERDADERO            shift, and go to state 40
-    FALSO                shift, and go to state 41
-    NO                   shift, and go to state 42
-    SI                   shift, and go to state 43
-    MIENTRAS             shift, and go to state 44
-    PARA                 shift, and go to state 45
-    CONTINUAR            shift, and go to state 46
-    LITERAL_ENTERO       shift, and go to state 47
-    LITERAL_REAL         shift, and go to state 48
-    IDENTIFICADOR        shift, and go to state 49
-    PARENTESIS_APERTURA  shift, and go to state 50
-
-    exp            go to state 51
-    instrucciones  go to state 178
-    instruccion    go to state 53
-    asignacion     go to state 54
-    alternativa    go to state 55
-    iteracion      go to state 56
-    it_cota_exp    go to state 57
-    it_cota_fija   go to state 58
-    accion_ll      go to state 59
-
-
-State 131
-
-   99 f_cabecera: IDENTIFICADOR PARENTESIS_APERTURA • lista_d_var PARENTESIS_CIERRE DEV d_tipo COMPOSICION
-
-    IDENTIFICADOR  shift, and go to state 34
-
-    $default  reduce using rule 44 (lista_d_var)
-
-    lista_d_var  go to state 179
-    lista_id     go to state 36
-
-
-State 132
-
-   97 funcion_d: FUNCION f_cabecera bloque • DEV expresion FFUNCION
-
-    DEV  shift, and go to state 180
-
-
-State 133
-
-   98 a_cabecera: IDENTIFICADOR PARENTESIS_APERTURA • d_par_form PARENTESIS_CIERRE COMPOSICION
-
-    ES   shift, and go to state 181
-    ENT  shift, and go to state 182
-    SAL  shift, and go to state 183
-
-    $default  reduce using rule 101 (d_par_form)
-
-    d_par_form  go to state 184
-    d_p_form    go to state 185
-
-
-State 134
-
-   96 accion_d: ACCION a_cabecera bloque • FACCION
-
-    FACCION  shift, and go to state 186
-
-
-State 135
-
-   50 decl_ent: ENT lista_d_var •
-
-    $default  reduce using rule 50 (decl_ent)
-
-
-State 136
-
-   51 decl_sal: SAL lista_d_var •
-
-    $default  reduce using rule 51 (decl_sal)
-
-
-State 137
-
-    2 cabecera_alg: decl_globales decl_a_f decl_ent_sal COMENTARIO •
-
-    $default  reduce using rule 2 (cabecera_alg)
-
-
-State 138
-
-   48 decl_ent_sal: decl_ent decl_sal •
-
-    $default  reduce using rule 48 (decl_ent_sal)
-
-
-State 139
-
-   35 lista_d_cte: IDENTIFICADOR CREACION_TIPO ENTERO COMPOSICION • lista_d_cte
-
-    IDENTIFICADOR  shift, and go to state 12
-
-    $default  reduce using rule 40 (lista_d_cte)
-
-    lista_d_cte  go to state 187
-
-
-State 140
-
-   38 lista_d_cte: IDENTIFICADOR CREACION_TIPO REAL COMPOSICION • lista_d_cte
-
-    IDENTIFICADOR  shift, and go to state 12
-
-    $default  reduce using rule 40 (lista_d_cte)
-
-    lista_d_cte  go to state 188
-
-
-State 141
-
-   36 lista_d_cte: IDENTIFICADOR CREACION_TIPO BOOLEANO COMPOSICION • lista_d_cte
-
-    IDENTIFICADOR  shift, and go to state 12
-
-    $default  reduce using rule 40 (lista_d_cte)
-
-    lista_d_cte  go to state 189
-
-
-State 142
-
-   37 lista_d_cte: IDENTIFICADOR CREACION_TIPO CARACACTER COMPOSICION • lista_d_cte
-
-    IDENTIFICADOR  shift, and go to state 12
-
-    $default  reduce using rule 40 (lista_d_cte)
-
-    lista_d_cte  go to state 190
-
-
-State 143
-
-   39 lista_d_cte: IDENTIFICADOR CREACION_TIPO CADENA COMPOSICION • lista_d_cte
-
-    IDENTIFICADOR  shift, and go to state 12
-
-    $default  reduce using rule 40 (lista_d_cte)
-
-    lista_d_cte  go to state 191
-
-
-State 144
-
-   21 d_tipo: TABLA INICIO_ARRAY • expresion_t SUBRANGO expresion_t FIN_ARRAY DE d_tipo
-
-    RESTA                shift, and go to state 39
-    VERDADERO            shift, and go to state 40
-    FALSO                shift, and go to state 41
-    NO                   shift, and go to state 42
-    LITERAL_ENTERO       shift, and go to state 47
-    LITERAL_REAL         shift, and go to state 48
-    IDENTIFICADOR        shift, and go to state 104
-    LITERAL_CARACTER     shift, and go to state 89
-    PARENTESIS_APERTURA  shift, and go to state 50
-
-    expresion_t  go to state 192
-    expresion    go to state 93
-    exp          go to state 94
-    funcion_ll   go to state 95
-
-
-State 145
-
-   28 lista_campos: IDENTIFICADOR • DEF_TIPO d_tipo COMPOSICION lista_campos
-
-    DEF_TIPO  shift, and go to state 193
-
-
-State 146
-
-   20 d_tipo: TUPLA lista_campos • FTUPLA
-
-    FTUPLA  shift, and go to state 194
-
-
-State 147
-
-   24 d_tipo: REF d_tipo •
-
-    $default  reduce using rule 24 (d_tipo)
-
-
-State 148
-
-  106 funcion_ll: IDENTIFICADOR PARENTESIS_APERTURA • l_ll PARENTESIS_CIERRE
-
-    RESTA                shift, and go to state 39
-    VERDADERO            shift, and go to state 40
-    FALSO                shift, and go to state 41
-    NO                   shift, and go to state 42
-    LITERAL_ENTERO       shift, and go to state 47
-    LITERAL_REAL         shift, and go to state 48
-    IDENTIFICADOR        shift, and go to state 104
-    PARENTESIS_APERTURA  shift, and go to state 50
-
-    expresion   go to state 158
-    exp         go to state 94
-    funcion_ll  go to state 95
-    l_ll        go to state 195
-
-
-State 149
-
-   18 lista_d_tipo: IDENTIFICADOR CREACION_TIPO d_tipo COMPOSICION • lista_d_tipo
-
-    IDENTIFICADOR  shift, and go to state 14
-
-    $default  reduce using rule 19 (lista_d_tipo)
-
-    lista_d_tipo  go to state 196
-
-
-State 150
-
-   23 d_tipo: expresion_t SUBRANGO • expresion_t
-
-    RESTA                shift, and go to state 39
-    VERDADERO            shift, and go to state 40
-    FALSO                shift, and go to state 41
-    NO                   shift, and go to state 42
-    LITERAL_ENTERO       shift, and go to state 47
-    LITERAL_REAL         shift, and go to state 48
-    IDENTIFICADOR        shift, and go to state 104
-    LITERAL_CARACTER     shift, and go to state 89
-    PARENTESIS_APERTURA  shift, and go to state 50
-
-    expresion_t  go to state 197
-    expresion    go to state 93
-    exp          go to state 94
-    funcion_ll   go to state 95
-
-
-State 151
-
-   45 lista_id: IDENTIFICADOR SEPARADOR lista_id •
-
-    $default  reduce using rule 45 (lista_id)
-
-
-State 152
-
-   17 declaracion_var: VAR lista_d_var FVAR COMPOSICION •
-
-    $default  reduce using rule 17 (declaracion_var)
-
-
-State 153
-
-   22 d_tipo: IDENTIFICADOR •
-   41 lista_d_var: lista_id DEF_TIPO IDENTIFICADOR • COMPOSICION lista_d_var
-   57 exp: IDENTIFICADOR •
-  106 funcion_ll: IDENTIFICADOR • PARENTESIS_APERTURA l_ll PARENTESIS_CIERRE
-
-    COMPOSICION          shift, and go to state 198
-    PARENTESIS_APERTURA  shift, and go to state 148
-
-    COMPOSICION  [reduce using rule 22 (d_tipo)]
-    $default     reduce using rule 57 (exp)
-
-
-State 154
-
-   43 lista_d_var: lista_id DEF_TIPO d_tipo • COMPOSICION $@1 lista_d_var
-
-    COMPOSICION  shift, and go to state 199
-
-
-State 155
-
-   89 alternativa: SI expresion ENTONCES • instrucciones lista_opciones FSI
-
-    RESTA                shift, and go to state 39
-    VERDADERO            shift, and go to state 40
-    FALSO                shift, and go to state 41
-    NO                   shift, and go to state 42
-    SI                   shift, and go to state 43
-    MIENTRAS             shift, and go to state 44
-    PARA                 shift, and go to state 45
-    CONTINUAR            shift, and go to state 46
-    LITERAL_ENTERO       shift, and go to state 47
-    LITERAL_REAL         shift, and go to state 48
-    IDENTIFICADOR        shift, and go to state 49
-    PARENTESIS_APERTURA  shift, and go to state 50
-
-    exp            go to state 51
-    instrucciones  go to state 200
-    instruccion    go to state 53
-    asignacion     go to state 54
-    alternativa    go to state 55
-    iteracion      go to state 56
-    it_cota_exp    go to state 57
-    it_cota_fija   go to state 58
-    accion_ll      go to state 59
-
-
-State 156
-
-   94 it_cota_exp: MIENTRAS expresion HACER • instrucciones FMIENTRAS
-
-    RESTA                shift, and go to state 39
-    VERDADERO            shift, and go to state 40
-    FALSO                shift, and go to state 41
-    NO                   shift, and go to state 42
-    SI                   shift, and go to state 43
-    MIENTRAS             shift, and go to state 44
-    PARA                 shift, and go to state 45
-    CONTINUAR            shift, and go to state 46
-    LITERAL_ENTERO       shift, and go to state 47
-    LITERAL_REAL         shift, and go to state 48
-    IDENTIFICADOR        shift, and go to state 49
-    PARENTESIS_APERTURA  shift, and go to state 50
-
-    exp            go to state 51
-    instrucciones  go to state 201
-    instruccion    go to state 53
-    asignacion     go to state 54
-    alternativa    go to state 55
-    iteracion      go to state 56
-    it_cota_exp    go to state 57
-    it_cota_fija   go to state 58
-    accion_ll      go to state 59
-
-
-State 157
-
-   95 it_cota_fija: PARA IDENTIFICADOR ASIGNACION • expresion HASTA expresion HACER instruccion FPARA
-
-    RESTA                shift, and go to state 39
-    VERDADERO            shift, and go to state 40
-    FALSO                shift, and go to state 41
-    NO                   shift, and go to state 42
-    LITERAL_ENTERO       shift, and go to state 47
-    LITERAL_REAL         shift, and go to state 48
-    IDENTIFICADOR        shift, and go to state 104
-    PARENTESIS_APERTURA  shift, and go to state 50
-
-    expresion   go to state 202
-    exp         go to state 94
-    funcion_ll  go to state 95
-
-
-State 158
-
-  107 l_ll: expresion • SEPARADOR l_ll
-  108     | expresion •
-
-    SEPARADOR  shift, and go to state 203
-
-    $default  reduce using rule 108 (l_ll)
-
-
-State 159
-
-  105 accion_ll: IDENTIFICADOR PARENTESIS_APERTURA l_ll • PARENTESIS_CIERRE
-
-    PARENTESIS_CIERRE  shift, and go to state 204
-
-
-State 160
-
-   69 exp: PARENTESIS_APERTURA exp PARENTESIS_CIERRE •
-
-    $default  reduce using rule 69 (exp)
-
-
-State 161
-
-   54 exp: exp • Y exp
-   55    | exp • O exp
-   58    | exp • PUNTO exp
-   59    | exp • INICIO_ARRAY exp FIN_ARRAY
-   60    | exp • REF
-   63    | exp • MENOR exp
-   64    | exp • MAYOR exp
-   65    | exp • CREACION_TIPO exp
-   66    | exp • DISTINTO exp
-   67    | exp • MAYOR_IGUAL exp
-   68    | exp • MENOR_IGUAL exp
-   70    | exp • LITERAL_ENTERO
-   71    | exp • LITERAL_REAL
-   72    | exp • SUMA exp
-   72    | exp SUMA exp •
-   73    | exp • RESTA exp
-   74    | exp • MULTIPLICACION exp
-   75    | exp • DIVISION exp
-   76    | exp • MOD exp
-   77    | exp • DIV exp
-
-    MULTIPLICACION  shift, and go to state 112
-    DIVISION        shift, and go to state 113
-    DIV             shift, and go to state 114
-    MOD             shift, and go to state 115
-    Y               shift, and go to state 116
-    O               shift, and go to state 117
-    REF             shift, and go to state 123
-    LITERAL_ENTERO  shift, and go to state 124
-    LITERAL_REAL    shift, and go to state 125
-    PUNTO           shift, and go to state 127
-    INICIO_ARRAY    shift, and go to state 129
-
-    Y               [reduce using rule 72 (exp)]
-    O               [reduce using rule 72 (exp)]
-    LITERAL_ENTERO  [reduce using rule 72 (exp)]
-    LITERAL_REAL    [reduce using rule 72 (exp)]
-    $default        reduce using rule 72 (exp)
-
-
-State 162
-
-   54 exp: exp • Y exp
-   55    | exp • O exp
-   58    | exp • PUNTO exp
-   59    | exp • INICIO_ARRAY exp FIN_ARRAY
-   60    | exp • REF
-   63    | exp • MENOR exp
-   64    | exp • MAYOR exp
-   65    | exp • CREACION_TIPO exp
-   66    | exp • DISTINTO exp
-   67    | exp • MAYOR_IGUAL exp
-   68    | exp • MENOR_IGUAL exp
-   70    | exp • LITERAL_ENTERO
-   71    | exp • LITERAL_REAL
-   72    | exp • SUMA exp
-   73    | exp • RESTA exp
-   73    | exp RESTA exp •
-   74    | exp • MULTIPLICACION exp
-   75    | exp • DIVISION exp
-   76    | exp • MOD exp
-   77    | exp • DIV exp
-
-    MULTIPLICACION  shift, and go to state 112
-    DIVISION        shift, and go to state 113
-    DIV             shift, and go to state 114
-    MOD             shift, and go to state 115
-    Y               shift, and go to state 116
-    O               shift, and go to state 117
-    REF             shift, and go to state 123
-    LITERAL_ENTERO  shift, and go to state 124
-    LITERAL_REAL    shift, and go to state 125
-    PUNTO           shift, and go to state 127
-    INICIO_ARRAY    shift, and go to state 129
-
-    Y               [reduce using rule 73 (exp)]
-    O               [reduce using rule 73 (exp)]
-    LITERAL_ENTERO  [reduce using rule 73 (exp)]
-    LITERAL_REAL    [reduce using rule 73 (exp)]
-    $default        reduce using rule 73 (exp)
-
-
-State 163
-
-   54 exp: exp • Y exp
-   55    | exp • O exp
-   58    | exp • PUNTO exp
-   59    | exp • INICIO_ARRAY exp FIN_ARRAY
-   60    | exp • REF
-   63    | exp • MENOR exp
-   64    | exp • MAYOR exp
-   65    | exp • CREACION_TIPO exp
-   66    | exp • DISTINTO exp
-   67    | exp • MAYOR_IGUAL exp
-   68    | exp • MENOR_IGUAL exp
-   70    | exp • LITERAL_ENTERO
-   71    | exp • LITERAL_REAL
-   72    | exp • SUMA exp
-   73    | exp • RESTA exp
-   74    | exp • MULTIPLICACION exp
-   74    | exp MULTIPLICACION exp •
-   75    | exp • DIVISION exp
-   76    | exp • MOD exp
-   77    | exp • DIV exp
-
-    Y               shift, and go to state 116
-    O               shift, and go to state 117
-    REF             shift, and go to state 123
-    LITERAL_ENTERO  shift, and go to state 124
-    LITERAL_REAL    shift, and go to state 125
-    PUNTO           shift, and go to state 127
-    INICIO_ARRAY    shift, and go to state 129
-
-    Y               [reduce using rule 74 (exp)]
-    O               [reduce using rule 74 (exp)]
-    LITERAL_ENTERO  [reduce using rule 74 (exp)]
-    LITERAL_REAL    [reduce using rule 74 (exp)]
-    $default        reduce using rule 74 (exp)
-
-
-State 164
-
-   54 exp: exp • Y exp
-   55    | exp • O exp
-   58    | exp • PUNTO exp
-   59    | exp • INICIO_ARRAY exp FIN_ARRAY
-   60    | exp • REF
-   63    | exp • MENOR exp
-   64    | exp • MAYOR exp
-   65    | exp • CREACION_TIPO exp
-   66    | exp • DISTINTO exp
-   67    | exp • MAYOR_IGUAL exp
-   68    | exp • MENOR_IGUAL exp
-   70    | exp • LITERAL_ENTERO
-   71    | exp • LITERAL_REAL
-   72    | exp • SUMA exp
-   73    | exp • RESTA exp
-   74    | exp • MULTIPLICACION exp
-   75    | exp • DIVISION exp
-   75    | exp DIVISION exp •
-   76    | exp • MOD exp
-   77    | exp • DIV exp
-
-    Y               shift, and go to state 116
-    O               shift, and go to state 117
-    REF             shift, and go to state 123
-    LITERAL_ENTERO  shift, and go to state 124
-    LITERAL_REAL    shift, and go to state 125
-    PUNTO           shift, and go to state 127
-    INICIO_ARRAY    shift, and go to state 129
-
-    Y               [reduce using rule 75 (exp)]
-    O               [reduce using rule 75 (exp)]
-    LITERAL_ENTERO  [reduce using rule 75 (exp)]
-    LITERAL_REAL    [reduce using rule 75 (exp)]
-    $default        reduce using rule 75 (exp)
-
-
-State 165
-
-   54 exp: exp • Y exp
-   55    | exp • O exp
-   58    | exp • PUNTO exp
-   59    | exp • INICIO_ARRAY exp FIN_ARRAY
-   60    | exp • REF
-   63    | exp • MENOR exp
-   64    | exp • MAYOR exp
-   65    | exp • CREACION_TIPO exp
-   66    | exp • DISTINTO exp
-   67    | exp • MAYOR_IGUAL exp
-   68    | exp • MENOR_IGUAL exp
-   70    | exp • LITERAL_ENTERO
-   71    | exp • LITERAL_REAL
-   72    | exp • SUMA exp
-   73    | exp • RESTA exp
-   74    | exp • MULTIPLICACION exp
-   75    | exp • DIVISION exp
-   76    | exp • MOD exp
-   77    | exp • DIV exp
-   77    | exp DIV exp •
-
-    Y               shift, and go to state 116
-    O               shift, and go to state 117
-    REF             shift, and go to state 123
-    LITERAL_ENTERO  shift, and go to state 124
-    LITERAL_REAL    shift, and go to state 125
-    PUNTO           shift, and go to state 127
-    INICIO_ARRAY    shift, and go to state 129
-
-    Y               [reduce using rule 77 (exp)]
-    O               [reduce using rule 77 (exp)]
-    LITERAL_ENTERO  [reduce using rule 77 (exp)]
-    LITERAL_REAL    [reduce using rule 77 (exp)]
-    $default        reduce using rule 77 (exp)
-
-
-State 166
-
-   54 exp: exp • Y exp
-   55    | exp • O exp
-   58    | exp • PUNTO exp
-   59    | exp • INICIO_ARRAY exp FIN_ARRAY
-   60    | exp • REF
-   63    | exp • MENOR exp
-   64    | exp • MAYOR exp
-   65    | exp • CREACION_TIPO exp
-   66    | exp • DISTINTO exp
-   67    | exp • MAYOR_IGUAL exp
-   68    | exp • MENOR_IGUAL exp
-   70    | exp • LITERAL_ENTERO
-   71    | exp • LITERAL_REAL
-   72    | exp • SUMA exp
-   73    | exp • RESTA exp
-   74    | exp • MULTIPLICACION exp
-   75    | exp • DIVISION exp
-   76    | exp • MOD exp
-   76    | exp MOD exp •
-   77    | exp • DIV exp
-
-    Y               shift, and go to state 116
-    O               shift, and go to state 117
-    REF             shift, and go to state 123
-    LITERAL_ENTERO  shift, and go to state 124
-    LITERAL_REAL    shift, and go to state 125
-    PUNTO           shift, and go to state 127
-    INICIO_ARRAY    shift, and go to state 129
-
-    Y               [reduce using rule 76 (exp)]
-    O               [reduce using rule 76 (exp)]
-    LITERAL_ENTERO  [reduce using rule 76 (exp)]
-    LITERAL_REAL    [reduce using rule 76 (exp)]
-    $default        reduce using rule 76 (exp)
-
-
-State 167
-
-   54 exp: exp • Y exp
-   54    | exp Y exp •
-   55    | exp • O exp
-   58    | exp • PUNTO exp
-   59    | exp • INICIO_ARRAY exp FIN_ARRAY
-   60    | exp • REF
-   63    | exp • MENOR exp
-   64    | exp • MAYOR exp
-   65    | exp • CREACION_TIPO exp
-   66    | exp • DISTINTO exp
-   67    | exp • MAYOR_IGUAL exp
-   68    | exp • MENOR_IGUAL exp
-   70    | exp • LITERAL_ENTERO
-   71    | exp • LITERAL_REAL
-   72    | exp • SUMA exp
-   73    | exp • RESTA exp
-   74    | exp • MULTIPLICACION exp
-   75    | exp • DIVISION exp
-   76    | exp • MOD exp
-   77    | exp • DIV exp
+   52 exp: exp • Y exp
+   53    | exp • O exp
+   54    | NO exp •
+   56    | exp • PUNTO exp
+   57    | exp • INICIO_ARRAY exp FIN_ARRAY
+   58    | exp • REF
+   61    | exp • MENOR exp
+   62    | exp • MAYOR exp
+   63    | exp • CREACION_TIPO exp
+   64    | exp • DISTINTO exp
+   65    | exp • MAYOR_IGUAL exp
+   66    | exp • MENOR_IGUAL exp
+   68    | exp • LITERAL_ENTERO
+   69    | exp • LITERAL_REAL
+   70    | exp • SUMA exp
+   71    | exp • RESTA exp
+   72    | exp • MULTIPLICACION exp
+   73    | exp • DIVISION exp
+   74    | exp • MOD exp
+   75    | exp • DIV exp
 
     SUMA            shift, and go to state 110
     RESTA           shift, and go to state 111
@@ -2668,28 +1594,1013 @@ State 167
     $default        reduce using rule 54 (exp)
 
 
-State 168
+State 104
 
-   54 exp: exp • Y exp
-   55    | exp • O exp
-   55    | exp O exp •
-   58    | exp • PUNTO exp
-   59    | exp • INICIO_ARRAY exp FIN_ARRAY
-   60    | exp • REF
-   63    | exp • MENOR exp
-   64    | exp • MAYOR exp
-   65    | exp • CREACION_TIPO exp
-   66    | exp • DISTINTO exp
-   67    | exp • MAYOR_IGUAL exp
-   68    | exp • MENOR_IGUAL exp
-   70    | exp • LITERAL_ENTERO
-   71    | exp • LITERAL_REAL
-   72    | exp • SUMA exp
-   73    | exp • RESTA exp
-   74    | exp • MULTIPLICACION exp
-   75    | exp • DIVISION exp
-   76    | exp • MOD exp
-   77    | exp • DIV exp
+   55 exp: IDENTIFICADOR •
+  104 funcion_ll: IDENTIFICADOR • PARENTESIS_APERTURA l_ll PARENTESIS_CIERRE
+
+    PARENTESIS_APERTURA  shift, and go to state 148
+
+    $default  reduce using rule 55 (exp)
+
+
+State 105
+
+   87 alternativa: SI expresion • ENTONCES instrucciones lista_opciones FSI
+
+    ENTONCES  shift, and go to state 154
+
+
+State 106
+
+   92 it_cota_exp: MIENTRAS expresion • HACER instrucciones FMIENTRAS
+
+    HACER  shift, and go to state 155
+
+
+State 107
+
+   93 it_cota_fija: PARA IDENTIFICADOR • ASIGNACION expresion HASTA expresion HACER instruccion FPARA
+
+    ASIGNACION  shift, and go to state 156
+
+
+State 108
+
+  103 accion_ll: IDENTIFICADOR PARENTESIS_APERTURA • l_ll PARENTESIS_CIERRE
+
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 104
+    PARENTESIS_APERTURA  shift, and go to state 50
+
+    expresion   go to state 157
+    exp         go to state 94
+    funcion_ll  go to state 95
+    l_ll        go to state 158
+
+
+State 109
+
+   52 exp: exp • Y exp
+   53    | exp • O exp
+   56    | exp • PUNTO exp
+   57    | exp • INICIO_ARRAY exp FIN_ARRAY
+   58    | exp • REF
+   61    | exp • MENOR exp
+   62    | exp • MAYOR exp
+   63    | exp • CREACION_TIPO exp
+   64    | exp • DISTINTO exp
+   65    | exp • MAYOR_IGUAL exp
+   66    | exp • MENOR_IGUAL exp
+   67    | PARENTESIS_APERTURA exp • PARENTESIS_CIERRE
+   68    | exp • LITERAL_ENTERO
+   69    | exp • LITERAL_REAL
+   70    | exp • SUMA exp
+   71    | exp • RESTA exp
+   72    | exp • MULTIPLICACION exp
+   73    | exp • DIVISION exp
+   74    | exp • MOD exp
+   75    | exp • DIV exp
+
+    SUMA               shift, and go to state 110
+    RESTA              shift, and go to state 111
+    MULTIPLICACION     shift, and go to state 112
+    DIVISION           shift, and go to state 113
+    DIV                shift, and go to state 114
+    MOD                shift, and go to state 115
+    Y                  shift, and go to state 116
+    O                  shift, and go to state 117
+    MAYOR_IGUAL        shift, and go to state 118
+    MENOR_IGUAL        shift, and go to state 119
+    DISTINTO           shift, and go to state 120
+    MAYOR              shift, and go to state 121
+    MENOR              shift, and go to state 122
+    REF                shift, and go to state 123
+    LITERAL_ENTERO     shift, and go to state 124
+    LITERAL_REAL       shift, and go to state 125
+    PUNTO              shift, and go to state 127
+    CREACION_TIPO      shift, and go to state 128
+    INICIO_ARRAY       shift, and go to state 129
+    PARENTESIS_CIERRE  shift, and go to state 159
+
+
+State 110
+
+   70 exp: exp SUMA • exp
+
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 101
+    PARENTESIS_APERTURA  shift, and go to state 50
+
+    exp  go to state 160
+
+
+State 111
+
+   71 exp: exp RESTA • exp
+
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 101
+    PARENTESIS_APERTURA  shift, and go to state 50
+
+    exp  go to state 161
+
+
+State 112
+
+   72 exp: exp MULTIPLICACION • exp
+
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 101
+    PARENTESIS_APERTURA  shift, and go to state 50
+
+    exp  go to state 162
+
+
+State 113
+
+   73 exp: exp DIVISION • exp
+
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 101
+    PARENTESIS_APERTURA  shift, and go to state 50
+
+    exp  go to state 163
+
+
+State 114
+
+   75 exp: exp DIV • exp
+
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 101
+    PARENTESIS_APERTURA  shift, and go to state 50
+
+    exp  go to state 164
+
+
+State 115
+
+   74 exp: exp MOD • exp
+
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 101
+    PARENTESIS_APERTURA  shift, and go to state 50
+
+    exp  go to state 165
+
+
+State 116
+
+   52 exp: exp Y • exp
+
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 101
+    PARENTESIS_APERTURA  shift, and go to state 50
+
+    exp  go to state 166
+
+
+State 117
+
+   53 exp: exp O • exp
+
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 101
+    PARENTESIS_APERTURA  shift, and go to state 50
+
+    exp  go to state 167
+
+
+State 118
+
+   65 exp: exp MAYOR_IGUAL • exp
+
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 101
+    PARENTESIS_APERTURA  shift, and go to state 50
+
+    exp  go to state 168
+
+
+State 119
+
+   66 exp: exp MENOR_IGUAL • exp
+
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 101
+    PARENTESIS_APERTURA  shift, and go to state 50
+
+    exp  go to state 169
+
+
+State 120
+
+   64 exp: exp DISTINTO • exp
+
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 101
+    PARENTESIS_APERTURA  shift, and go to state 50
+
+    exp  go to state 170
+
+
+State 121
+
+   62 exp: exp MAYOR • exp
+
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 101
+    PARENTESIS_APERTURA  shift, and go to state 50
+
+    exp  go to state 171
+
+
+State 122
+
+   61 exp: exp MENOR • exp
+
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 101
+    PARENTESIS_APERTURA  shift, and go to state 50
+
+    exp  go to state 172
+
+
+State 123
+
+   58 exp: exp REF •
+
+    $default  reduce using rule 58 (exp)
+
+
+State 124
+
+   68 exp: exp LITERAL_ENTERO •
+
+    $default  reduce using rule 68 (exp)
+
+
+State 125
+
+   69 exp: exp LITERAL_REAL •
+
+    $default  reduce using rule 69 (exp)
+
+
+State 126
+
+   86 asignacion: exp ASIGNACION • exp
+
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 101
+    PARENTESIS_APERTURA  shift, and go to state 50
+
+    exp  go to state 173
+
+
+State 127
+
+   56 exp: exp PUNTO • exp
+
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 101
+    PARENTESIS_APERTURA  shift, and go to state 50
+
+    exp  go to state 174
+
+
+State 128
+
+   63 exp: exp CREACION_TIPO • exp
+
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 101
+    PARENTESIS_APERTURA  shift, and go to state 50
+
+    exp  go to state 175
+
+
+State 129
+
+   57 exp: exp INICIO_ARRAY • exp FIN_ARRAY
+
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 101
+    PARENTESIS_APERTURA  shift, and go to state 50
+
+    exp  go to state 176
+
+
+State 130
+
+   79 instrucciones: instruccion COMPOSICION • instrucciones
+
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    SI                   shift, and go to state 43
+    MIENTRAS             shift, and go to state 44
+    PARA                 shift, and go to state 45
+    CONTINUAR            shift, and go to state 46
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 49
+    PARENTESIS_APERTURA  shift, and go to state 50
+
+    exp            go to state 51
+    instrucciones  go to state 177
+    instruccion    go to state 53
+    asignacion     go to state 54
+    alternativa    go to state 55
+    iteracion      go to state 56
+    it_cota_exp    go to state 57
+    it_cota_fija   go to state 58
+    accion_ll      go to state 59
+
+
+State 131
+
+   97 f_cabecera: IDENTIFICADOR PARENTESIS_APERTURA • lista_d_var PARENTESIS_CIERRE DEV d_tipo COMPOSICION
+
+    IDENTIFICADOR  shift, and go to state 34
+
+    $default  reduce using rule 42 (lista_d_var)
+
+    lista_d_var  go to state 178
+    lista_id     go to state 36
+
+
+State 132
+
+   95 funcion_d: FUNCION f_cabecera bloque • DEV expresion FFUNCION
+
+    DEV  shift, and go to state 179
+
+
+State 133
+
+   96 a_cabecera: IDENTIFICADOR PARENTESIS_APERTURA • d_par_form PARENTESIS_CIERRE COMPOSICION
+
+    ES   shift, and go to state 180
+    ENT  shift, and go to state 181
+    SAL  shift, and go to state 182
+
+    $default  reduce using rule 99 (d_par_form)
+
+    d_par_form  go to state 183
+    d_p_form    go to state 184
+
+
+State 134
+
+   94 accion_d: ACCION a_cabecera bloque • FACCION
+
+    FACCION  shift, and go to state 185
+
+
+State 135
+
+   48 decl_ent: ENT lista_d_var •
+
+    $default  reduce using rule 48 (decl_ent)
+
+
+State 136
+
+   49 decl_sal: SAL lista_d_var •
+
+    $default  reduce using rule 49 (decl_sal)
+
+
+State 137
+
+    2 cabecera_alg: decl_globales decl_a_f decl_ent_sal COMENTARIO •
+
+    $default  reduce using rule 2 (cabecera_alg)
+
+
+State 138
+
+   46 decl_ent_sal: decl_ent decl_sal •
+
+    $default  reduce using rule 46 (decl_ent_sal)
+
+
+State 139
+
+   35 lista_d_cte: IDENTIFICADOR CREACION_TIPO ENTERO COMPOSICION • lista_d_cte
+
+    IDENTIFICADOR  shift, and go to state 12
+
+    $default  reduce using rule 40 (lista_d_cte)
+
+    lista_d_cte  go to state 186
+
+
+State 140
+
+   38 lista_d_cte: IDENTIFICADOR CREACION_TIPO REAL COMPOSICION • lista_d_cte
+
+    IDENTIFICADOR  shift, and go to state 12
+
+    $default  reduce using rule 40 (lista_d_cte)
+
+    lista_d_cte  go to state 187
+
+
+State 141
+
+   36 lista_d_cte: IDENTIFICADOR CREACION_TIPO BOOLEANO COMPOSICION • lista_d_cte
+
+    IDENTIFICADOR  shift, and go to state 12
+
+    $default  reduce using rule 40 (lista_d_cte)
+
+    lista_d_cte  go to state 188
+
+
+State 142
+
+   37 lista_d_cte: IDENTIFICADOR CREACION_TIPO CARACACTER COMPOSICION • lista_d_cte
+
+    IDENTIFICADOR  shift, and go to state 12
+
+    $default  reduce using rule 40 (lista_d_cte)
+
+    lista_d_cte  go to state 189
+
+
+State 143
+
+   39 lista_d_cte: IDENTIFICADOR CREACION_TIPO CADENA COMPOSICION • lista_d_cte
+
+    IDENTIFICADOR  shift, and go to state 12
+
+    $default  reduce using rule 40 (lista_d_cte)
+
+    lista_d_cte  go to state 190
+
+
+State 144
+
+   21 d_tipo: TABLA INICIO_ARRAY • expresion_t SUBRANGO expresion_t FIN_ARRAY DE d_tipo
+
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 104
+    LITERAL_CARACTER     shift, and go to state 89
+    PARENTESIS_APERTURA  shift, and go to state 50
+
+    expresion_t  go to state 191
+    expresion    go to state 93
+    exp          go to state 94
+    funcion_ll   go to state 95
+
+
+State 145
+
+   28 lista_campos: IDENTIFICADOR • DEF_TIPO d_tipo COMPOSICION lista_campos
+
+    DEF_TIPO  shift, and go to state 192
+
+
+State 146
+
+   20 d_tipo: TUPLA lista_campos • FTUPLA
+
+    FTUPLA  shift, and go to state 193
+
+
+State 147
+
+   24 d_tipo: REF d_tipo •
+
+    $default  reduce using rule 24 (d_tipo)
+
+
+State 148
+
+  104 funcion_ll: IDENTIFICADOR PARENTESIS_APERTURA • l_ll PARENTESIS_CIERRE
+
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 104
+    PARENTESIS_APERTURA  shift, and go to state 50
+
+    expresion   go to state 157
+    exp         go to state 94
+    funcion_ll  go to state 95
+    l_ll        go to state 194
+
+
+State 149
+
+   18 lista_d_tipo: IDENTIFICADOR CREACION_TIPO d_tipo COMPOSICION • lista_d_tipo
+
+    IDENTIFICADOR  shift, and go to state 14
+
+    $default  reduce using rule 19 (lista_d_tipo)
+
+    lista_d_tipo  go to state 195
+
+
+State 150
+
+   23 d_tipo: expresion_t SUBRANGO • expresion_t
+
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 104
+    LITERAL_CARACTER     shift, and go to state 89
+    PARENTESIS_APERTURA  shift, and go to state 50
+
+    expresion_t  go to state 196
+    expresion    go to state 93
+    exp          go to state 94
+    funcion_ll   go to state 95
+
+
+State 151
+
+   43 lista_id: IDENTIFICADOR SEPARADOR lista_id •
+
+    $default  reduce using rule 43 (lista_id)
+
+
+State 152
+
+   17 declaracion_var: VAR lista_d_var FVAR COMPOSICION •
+
+    $default  reduce using rule 17 (declaracion_var)
+
+
+State 153
+
+   41 lista_d_var: lista_id DEF_TIPO d_tipo • COMPOSICION lista_d_var
+
+    COMPOSICION  shift, and go to state 197
+
+
+State 154
+
+   87 alternativa: SI expresion ENTONCES • instrucciones lista_opciones FSI
+
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    SI                   shift, and go to state 43
+    MIENTRAS             shift, and go to state 44
+    PARA                 shift, and go to state 45
+    CONTINUAR            shift, and go to state 46
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 49
+    PARENTESIS_APERTURA  shift, and go to state 50
+
+    exp            go to state 51
+    instrucciones  go to state 198
+    instruccion    go to state 53
+    asignacion     go to state 54
+    alternativa    go to state 55
+    iteracion      go to state 56
+    it_cota_exp    go to state 57
+    it_cota_fija   go to state 58
+    accion_ll      go to state 59
+
+
+State 155
+
+   92 it_cota_exp: MIENTRAS expresion HACER • instrucciones FMIENTRAS
+
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    SI                   shift, and go to state 43
+    MIENTRAS             shift, and go to state 44
+    PARA                 shift, and go to state 45
+    CONTINUAR            shift, and go to state 46
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 49
+    PARENTESIS_APERTURA  shift, and go to state 50
+
+    exp            go to state 51
+    instrucciones  go to state 199
+    instruccion    go to state 53
+    asignacion     go to state 54
+    alternativa    go to state 55
+    iteracion      go to state 56
+    it_cota_exp    go to state 57
+    it_cota_fija   go to state 58
+    accion_ll      go to state 59
+
+
+State 156
+
+   93 it_cota_fija: PARA IDENTIFICADOR ASIGNACION • expresion HASTA expresion HACER instruccion FPARA
+
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 104
+    PARENTESIS_APERTURA  shift, and go to state 50
+
+    expresion   go to state 200
+    exp         go to state 94
+    funcion_ll  go to state 95
+
+
+State 157
+
+  105 l_ll: expresion • SEPARADOR l_ll
+  106     | expresion •
+
+    SEPARADOR  shift, and go to state 201
+
+    $default  reduce using rule 106 (l_ll)
+
+
+State 158
+
+  103 accion_ll: IDENTIFICADOR PARENTESIS_APERTURA l_ll • PARENTESIS_CIERRE
+
+    PARENTESIS_CIERRE  shift, and go to state 202
+
+
+State 159
+
+   67 exp: PARENTESIS_APERTURA exp PARENTESIS_CIERRE •
+
+    $default  reduce using rule 67 (exp)
+
+
+State 160
+
+   52 exp: exp • Y exp
+   53    | exp • O exp
+   56    | exp • PUNTO exp
+   57    | exp • INICIO_ARRAY exp FIN_ARRAY
+   58    | exp • REF
+   61    | exp • MENOR exp
+   62    | exp • MAYOR exp
+   63    | exp • CREACION_TIPO exp
+   64    | exp • DISTINTO exp
+   65    | exp • MAYOR_IGUAL exp
+   66    | exp • MENOR_IGUAL exp
+   68    | exp • LITERAL_ENTERO
+   69    | exp • LITERAL_REAL
+   70    | exp • SUMA exp
+   70    | exp SUMA exp •
+   71    | exp • RESTA exp
+   72    | exp • MULTIPLICACION exp
+   73    | exp • DIVISION exp
+   74    | exp • MOD exp
+   75    | exp • DIV exp
+
+    MULTIPLICACION  shift, and go to state 112
+    DIVISION        shift, and go to state 113
+    DIV             shift, and go to state 114
+    MOD             shift, and go to state 115
+    Y               shift, and go to state 116
+    O               shift, and go to state 117
+    REF             shift, and go to state 123
+    LITERAL_ENTERO  shift, and go to state 124
+    LITERAL_REAL    shift, and go to state 125
+    PUNTO           shift, and go to state 127
+    INICIO_ARRAY    shift, and go to state 129
+
+    Y               [reduce using rule 70 (exp)]
+    O               [reduce using rule 70 (exp)]
+    LITERAL_ENTERO  [reduce using rule 70 (exp)]
+    LITERAL_REAL    [reduce using rule 70 (exp)]
+    $default        reduce using rule 70 (exp)
+
+
+State 161
+
+   52 exp: exp • Y exp
+   53    | exp • O exp
+   56    | exp • PUNTO exp
+   57    | exp • INICIO_ARRAY exp FIN_ARRAY
+   58    | exp • REF
+   61    | exp • MENOR exp
+   62    | exp • MAYOR exp
+   63    | exp • CREACION_TIPO exp
+   64    | exp • DISTINTO exp
+   65    | exp • MAYOR_IGUAL exp
+   66    | exp • MENOR_IGUAL exp
+   68    | exp • LITERAL_ENTERO
+   69    | exp • LITERAL_REAL
+   70    | exp • SUMA exp
+   71    | exp • RESTA exp
+   71    | exp RESTA exp •
+   72    | exp • MULTIPLICACION exp
+   73    | exp • DIVISION exp
+   74    | exp • MOD exp
+   75    | exp • DIV exp
+
+    MULTIPLICACION  shift, and go to state 112
+    DIVISION        shift, and go to state 113
+    DIV             shift, and go to state 114
+    MOD             shift, and go to state 115
+    Y               shift, and go to state 116
+    O               shift, and go to state 117
+    REF             shift, and go to state 123
+    LITERAL_ENTERO  shift, and go to state 124
+    LITERAL_REAL    shift, and go to state 125
+    PUNTO           shift, and go to state 127
+    INICIO_ARRAY    shift, and go to state 129
+
+    Y               [reduce using rule 71 (exp)]
+    O               [reduce using rule 71 (exp)]
+    LITERAL_ENTERO  [reduce using rule 71 (exp)]
+    LITERAL_REAL    [reduce using rule 71 (exp)]
+    $default        reduce using rule 71 (exp)
+
+
+State 162
+
+   52 exp: exp • Y exp
+   53    | exp • O exp
+   56    | exp • PUNTO exp
+   57    | exp • INICIO_ARRAY exp FIN_ARRAY
+   58    | exp • REF
+   61    | exp • MENOR exp
+   62    | exp • MAYOR exp
+   63    | exp • CREACION_TIPO exp
+   64    | exp • DISTINTO exp
+   65    | exp • MAYOR_IGUAL exp
+   66    | exp • MENOR_IGUAL exp
+   68    | exp • LITERAL_ENTERO
+   69    | exp • LITERAL_REAL
+   70    | exp • SUMA exp
+   71    | exp • RESTA exp
+   72    | exp • MULTIPLICACION exp
+   72    | exp MULTIPLICACION exp •
+   73    | exp • DIVISION exp
+   74    | exp • MOD exp
+   75    | exp • DIV exp
+
+    Y               shift, and go to state 116
+    O               shift, and go to state 117
+    REF             shift, and go to state 123
+    LITERAL_ENTERO  shift, and go to state 124
+    LITERAL_REAL    shift, and go to state 125
+    PUNTO           shift, and go to state 127
+    INICIO_ARRAY    shift, and go to state 129
+
+    Y               [reduce using rule 72 (exp)]
+    O               [reduce using rule 72 (exp)]
+    LITERAL_ENTERO  [reduce using rule 72 (exp)]
+    LITERAL_REAL    [reduce using rule 72 (exp)]
+    $default        reduce using rule 72 (exp)
+
+
+State 163
+
+   52 exp: exp • Y exp
+   53    | exp • O exp
+   56    | exp • PUNTO exp
+   57    | exp • INICIO_ARRAY exp FIN_ARRAY
+   58    | exp • REF
+   61    | exp • MENOR exp
+   62    | exp • MAYOR exp
+   63    | exp • CREACION_TIPO exp
+   64    | exp • DISTINTO exp
+   65    | exp • MAYOR_IGUAL exp
+   66    | exp • MENOR_IGUAL exp
+   68    | exp • LITERAL_ENTERO
+   69    | exp • LITERAL_REAL
+   70    | exp • SUMA exp
+   71    | exp • RESTA exp
+   72    | exp • MULTIPLICACION exp
+   73    | exp • DIVISION exp
+   73    | exp DIVISION exp •
+   74    | exp • MOD exp
+   75    | exp • DIV exp
+
+    Y               shift, and go to state 116
+    O               shift, and go to state 117
+    REF             shift, and go to state 123
+    LITERAL_ENTERO  shift, and go to state 124
+    LITERAL_REAL    shift, and go to state 125
+    PUNTO           shift, and go to state 127
+    INICIO_ARRAY    shift, and go to state 129
+
+    Y               [reduce using rule 73 (exp)]
+    O               [reduce using rule 73 (exp)]
+    LITERAL_ENTERO  [reduce using rule 73 (exp)]
+    LITERAL_REAL    [reduce using rule 73 (exp)]
+    $default        reduce using rule 73 (exp)
+
+
+State 164
+
+   52 exp: exp • Y exp
+   53    | exp • O exp
+   56    | exp • PUNTO exp
+   57    | exp • INICIO_ARRAY exp FIN_ARRAY
+   58    | exp • REF
+   61    | exp • MENOR exp
+   62    | exp • MAYOR exp
+   63    | exp • CREACION_TIPO exp
+   64    | exp • DISTINTO exp
+   65    | exp • MAYOR_IGUAL exp
+   66    | exp • MENOR_IGUAL exp
+   68    | exp • LITERAL_ENTERO
+   69    | exp • LITERAL_REAL
+   70    | exp • SUMA exp
+   71    | exp • RESTA exp
+   72    | exp • MULTIPLICACION exp
+   73    | exp • DIVISION exp
+   74    | exp • MOD exp
+   75    | exp • DIV exp
+   75    | exp DIV exp •
+
+    Y               shift, and go to state 116
+    O               shift, and go to state 117
+    REF             shift, and go to state 123
+    LITERAL_ENTERO  shift, and go to state 124
+    LITERAL_REAL    shift, and go to state 125
+    PUNTO           shift, and go to state 127
+    INICIO_ARRAY    shift, and go to state 129
+
+    Y               [reduce using rule 75 (exp)]
+    O               [reduce using rule 75 (exp)]
+    LITERAL_ENTERO  [reduce using rule 75 (exp)]
+    LITERAL_REAL    [reduce using rule 75 (exp)]
+    $default        reduce using rule 75 (exp)
+
+
+State 165
+
+   52 exp: exp • Y exp
+   53    | exp • O exp
+   56    | exp • PUNTO exp
+   57    | exp • INICIO_ARRAY exp FIN_ARRAY
+   58    | exp • REF
+   61    | exp • MENOR exp
+   62    | exp • MAYOR exp
+   63    | exp • CREACION_TIPO exp
+   64    | exp • DISTINTO exp
+   65    | exp • MAYOR_IGUAL exp
+   66    | exp • MENOR_IGUAL exp
+   68    | exp • LITERAL_ENTERO
+   69    | exp • LITERAL_REAL
+   70    | exp • SUMA exp
+   71    | exp • RESTA exp
+   72    | exp • MULTIPLICACION exp
+   73    | exp • DIVISION exp
+   74    | exp • MOD exp
+   74    | exp MOD exp •
+   75    | exp • DIV exp
+
+    Y               shift, and go to state 116
+    O               shift, and go to state 117
+    REF             shift, and go to state 123
+    LITERAL_ENTERO  shift, and go to state 124
+    LITERAL_REAL    shift, and go to state 125
+    PUNTO           shift, and go to state 127
+    INICIO_ARRAY    shift, and go to state 129
+
+    Y               [reduce using rule 74 (exp)]
+    O               [reduce using rule 74 (exp)]
+    LITERAL_ENTERO  [reduce using rule 74 (exp)]
+    LITERAL_REAL    [reduce using rule 74 (exp)]
+    $default        reduce using rule 74 (exp)
+
+
+State 166
+
+   52 exp: exp • Y exp
+   52    | exp Y exp •
+   53    | exp • O exp
+   56    | exp • PUNTO exp
+   57    | exp • INICIO_ARRAY exp FIN_ARRAY
+   58    | exp • REF
+   61    | exp • MENOR exp
+   62    | exp • MAYOR exp
+   63    | exp • CREACION_TIPO exp
+   64    | exp • DISTINTO exp
+   65    | exp • MAYOR_IGUAL exp
+   66    | exp • MENOR_IGUAL exp
+   68    | exp • LITERAL_ENTERO
+   69    | exp • LITERAL_REAL
+   70    | exp • SUMA exp
+   71    | exp • RESTA exp
+   72    | exp • MULTIPLICACION exp
+   73    | exp • DIVISION exp
+   74    | exp • MOD exp
+   75    | exp • DIV exp
 
     SUMA            shift, and go to state 110
     RESTA           shift, and go to state 111
@@ -2711,150 +2622,165 @@ State 168
     CREACION_TIPO   shift, and go to state 128
     INICIO_ARRAY    shift, and go to state 129
 
-    SUMA            [reduce using rule 55 (exp)]
-    RESTA           [reduce using rule 55 (exp)]
-    MULTIPLICACION  [reduce using rule 55 (exp)]
-    DIVISION        [reduce using rule 55 (exp)]
-    DIV             [reduce using rule 55 (exp)]
-    MOD             [reduce using rule 55 (exp)]
-    Y               [reduce using rule 55 (exp)]
-    O               [reduce using rule 55 (exp)]
-    MAYOR_IGUAL     [reduce using rule 55 (exp)]
-    MENOR_IGUAL     [reduce using rule 55 (exp)]
-    DISTINTO        [reduce using rule 55 (exp)]
-    MAYOR           [reduce using rule 55 (exp)]
-    MENOR           [reduce using rule 55 (exp)]
-    REF             [reduce using rule 55 (exp)]
-    LITERAL_ENTERO  [reduce using rule 55 (exp)]
-    LITERAL_REAL    [reduce using rule 55 (exp)]
-    PUNTO           [reduce using rule 55 (exp)]
-    CREACION_TIPO   [reduce using rule 55 (exp)]
-    INICIO_ARRAY    [reduce using rule 55 (exp)]
-    $default        reduce using rule 55 (exp)
+    SUMA            [reduce using rule 52 (exp)]
+    RESTA           [reduce using rule 52 (exp)]
+    MULTIPLICACION  [reduce using rule 52 (exp)]
+    DIVISION        [reduce using rule 52 (exp)]
+    DIV             [reduce using rule 52 (exp)]
+    MOD             [reduce using rule 52 (exp)]
+    Y               [reduce using rule 52 (exp)]
+    O               [reduce using rule 52 (exp)]
+    MAYOR_IGUAL     [reduce using rule 52 (exp)]
+    MENOR_IGUAL     [reduce using rule 52 (exp)]
+    DISTINTO        [reduce using rule 52 (exp)]
+    MAYOR           [reduce using rule 52 (exp)]
+    MENOR           [reduce using rule 52 (exp)]
+    REF             [reduce using rule 52 (exp)]
+    LITERAL_ENTERO  [reduce using rule 52 (exp)]
+    LITERAL_REAL    [reduce using rule 52 (exp)]
+    PUNTO           [reduce using rule 52 (exp)]
+    CREACION_TIPO   [reduce using rule 52 (exp)]
+    INICIO_ARRAY    [reduce using rule 52 (exp)]
+    $default        reduce using rule 52 (exp)
+
+
+State 167
+
+   52 exp: exp • Y exp
+   53    | exp • O exp
+   53    | exp O exp •
+   56    | exp • PUNTO exp
+   57    | exp • INICIO_ARRAY exp FIN_ARRAY
+   58    | exp • REF
+   61    | exp • MENOR exp
+   62    | exp • MAYOR exp
+   63    | exp • CREACION_TIPO exp
+   64    | exp • DISTINTO exp
+   65    | exp • MAYOR_IGUAL exp
+   66    | exp • MENOR_IGUAL exp
+   68    | exp • LITERAL_ENTERO
+   69    | exp • LITERAL_REAL
+   70    | exp • SUMA exp
+   71    | exp • RESTA exp
+   72    | exp • MULTIPLICACION exp
+   73    | exp • DIVISION exp
+   74    | exp • MOD exp
+   75    | exp • DIV exp
+
+    SUMA            shift, and go to state 110
+    RESTA           shift, and go to state 111
+    MULTIPLICACION  shift, and go to state 112
+    DIVISION        shift, and go to state 113
+    DIV             shift, and go to state 114
+    MOD             shift, and go to state 115
+    Y               shift, and go to state 116
+    O               shift, and go to state 117
+    MAYOR_IGUAL     shift, and go to state 118
+    MENOR_IGUAL     shift, and go to state 119
+    DISTINTO        shift, and go to state 120
+    MAYOR           shift, and go to state 121
+    MENOR           shift, and go to state 122
+    REF             shift, and go to state 123
+    LITERAL_ENTERO  shift, and go to state 124
+    LITERAL_REAL    shift, and go to state 125
+    PUNTO           shift, and go to state 127
+    CREACION_TIPO   shift, and go to state 128
+    INICIO_ARRAY    shift, and go to state 129
+
+    SUMA            [reduce using rule 53 (exp)]
+    RESTA           [reduce using rule 53 (exp)]
+    MULTIPLICACION  [reduce using rule 53 (exp)]
+    DIVISION        [reduce using rule 53 (exp)]
+    DIV             [reduce using rule 53 (exp)]
+    MOD             [reduce using rule 53 (exp)]
+    Y               [reduce using rule 53 (exp)]
+    O               [reduce using rule 53 (exp)]
+    MAYOR_IGUAL     [reduce using rule 53 (exp)]
+    MENOR_IGUAL     [reduce using rule 53 (exp)]
+    DISTINTO        [reduce using rule 53 (exp)]
+    MAYOR           [reduce using rule 53 (exp)]
+    MENOR           [reduce using rule 53 (exp)]
+    REF             [reduce using rule 53 (exp)]
+    LITERAL_ENTERO  [reduce using rule 53 (exp)]
+    LITERAL_REAL    [reduce using rule 53 (exp)]
+    PUNTO           [reduce using rule 53 (exp)]
+    CREACION_TIPO   [reduce using rule 53 (exp)]
+    INICIO_ARRAY    [reduce using rule 53 (exp)]
+    $default        reduce using rule 53 (exp)
+
+
+State 168
+
+   52 exp: exp • Y exp
+   53    | exp • O exp
+   56    | exp • PUNTO exp
+   57    | exp • INICIO_ARRAY exp FIN_ARRAY
+   58    | exp • REF
+   61    | exp • MENOR exp
+   62    | exp • MAYOR exp
+   63    | exp • CREACION_TIPO exp
+   64    | exp • DISTINTO exp
+   65    | exp • MAYOR_IGUAL exp
+   65    | exp MAYOR_IGUAL exp •
+   66    | exp • MENOR_IGUAL exp
+   68    | exp • LITERAL_ENTERO
+   69    | exp • LITERAL_REAL
+   70    | exp • SUMA exp
+   71    | exp • RESTA exp
+   72    | exp • MULTIPLICACION exp
+   73    | exp • DIVISION exp
+   74    | exp • MOD exp
+   75    | exp • DIV exp
+
+    SUMA            shift, and go to state 110
+    RESTA           shift, and go to state 111
+    MULTIPLICACION  shift, and go to state 112
+    DIVISION        shift, and go to state 113
+    DIV             shift, and go to state 114
+    MOD             shift, and go to state 115
+    Y               shift, and go to state 116
+    O               shift, and go to state 117
+    REF             shift, and go to state 123
+    LITERAL_ENTERO  shift, and go to state 124
+    LITERAL_REAL    shift, and go to state 125
+    PUNTO           shift, and go to state 127
+    INICIO_ARRAY    shift, and go to state 129
+
+    MAYOR_IGUAL  error (nonassociative)
+    MENOR_IGUAL  error (nonassociative)
+    DISTINTO     error (nonassociative)
+    MAYOR        error (nonassociative)
+    MENOR        error (nonassociative)
+
+    Y               [reduce using rule 65 (exp)]
+    O               [reduce using rule 65 (exp)]
+    LITERAL_ENTERO  [reduce using rule 65 (exp)]
+    LITERAL_REAL    [reduce using rule 65 (exp)]
+    $default        reduce using rule 65 (exp)
 
 
 State 169
 
-   54 exp: exp • Y exp
-   55    | exp • O exp
-   58    | exp • PUNTO exp
-   59    | exp • INICIO_ARRAY exp FIN_ARRAY
-   60    | exp • REF
-   63    | exp • MENOR exp
-   64    | exp • MAYOR exp
-   65    | exp • CREACION_TIPO exp
-   66    | exp • DISTINTO exp
-   67    | exp • MAYOR_IGUAL exp
-   67    | exp MAYOR_IGUAL exp •
-   68    | exp • MENOR_IGUAL exp
-   70    | exp • LITERAL_ENTERO
-   71    | exp • LITERAL_REAL
-   72    | exp • SUMA exp
-   73    | exp • RESTA exp
-   74    | exp • MULTIPLICACION exp
-   75    | exp • DIVISION exp
-   76    | exp • MOD exp
-   77    | exp • DIV exp
-
-    SUMA            shift, and go to state 110
-    RESTA           shift, and go to state 111
-    MULTIPLICACION  shift, and go to state 112
-    DIVISION        shift, and go to state 113
-    DIV             shift, and go to state 114
-    MOD             shift, and go to state 115
-    Y               shift, and go to state 116
-    O               shift, and go to state 117
-    REF             shift, and go to state 123
-    LITERAL_ENTERO  shift, and go to state 124
-    LITERAL_REAL    shift, and go to state 125
-    PUNTO           shift, and go to state 127
-    INICIO_ARRAY    shift, and go to state 129
-
-    MAYOR_IGUAL  error (nonassociative)
-    MENOR_IGUAL  error (nonassociative)
-    DISTINTO     error (nonassociative)
-    MAYOR        error (nonassociative)
-    MENOR        error (nonassociative)
-
-    Y               [reduce using rule 67 (exp)]
-    O               [reduce using rule 67 (exp)]
-    LITERAL_ENTERO  [reduce using rule 67 (exp)]
-    LITERAL_REAL    [reduce using rule 67 (exp)]
-    $default        reduce using rule 67 (exp)
-
-
-State 170
-
-   54 exp: exp • Y exp
-   55    | exp • O exp
-   58    | exp • PUNTO exp
-   59    | exp • INICIO_ARRAY exp FIN_ARRAY
-   60    | exp • REF
-   63    | exp • MENOR exp
-   64    | exp • MAYOR exp
-   65    | exp • CREACION_TIPO exp
-   66    | exp • DISTINTO exp
-   67    | exp • MAYOR_IGUAL exp
-   68    | exp • MENOR_IGUAL exp
-   68    | exp MENOR_IGUAL exp •
-   70    | exp • LITERAL_ENTERO
-   71    | exp • LITERAL_REAL
-   72    | exp • SUMA exp
-   73    | exp • RESTA exp
-   74    | exp • MULTIPLICACION exp
-   75    | exp • DIVISION exp
-   76    | exp • MOD exp
-   77    | exp • DIV exp
-
-    SUMA            shift, and go to state 110
-    RESTA           shift, and go to state 111
-    MULTIPLICACION  shift, and go to state 112
-    DIVISION        shift, and go to state 113
-    DIV             shift, and go to state 114
-    MOD             shift, and go to state 115
-    Y               shift, and go to state 116
-    O               shift, and go to state 117
-    REF             shift, and go to state 123
-    LITERAL_ENTERO  shift, and go to state 124
-    LITERAL_REAL    shift, and go to state 125
-    PUNTO           shift, and go to state 127
-    INICIO_ARRAY    shift, and go to state 129
-
-    MAYOR_IGUAL  error (nonassociative)
-    MENOR_IGUAL  error (nonassociative)
-    DISTINTO     error (nonassociative)
-    MAYOR        error (nonassociative)
-    MENOR        error (nonassociative)
-
-    Y               [reduce using rule 68 (exp)]
-    O               [reduce using rule 68 (exp)]
-    LITERAL_ENTERO  [reduce using rule 68 (exp)]
-    LITERAL_REAL    [reduce using rule 68 (exp)]
-    $default        reduce using rule 68 (exp)
-
-
-State 171
-
-   54 exp: exp • Y exp
-   55    | exp • O exp
-   58    | exp • PUNTO exp
-   59    | exp • INICIO_ARRAY exp FIN_ARRAY
-   60    | exp • REF
-   63    | exp • MENOR exp
-   64    | exp • MAYOR exp
-   65    | exp • CREACION_TIPO exp
-   66    | exp • DISTINTO exp
-   66    | exp DISTINTO exp •
-   67    | exp • MAYOR_IGUAL exp
-   68    | exp • MENOR_IGUAL exp
-   70    | exp • LITERAL_ENTERO
-   71    | exp • LITERAL_REAL
-   72    | exp • SUMA exp
-   73    | exp • RESTA exp
-   74    | exp • MULTIPLICACION exp
-   75    | exp • DIVISION exp
-   76    | exp • MOD exp
-   77    | exp • DIV exp
+   52 exp: exp • Y exp
+   53    | exp • O exp
+   56    | exp • PUNTO exp
+   57    | exp • INICIO_ARRAY exp FIN_ARRAY
+   58    | exp • REF
+   61    | exp • MENOR exp
+   62    | exp • MAYOR exp
+   63    | exp • CREACION_TIPO exp
+   64    | exp • DISTINTO exp
+   65    | exp • MAYOR_IGUAL exp
+   66    | exp • MENOR_IGUAL exp
+   66    | exp MENOR_IGUAL exp •
+   68    | exp • LITERAL_ENTERO
+   69    | exp • LITERAL_REAL
+   70    | exp • SUMA exp
+   71    | exp • RESTA exp
+   72    | exp • MULTIPLICACION exp
+   73    | exp • DIVISION exp
+   74    | exp • MOD exp
+   75    | exp • DIV exp
 
     SUMA            shift, and go to state 110
     RESTA           shift, and go to state 111
@@ -2883,28 +2809,28 @@ State 171
     $default        reduce using rule 66 (exp)
 
 
-State 172
+State 170
 
-   54 exp: exp • Y exp
-   55    | exp • O exp
-   58    | exp • PUNTO exp
-   59    | exp • INICIO_ARRAY exp FIN_ARRAY
-   60    | exp • REF
-   63    | exp • MENOR exp
-   64    | exp • MAYOR exp
-   64    | exp MAYOR exp •
-   65    | exp • CREACION_TIPO exp
-   66    | exp • DISTINTO exp
-   67    | exp • MAYOR_IGUAL exp
-   68    | exp • MENOR_IGUAL exp
-   70    | exp • LITERAL_ENTERO
-   71    | exp • LITERAL_REAL
-   72    | exp • SUMA exp
-   73    | exp • RESTA exp
-   74    | exp • MULTIPLICACION exp
-   75    | exp • DIVISION exp
-   76    | exp • MOD exp
-   77    | exp • DIV exp
+   52 exp: exp • Y exp
+   53    | exp • O exp
+   56    | exp • PUNTO exp
+   57    | exp • INICIO_ARRAY exp FIN_ARRAY
+   58    | exp • REF
+   61    | exp • MENOR exp
+   62    | exp • MAYOR exp
+   63    | exp • CREACION_TIPO exp
+   64    | exp • DISTINTO exp
+   64    | exp DISTINTO exp •
+   65    | exp • MAYOR_IGUAL exp
+   66    | exp • MENOR_IGUAL exp
+   68    | exp • LITERAL_ENTERO
+   69    | exp • LITERAL_REAL
+   70    | exp • SUMA exp
+   71    | exp • RESTA exp
+   72    | exp • MULTIPLICACION exp
+   73    | exp • DIVISION exp
+   74    | exp • MOD exp
+   75    | exp • DIV exp
 
     SUMA            shift, and go to state 110
     RESTA           shift, and go to state 111
@@ -2933,28 +2859,28 @@ State 172
     $default        reduce using rule 64 (exp)
 
 
-State 173
+State 171
 
-   54 exp: exp • Y exp
-   55    | exp • O exp
-   58    | exp • PUNTO exp
-   59    | exp • INICIO_ARRAY exp FIN_ARRAY
-   60    | exp • REF
-   63    | exp • MENOR exp
-   63    | exp MENOR exp •
-   64    | exp • MAYOR exp
-   65    | exp • CREACION_TIPO exp
-   66    | exp • DISTINTO exp
-   67    | exp • MAYOR_IGUAL exp
-   68    | exp • MENOR_IGUAL exp
-   70    | exp • LITERAL_ENTERO
-   71    | exp • LITERAL_REAL
-   72    | exp • SUMA exp
-   73    | exp • RESTA exp
-   74    | exp • MULTIPLICACION exp
-   75    | exp • DIVISION exp
-   76    | exp • MOD exp
-   77    | exp • DIV exp
+   52 exp: exp • Y exp
+   53    | exp • O exp
+   56    | exp • PUNTO exp
+   57    | exp • INICIO_ARRAY exp FIN_ARRAY
+   58    | exp • REF
+   61    | exp • MENOR exp
+   62    | exp • MAYOR exp
+   62    | exp MAYOR exp •
+   63    | exp • CREACION_TIPO exp
+   64    | exp • DISTINTO exp
+   65    | exp • MAYOR_IGUAL exp
+   66    | exp • MENOR_IGUAL exp
+   68    | exp • LITERAL_ENTERO
+   69    | exp • LITERAL_REAL
+   70    | exp • SUMA exp
+   71    | exp • RESTA exp
+   72    | exp • MULTIPLICACION exp
+   73    | exp • DIVISION exp
+   74    | exp • MOD exp
+   75    | exp • DIV exp
 
     SUMA            shift, and go to state 110
     RESTA           shift, and go to state 111
@@ -2976,6 +2902,187 @@ State 173
     MAYOR        error (nonassociative)
     MENOR        error (nonassociative)
 
+    Y               [reduce using rule 62 (exp)]
+    O               [reduce using rule 62 (exp)]
+    LITERAL_ENTERO  [reduce using rule 62 (exp)]
+    LITERAL_REAL    [reduce using rule 62 (exp)]
+    $default        reduce using rule 62 (exp)
+
+
+State 172
+
+   52 exp: exp • Y exp
+   53    | exp • O exp
+   56    | exp • PUNTO exp
+   57    | exp • INICIO_ARRAY exp FIN_ARRAY
+   58    | exp • REF
+   61    | exp • MENOR exp
+   61    | exp MENOR exp •
+   62    | exp • MAYOR exp
+   63    | exp • CREACION_TIPO exp
+   64    | exp • DISTINTO exp
+   65    | exp • MAYOR_IGUAL exp
+   66    | exp • MENOR_IGUAL exp
+   68    | exp • LITERAL_ENTERO
+   69    | exp • LITERAL_REAL
+   70    | exp • SUMA exp
+   71    | exp • RESTA exp
+   72    | exp • MULTIPLICACION exp
+   73    | exp • DIVISION exp
+   74    | exp • MOD exp
+   75    | exp • DIV exp
+
+    SUMA            shift, and go to state 110
+    RESTA           shift, and go to state 111
+    MULTIPLICACION  shift, and go to state 112
+    DIVISION        shift, and go to state 113
+    DIV             shift, and go to state 114
+    MOD             shift, and go to state 115
+    Y               shift, and go to state 116
+    O               shift, and go to state 117
+    REF             shift, and go to state 123
+    LITERAL_ENTERO  shift, and go to state 124
+    LITERAL_REAL    shift, and go to state 125
+    PUNTO           shift, and go to state 127
+    INICIO_ARRAY    shift, and go to state 129
+
+    MAYOR_IGUAL  error (nonassociative)
+    MENOR_IGUAL  error (nonassociative)
+    DISTINTO     error (nonassociative)
+    MAYOR        error (nonassociative)
+    MENOR        error (nonassociative)
+
+    Y               [reduce using rule 61 (exp)]
+    O               [reduce using rule 61 (exp)]
+    LITERAL_ENTERO  [reduce using rule 61 (exp)]
+    LITERAL_REAL    [reduce using rule 61 (exp)]
+    $default        reduce using rule 61 (exp)
+
+
+State 173
+
+   52 exp: exp • Y exp
+   53    | exp • O exp
+   56    | exp • PUNTO exp
+   57    | exp • INICIO_ARRAY exp FIN_ARRAY
+   58    | exp • REF
+   61    | exp • MENOR exp
+   62    | exp • MAYOR exp
+   63    | exp • CREACION_TIPO exp
+   64    | exp • DISTINTO exp
+   65    | exp • MAYOR_IGUAL exp
+   66    | exp • MENOR_IGUAL exp
+   68    | exp • LITERAL_ENTERO
+   69    | exp • LITERAL_REAL
+   70    | exp • SUMA exp
+   71    | exp • RESTA exp
+   72    | exp • MULTIPLICACION exp
+   73    | exp • DIVISION exp
+   74    | exp • MOD exp
+   75    | exp • DIV exp
+   86 asignacion: exp ASIGNACION exp •
+
+    SUMA            shift, and go to state 110
+    RESTA           shift, and go to state 111
+    MULTIPLICACION  shift, and go to state 112
+    DIVISION        shift, and go to state 113
+    DIV             shift, and go to state 114
+    MOD             shift, and go to state 115
+    Y               shift, and go to state 116
+    O               shift, and go to state 117
+    MAYOR_IGUAL     shift, and go to state 118
+    MENOR_IGUAL     shift, and go to state 119
+    DISTINTO        shift, and go to state 120
+    MAYOR           shift, and go to state 121
+    MENOR           shift, and go to state 122
+    REF             shift, and go to state 123
+    LITERAL_ENTERO  shift, and go to state 124
+    LITERAL_REAL    shift, and go to state 125
+    PUNTO           shift, and go to state 127
+    CREACION_TIPO   shift, and go to state 128
+    INICIO_ARRAY    shift, and go to state 129
+
+    $default  reduce using rule 86 (asignacion)
+
+
+State 174
+
+   52 exp: exp • Y exp
+   53    | exp • O exp
+   56    | exp • PUNTO exp
+   56    | exp PUNTO exp •
+   57    | exp • INICIO_ARRAY exp FIN_ARRAY
+   58    | exp • REF
+   61    | exp • MENOR exp
+   62    | exp • MAYOR exp
+   63    | exp • CREACION_TIPO exp
+   64    | exp • DISTINTO exp
+   65    | exp • MAYOR_IGUAL exp
+   66    | exp • MENOR_IGUAL exp
+   68    | exp • LITERAL_ENTERO
+   69    | exp • LITERAL_REAL
+   70    | exp • SUMA exp
+   71    | exp • RESTA exp
+   72    | exp • MULTIPLICACION exp
+   73    | exp • DIVISION exp
+   74    | exp • MOD exp
+   75    | exp • DIV exp
+
+    Y               shift, and go to state 116
+    O               shift, and go to state 117
+    REF             shift, and go to state 123
+    LITERAL_ENTERO  shift, and go to state 124
+    LITERAL_REAL    shift, and go to state 125
+
+    Y               [reduce using rule 56 (exp)]
+    O               [reduce using rule 56 (exp)]
+    LITERAL_ENTERO  [reduce using rule 56 (exp)]
+    LITERAL_REAL    [reduce using rule 56 (exp)]
+    $default        reduce using rule 56 (exp)
+
+
+State 175
+
+   52 exp: exp • Y exp
+   53    | exp • O exp
+   56    | exp • PUNTO exp
+   57    | exp • INICIO_ARRAY exp FIN_ARRAY
+   58    | exp • REF
+   61    | exp • MENOR exp
+   62    | exp • MAYOR exp
+   63    | exp • CREACION_TIPO exp
+   63    | exp CREACION_TIPO exp •
+   64    | exp • DISTINTO exp
+   65    | exp • MAYOR_IGUAL exp
+   66    | exp • MENOR_IGUAL exp
+   68    | exp • LITERAL_ENTERO
+   69    | exp • LITERAL_REAL
+   70    | exp • SUMA exp
+   71    | exp • RESTA exp
+   72    | exp • MULTIPLICACION exp
+   73    | exp • DIVISION exp
+   74    | exp • MOD exp
+   75    | exp • DIV exp
+
+    SUMA            shift, and go to state 110
+    RESTA           shift, and go to state 111
+    MULTIPLICACION  shift, and go to state 112
+    DIVISION        shift, and go to state 113
+    DIV             shift, and go to state 114
+    MOD             shift, and go to state 115
+    Y               shift, and go to state 116
+    O               shift, and go to state 117
+    MAYOR_IGUAL     shift, and go to state 118
+    MENOR_IGUAL     shift, and go to state 119
+    DISTINTO        shift, and go to state 120
+    MAYOR           shift, and go to state 121
+    MENOR           shift, and go to state 122
+    REF             shift, and go to state 123
+    LITERAL_ENTERO  shift, and go to state 124
+    LITERAL_REAL    shift, and go to state 125
+    PUNTO           shift, and go to state 127
+    INICIO_ARRAY    shift, and go to state 129
+
     Y               [reduce using rule 63 (exp)]
     O               [reduce using rule 63 (exp)]
     LITERAL_ENTERO  [reduce using rule 63 (exp)]
@@ -2983,28 +3090,28 @@ State 173
     $default        reduce using rule 63 (exp)
 
 
-State 174
+State 176
 
-   54 exp: exp • Y exp
-   55    | exp • O exp
-   58    | exp • PUNTO exp
-   59    | exp • INICIO_ARRAY exp FIN_ARRAY
-   60    | exp • REF
-   63    | exp • MENOR exp
-   64    | exp • MAYOR exp
-   65    | exp • CREACION_TIPO exp
-   66    | exp • DISTINTO exp
-   67    | exp • MAYOR_IGUAL exp
-   68    | exp • MENOR_IGUAL exp
-   70    | exp • LITERAL_ENTERO
-   71    | exp • LITERAL_REAL
-   72    | exp • SUMA exp
-   73    | exp • RESTA exp
-   74    | exp • MULTIPLICACION exp
-   75    | exp • DIVISION exp
-   76    | exp • MOD exp
-   77    | exp • DIV exp
-   88 asignacion: exp ASIGNACION exp •
+   52 exp: exp • Y exp
+   53    | exp • O exp
+   56    | exp • PUNTO exp
+   57    | exp • INICIO_ARRAY exp FIN_ARRAY
+   57    | exp INICIO_ARRAY exp • FIN_ARRAY
+   58    | exp • REF
+   61    | exp • MENOR exp
+   62    | exp • MAYOR exp
+   63    | exp • CREACION_TIPO exp
+   64    | exp • DISTINTO exp
+   65    | exp • MAYOR_IGUAL exp
+   66    | exp • MENOR_IGUAL exp
+   68    | exp • LITERAL_ENTERO
+   69    | exp • LITERAL_REAL
+   70    | exp • SUMA exp
+   71    | exp • RESTA exp
+   72    | exp • MULTIPLICACION exp
+   73    | exp • DIVISION exp
+   74    | exp • MOD exp
+   75    | exp • DIV exp
 
     SUMA            shift, and go to state 110
     RESTA           shift, and go to state 111
@@ -3025,157 +3132,26 @@ State 174
     PUNTO           shift, and go to state 127
     CREACION_TIPO   shift, and go to state 128
     INICIO_ARRAY    shift, and go to state 129
-
-    $default  reduce using rule 88 (asignacion)
-
-
-State 175
-
-   54 exp: exp • Y exp
-   55    | exp • O exp
-   58    | exp • PUNTO exp
-   58    | exp PUNTO exp •
-   59    | exp • INICIO_ARRAY exp FIN_ARRAY
-   60    | exp • REF
-   63    | exp • MENOR exp
-   64    | exp • MAYOR exp
-   65    | exp • CREACION_TIPO exp
-   66    | exp • DISTINTO exp
-   67    | exp • MAYOR_IGUAL exp
-   68    | exp • MENOR_IGUAL exp
-   70    | exp • LITERAL_ENTERO
-   71    | exp • LITERAL_REAL
-   72    | exp • SUMA exp
-   73    | exp • RESTA exp
-   74    | exp • MULTIPLICACION exp
-   75    | exp • DIVISION exp
-   76    | exp • MOD exp
-   77    | exp • DIV exp
-
-    Y               shift, and go to state 116
-    O               shift, and go to state 117
-    REF             shift, and go to state 123
-    LITERAL_ENTERO  shift, and go to state 124
-    LITERAL_REAL    shift, and go to state 125
-
-    Y               [reduce using rule 58 (exp)]
-    O               [reduce using rule 58 (exp)]
-    LITERAL_ENTERO  [reduce using rule 58 (exp)]
-    LITERAL_REAL    [reduce using rule 58 (exp)]
-    $default        reduce using rule 58 (exp)
-
-
-State 176
-
-   54 exp: exp • Y exp
-   55    | exp • O exp
-   58    | exp • PUNTO exp
-   59    | exp • INICIO_ARRAY exp FIN_ARRAY
-   60    | exp • REF
-   63    | exp • MENOR exp
-   64    | exp • MAYOR exp
-   65    | exp • CREACION_TIPO exp
-   65    | exp CREACION_TIPO exp •
-   66    | exp • DISTINTO exp
-   67    | exp • MAYOR_IGUAL exp
-   68    | exp • MENOR_IGUAL exp
-   70    | exp • LITERAL_ENTERO
-   71    | exp • LITERAL_REAL
-   72    | exp • SUMA exp
-   73    | exp • RESTA exp
-   74    | exp • MULTIPLICACION exp
-   75    | exp • DIVISION exp
-   76    | exp • MOD exp
-   77    | exp • DIV exp
-
-    SUMA            shift, and go to state 110
-    RESTA           shift, and go to state 111
-    MULTIPLICACION  shift, and go to state 112
-    DIVISION        shift, and go to state 113
-    DIV             shift, and go to state 114
-    MOD             shift, and go to state 115
-    Y               shift, and go to state 116
-    O               shift, and go to state 117
-    MAYOR_IGUAL     shift, and go to state 118
-    MENOR_IGUAL     shift, and go to state 119
-    DISTINTO        shift, and go to state 120
-    MAYOR           shift, and go to state 121
-    MENOR           shift, and go to state 122
-    REF             shift, and go to state 123
-    LITERAL_ENTERO  shift, and go to state 124
-    LITERAL_REAL    shift, and go to state 125
-    PUNTO           shift, and go to state 127
-    INICIO_ARRAY    shift, and go to state 129
-
-    Y               [reduce using rule 65 (exp)]
-    O               [reduce using rule 65 (exp)]
-    LITERAL_ENTERO  [reduce using rule 65 (exp)]
-    LITERAL_REAL    [reduce using rule 65 (exp)]
-    $default        reduce using rule 65 (exp)
+    FIN_ARRAY       shift, and go to state 203
 
 
 State 177
 
-   54 exp: exp • Y exp
-   55    | exp • O exp
-   58    | exp • PUNTO exp
-   59    | exp • INICIO_ARRAY exp FIN_ARRAY
-   59    | exp INICIO_ARRAY exp • FIN_ARRAY
-   60    | exp • REF
-   63    | exp • MENOR exp
-   64    | exp • MAYOR exp
-   65    | exp • CREACION_TIPO exp
-   66    | exp • DISTINTO exp
-   67    | exp • MAYOR_IGUAL exp
-   68    | exp • MENOR_IGUAL exp
-   70    | exp • LITERAL_ENTERO
-   71    | exp • LITERAL_REAL
-   72    | exp • SUMA exp
-   73    | exp • RESTA exp
-   74    | exp • MULTIPLICACION exp
-   75    | exp • DIVISION exp
-   76    | exp • MOD exp
-   77    | exp • DIV exp
+   79 instrucciones: instruccion COMPOSICION instrucciones •
 
-    SUMA            shift, and go to state 110
-    RESTA           shift, and go to state 111
-    MULTIPLICACION  shift, and go to state 112
-    DIVISION        shift, and go to state 113
-    DIV             shift, and go to state 114
-    MOD             shift, and go to state 115
-    Y               shift, and go to state 116
-    O               shift, and go to state 117
-    MAYOR_IGUAL     shift, and go to state 118
-    MENOR_IGUAL     shift, and go to state 119
-    DISTINTO        shift, and go to state 120
-    MAYOR           shift, and go to state 121
-    MENOR           shift, and go to state 122
-    REF             shift, and go to state 123
-    LITERAL_ENTERO  shift, and go to state 124
-    LITERAL_REAL    shift, and go to state 125
-    PUNTO           shift, and go to state 127
-    CREACION_TIPO   shift, and go to state 128
-    INICIO_ARRAY    shift, and go to state 129
-    FIN_ARRAY       shift, and go to state 205
+    $default  reduce using rule 79 (instrucciones)
 
 
 State 178
 
-   81 instrucciones: instruccion COMPOSICION instrucciones •
+   97 f_cabecera: IDENTIFICADOR PARENTESIS_APERTURA lista_d_var • PARENTESIS_CIERRE DEV d_tipo COMPOSICION
 
-    $default  reduce using rule 81 (instrucciones)
+    PARENTESIS_CIERRE  shift, and go to state 204
 
 
 State 179
 
-   99 f_cabecera: IDENTIFICADOR PARENTESIS_APERTURA lista_d_var • PARENTESIS_CIERRE DEV d_tipo COMPOSICION
-
-    PARENTESIS_CIERRE  shift, and go to state 206
-
-
-State 180
-
-   97 funcion_d: FUNCION f_cabecera bloque DEV • expresion FFUNCION
+   95 funcion_d: FUNCION f_cabecera bloque DEV • expresion FFUNCION
 
     RESTA                shift, and go to state 39
     VERDADERO            shift, and go to state 40
@@ -3186,102 +3162,102 @@ State 180
     IDENTIFICADOR        shift, and go to state 104
     PARENTESIS_APERTURA  shift, and go to state 50
 
-    expresion   go to state 207
+    expresion   go to state 205
     exp         go to state 94
     funcion_ll  go to state 95
 
 
+State 180
+
+  102 d_p_form: ES • lista_id DEF_TIPO COMPOSICION d_tipo
+
+    IDENTIFICADOR  shift, and go to state 34
+
+    lista_id  go to state 206
+
+
 State 181
 
-  104 d_p_form: ES • lista_id DEF_TIPO COMPOSICION d_tipo
+  100 d_p_form: ENT • lista_id DEF_TIPO d_tipo
+
+    IDENTIFICADOR  shift, and go to state 34
+
+    lista_id  go to state 207
+
+
+State 182
+
+  101 d_p_form: SAL • lista_id DEF_TIPO d_tipo
 
     IDENTIFICADOR  shift, and go to state 34
 
     lista_id  go to state 208
 
 
-State 182
-
-  102 d_p_form: ENT • lista_id DEF_TIPO d_tipo
-
-    IDENTIFICADOR  shift, and go to state 34
-
-    lista_id  go to state 209
-
-
 State 183
 
-  103 d_p_form: SAL • lista_id DEF_TIPO d_tipo
+   96 a_cabecera: IDENTIFICADOR PARENTESIS_APERTURA d_par_form • PARENTESIS_CIERRE COMPOSICION
 
-    IDENTIFICADOR  shift, and go to state 34
-
-    lista_id  go to state 210
+    PARENTESIS_CIERRE  shift, and go to state 209
 
 
 State 184
 
-   98 a_cabecera: IDENTIFICADOR PARENTESIS_APERTURA d_par_form • PARENTESIS_CIERRE COMPOSICION
+   98 d_par_form: d_p_form • COMPOSICION d_par_form
 
-    PARENTESIS_CIERRE  shift, and go to state 211
+    COMPOSICION  shift, and go to state 210
 
 
 State 185
 
-  100 d_par_form: d_p_form • COMPOSICION d_par_form
+   94 accion_d: ACCION a_cabecera bloque FACCION •
 
-    COMPOSICION  shift, and go to state 212
+    $default  reduce using rule 94 (accion_d)
 
 
 State 186
-
-   96 accion_d: ACCION a_cabecera bloque FACCION •
-
-    $default  reduce using rule 96 (accion_d)
-
-
-State 187
 
    35 lista_d_cte: IDENTIFICADOR CREACION_TIPO ENTERO COMPOSICION lista_d_cte •
 
     $default  reduce using rule 35 (lista_d_cte)
 
 
-State 188
+State 187
 
    38 lista_d_cte: IDENTIFICADOR CREACION_TIPO REAL COMPOSICION lista_d_cte •
 
     $default  reduce using rule 38 (lista_d_cte)
 
 
-State 189
+State 188
 
    36 lista_d_cte: IDENTIFICADOR CREACION_TIPO BOOLEANO COMPOSICION lista_d_cte •
 
     $default  reduce using rule 36 (lista_d_cte)
 
 
-State 190
+State 189
 
    37 lista_d_cte: IDENTIFICADOR CREACION_TIPO CARACACTER COMPOSICION lista_d_cte •
 
     $default  reduce using rule 37 (lista_d_cte)
 
 
-State 191
+State 190
 
    39 lista_d_cte: IDENTIFICADOR CREACION_TIPO CADENA COMPOSICION lista_d_cte •
 
     $default  reduce using rule 39 (lista_d_cte)
 
 
-State 192
+State 191
 
    21 d_tipo: TABLA INICIO_ARRAY expresion_t • SUBRANGO expresion_t FIN_ARRAY DE d_tipo
 
-    SUBRANGO  shift, and go to state 213
+    SUBRANGO  shift, and go to state 211
 
 
-State 193
+State 192
 
    28 lista_campos: IDENTIFICADOR DEF_TIPO • d_tipo COMPOSICION lista_campos
 
@@ -3303,7 +3279,7 @@ State 193
     LITERAL_CARACTER     shift, and go to state 89
     PARENTESIS_APERTURA  shift, and go to state 50
 
-    d_tipo       go to state 214
+    d_tipo       go to state 212
     expresion_t  go to state 91
     tipo_base    go to state 92
     expresion    go to state 93
@@ -3311,83 +3287,74 @@ State 193
     funcion_ll   go to state 95
 
 
-State 194
+State 193
 
    20 d_tipo: TUPLA lista_campos FTUPLA •
 
     $default  reduce using rule 20 (d_tipo)
 
 
+State 194
+
+  104 funcion_ll: IDENTIFICADOR PARENTESIS_APERTURA l_ll • PARENTESIS_CIERRE
+
+    PARENTESIS_CIERRE  shift, and go to state 213
+
+
 State 195
-
-  106 funcion_ll: IDENTIFICADOR PARENTESIS_APERTURA l_ll • PARENTESIS_CIERRE
-
-    PARENTESIS_CIERRE  shift, and go to state 215
-
-
-State 196
 
    18 lista_d_tipo: IDENTIFICADOR CREACION_TIPO d_tipo COMPOSICION lista_d_tipo •
 
     $default  reduce using rule 18 (lista_d_tipo)
 
 
-State 197
+State 196
 
    23 d_tipo: expresion_t SUBRANGO expresion_t •
 
     $default  reduce using rule 23 (d_tipo)
 
 
-State 198
+State 197
 
-   41 lista_d_var: lista_id DEF_TIPO IDENTIFICADOR COMPOSICION • lista_d_var
+   41 lista_d_var: lista_id DEF_TIPO d_tipo COMPOSICION • lista_d_var
 
     IDENTIFICADOR  shift, and go to state 34
 
-    $default  reduce using rule 44 (lista_d_var)
+    $default  reduce using rule 42 (lista_d_var)
 
-    lista_d_var  go to state 216
+    lista_d_var  go to state 214
     lista_id     go to state 36
+
+
+State 198
+
+   87 alternativa: SI expresion ENTONCES instrucciones • lista_opciones FSI
+
+    SI_NO_SI  shift, and go to state 215
+
+    $default  reduce using rule 89 (lista_opciones)
+
+    lista_opciones  go to state 216
 
 
 State 199
 
-   43 lista_d_var: lista_id DEF_TIPO d_tipo COMPOSICION • $@1 lista_d_var
+   92 it_cota_exp: MIENTRAS expresion HACER instrucciones • FMIENTRAS
 
-    $default  reduce using rule 42 ($@1)
-
-    $@1  go to state 217
+    FMIENTRAS  shift, and go to state 217
 
 
 State 200
 
-   89 alternativa: SI expresion ENTONCES instrucciones • lista_opciones FSI
+   93 it_cota_fija: PARA IDENTIFICADOR ASIGNACION expresion • HASTA expresion HACER instruccion FPARA
 
-    SI_NO_SI  shift, and go to state 218
-
-    $default  reduce using rule 91 (lista_opciones)
-
-    lista_opciones  go to state 219
+    HASTA  shift, and go to state 218
 
 
 State 201
 
-   94 it_cota_exp: MIENTRAS expresion HACER instrucciones • FMIENTRAS
-
-    FMIENTRAS  shift, and go to state 220
-
-
-State 202
-
-   95 it_cota_fija: PARA IDENTIFICADOR ASIGNACION expresion • HASTA expresion HACER instruccion FPARA
-
-    HASTA  shift, and go to state 221
-
-
-State 203
-
-  107 l_ll: expresion SEPARADOR • l_ll
+  105 l_ll: expresion SEPARADOR • l_ll
 
     RESTA                shift, and go to state 39
     VERDADERO            shift, and go to state 40
@@ -3398,83 +3365,83 @@ State 203
     IDENTIFICADOR        shift, and go to state 104
     PARENTESIS_APERTURA  shift, and go to state 50
 
-    expresion   go to state 158
+    expresion   go to state 157
     exp         go to state 94
     funcion_ll  go to state 95
-    l_ll        go to state 222
+    l_ll        go to state 219
+
+
+State 202
+
+  103 accion_ll: IDENTIFICADOR PARENTESIS_APERTURA l_ll PARENTESIS_CIERRE •
+
+    $default  reduce using rule 103 (accion_ll)
+
+
+State 203
+
+   57 exp: exp INICIO_ARRAY exp FIN_ARRAY •
+
+    $default  reduce using rule 57 (exp)
 
 
 State 204
 
-  105 accion_ll: IDENTIFICADOR PARENTESIS_APERTURA l_ll PARENTESIS_CIERRE •
+   97 f_cabecera: IDENTIFICADOR PARENTESIS_APERTURA lista_d_var PARENTESIS_CIERRE • DEV d_tipo COMPOSICION
 
-    $default  reduce using rule 105 (accion_ll)
+    DEV  shift, and go to state 220
 
 
 State 205
 
-   59 exp: exp INICIO_ARRAY exp FIN_ARRAY •
+   95 funcion_d: FUNCION f_cabecera bloque DEV expresion • FFUNCION
 
-    $default  reduce using rule 59 (exp)
+    FFUNCION  shift, and go to state 221
 
 
 State 206
 
-   99 f_cabecera: IDENTIFICADOR PARENTESIS_APERTURA lista_d_var PARENTESIS_CIERRE • DEV d_tipo COMPOSICION
+  102 d_p_form: ES lista_id • DEF_TIPO COMPOSICION d_tipo
 
-    DEV  shift, and go to state 223
+    DEF_TIPO  shift, and go to state 222
 
 
 State 207
 
-   97 funcion_d: FUNCION f_cabecera bloque DEV expresion • FFUNCION
+  100 d_p_form: ENT lista_id • DEF_TIPO d_tipo
 
-    FFUNCION  shift, and go to state 224
+    DEF_TIPO  shift, and go to state 223
 
 
 State 208
 
-  104 d_p_form: ES lista_id • DEF_TIPO COMPOSICION d_tipo
+  101 d_p_form: SAL lista_id • DEF_TIPO d_tipo
 
-    DEF_TIPO  shift, and go to state 225
+    DEF_TIPO  shift, and go to state 224
 
 
 State 209
 
-  102 d_p_form: ENT lista_id • DEF_TIPO d_tipo
+   96 a_cabecera: IDENTIFICADOR PARENTESIS_APERTURA d_par_form PARENTESIS_CIERRE • COMPOSICION
 
-    DEF_TIPO  shift, and go to state 226
+    COMPOSICION  shift, and go to state 225
 
 
 State 210
 
-  103 d_p_form: SAL lista_id • DEF_TIPO d_tipo
+   98 d_par_form: d_p_form COMPOSICION • d_par_form
 
-    DEF_TIPO  shift, and go to state 227
+    ES   shift, and go to state 180
+    ENT  shift, and go to state 181
+    SAL  shift, and go to state 182
+
+    $default  reduce using rule 99 (d_par_form)
+
+    d_par_form  go to state 226
+    d_p_form    go to state 184
 
 
 State 211
-
-   98 a_cabecera: IDENTIFICADOR PARENTESIS_APERTURA d_par_form PARENTESIS_CIERRE • COMPOSICION
-
-    COMPOSICION  shift, and go to state 228
-
-
-State 212
-
-  100 d_par_form: d_p_form COMPOSICION • d_par_form
-
-    ES   shift, and go to state 181
-    ENT  shift, and go to state 182
-    SAL  shift, and go to state 183
-
-    $default  reduce using rule 101 (d_par_form)
-
-    d_par_form  go to state 229
-    d_p_form    go to state 185
-
-
-State 213
 
    21 d_tipo: TABLA INICIO_ARRAY expresion_t SUBRANGO • expresion_t FIN_ARRAY DE d_tipo
 
@@ -3488,48 +3455,36 @@ State 213
     LITERAL_CARACTER     shift, and go to state 89
     PARENTESIS_APERTURA  shift, and go to state 50
 
-    expresion_t  go to state 230
+    expresion_t  go to state 227
     expresion    go to state 93
     exp          go to state 94
     funcion_ll   go to state 95
 
 
-State 214
+State 212
 
    28 lista_campos: IDENTIFICADOR DEF_TIPO d_tipo • COMPOSICION lista_campos
 
-    COMPOSICION  shift, and go to state 231
+    COMPOSICION  shift, and go to state 228
 
 
-State 215
+State 213
 
-  106 funcion_ll: IDENTIFICADOR PARENTESIS_APERTURA l_ll PARENTESIS_CIERRE •
+  104 funcion_ll: IDENTIFICADOR PARENTESIS_APERTURA l_ll PARENTESIS_CIERRE •
 
-    $default  reduce using rule 106 (funcion_ll)
+    $default  reduce using rule 104 (funcion_ll)
 
 
-State 216
+State 214
 
-   41 lista_d_var: lista_id DEF_TIPO IDENTIFICADOR COMPOSICION lista_d_var •
+   41 lista_d_var: lista_id DEF_TIPO d_tipo COMPOSICION lista_d_var •
 
     $default  reduce using rule 41 (lista_d_var)
 
 
-State 217
+State 215
 
-   43 lista_d_var: lista_id DEF_TIPO d_tipo COMPOSICION $@1 • lista_d_var
-
-    IDENTIFICADOR  shift, and go to state 34
-
-    $default  reduce using rule 44 (lista_d_var)
-
-    lista_d_var  go to state 232
-    lista_id     go to state 36
-
-
-State 218
-
-   90 lista_opciones: SI_NO_SI • expresion ENTONCES instrucciones lista_opciones
+   88 lista_opciones: SI_NO_SI • expresion ENTONCES instrucciones lista_opciones
 
     RESTA                shift, and go to state 39
     VERDADERO            shift, and go to state 40
@@ -3540,53 +3495,53 @@ State 218
     IDENTIFICADOR        shift, and go to state 104
     PARENTESIS_APERTURA  shift, and go to state 50
 
-    expresion   go to state 233
+    expresion   go to state 229
+    exp         go to state 94
+    funcion_ll  go to state 95
+
+
+State 216
+
+   87 alternativa: SI expresion ENTONCES instrucciones lista_opciones • FSI
+
+    FSI  shift, and go to state 230
+
+
+State 217
+
+   92 it_cota_exp: MIENTRAS expresion HACER instrucciones FMIENTRAS •
+
+    $default  reduce using rule 92 (it_cota_exp)
+
+
+State 218
+
+   93 it_cota_fija: PARA IDENTIFICADOR ASIGNACION expresion HASTA • expresion HACER instruccion FPARA
+
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 104
+    PARENTESIS_APERTURA  shift, and go to state 50
+
+    expresion   go to state 231
     exp         go to state 94
     funcion_ll  go to state 95
 
 
 State 219
 
-   89 alternativa: SI expresion ENTONCES instrucciones lista_opciones • FSI
+  105 l_ll: expresion SEPARADOR l_ll •
 
-    FSI  shift, and go to state 234
+    $default  reduce using rule 105 (l_ll)
 
 
 State 220
 
-   94 it_cota_exp: MIENTRAS expresion HACER instrucciones FMIENTRAS •
-
-    $default  reduce using rule 94 (it_cota_exp)
-
-
-State 221
-
-   95 it_cota_fija: PARA IDENTIFICADOR ASIGNACION expresion HASTA • expresion HACER instruccion FPARA
-
-    RESTA                shift, and go to state 39
-    VERDADERO            shift, and go to state 40
-    FALSO                shift, and go to state 41
-    NO                   shift, and go to state 42
-    LITERAL_ENTERO       shift, and go to state 47
-    LITERAL_REAL         shift, and go to state 48
-    IDENTIFICADOR        shift, and go to state 104
-    PARENTESIS_APERTURA  shift, and go to state 50
-
-    expresion   go to state 235
-    exp         go to state 94
-    funcion_ll  go to state 95
-
-
-State 222
-
-  107 l_ll: expresion SEPARADOR l_ll •
-
-    $default  reduce using rule 107 (l_ll)
-
-
-State 223
-
-   99 f_cabecera: IDENTIFICADOR PARENTESIS_APERTURA lista_d_var PARENTESIS_CIERRE DEV • d_tipo COMPOSICION
+   97 f_cabecera: IDENTIFICADOR PARENTESIS_APERTURA lista_d_var PARENTESIS_CIERRE DEV • d_tipo COMPOSICION
 
     ENTERO               shift, and go to state 80
     REAL                 shift, and go to state 81
@@ -3606,7 +3561,51 @@ State 223
     LITERAL_CARACTER     shift, and go to state 89
     PARENTESIS_APERTURA  shift, and go to state 50
 
-    d_tipo       go to state 236
+    d_tipo       go to state 232
+    expresion_t  go to state 91
+    tipo_base    go to state 92
+    expresion    go to state 93
+    exp          go to state 94
+    funcion_ll   go to state 95
+
+
+State 221
+
+   95 funcion_d: FUNCION f_cabecera bloque DEV expresion FFUNCION •
+
+    $default  reduce using rule 95 (funcion_d)
+
+
+State 222
+
+  102 d_p_form: ES lista_id DEF_TIPO • COMPOSICION d_tipo
+
+    COMPOSICION  shift, and go to state 233
+
+
+State 223
+
+  100 d_p_form: ENT lista_id DEF_TIPO • d_tipo
+
+    ENTERO               shift, and go to state 80
+    REAL                 shift, and go to state 81
+    BOOLEANO             shift, and go to state 82
+    CARACACTER           shift, and go to state 83
+    CADENA               shift, and go to state 84
+    TABLA                shift, and go to state 85
+    TUPLA                shift, and go to state 86
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    REF                  shift, and go to state 87
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 88
+    LITERAL_CARACTER     shift, and go to state 89
+    PARENTESIS_APERTURA  shift, and go to state 50
+
+    d_tipo       go to state 234
     expresion_t  go to state 91
     tipo_base    go to state 92
     expresion    go to state 93
@@ -3616,100 +3615,56 @@ State 223
 
 State 224
 
-   97 funcion_d: FUNCION f_cabecera bloque DEV expresion FFUNCION •
+  101 d_p_form: SAL lista_id DEF_TIPO • d_tipo
 
-    $default  reduce using rule 97 (funcion_d)
+    ENTERO               shift, and go to state 80
+    REAL                 shift, and go to state 81
+    BOOLEANO             shift, and go to state 82
+    CARACACTER           shift, and go to state 83
+    CADENA               shift, and go to state 84
+    TABLA                shift, and go to state 85
+    TUPLA                shift, and go to state 86
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    REF                  shift, and go to state 87
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 88
+    LITERAL_CARACTER     shift, and go to state 89
+    PARENTESIS_APERTURA  shift, and go to state 50
+
+    d_tipo       go to state 235
+    expresion_t  go to state 91
+    tipo_base    go to state 92
+    expresion    go to state 93
+    exp          go to state 94
+    funcion_ll   go to state 95
 
 
 State 225
 
-  104 d_p_form: ES lista_id DEF_TIPO • COMPOSICION d_tipo
+   96 a_cabecera: IDENTIFICADOR PARENTESIS_APERTURA d_par_form PARENTESIS_CIERRE COMPOSICION •
 
-    COMPOSICION  shift, and go to state 237
+    $default  reduce using rule 96 (a_cabecera)
 
 
 State 226
 
-  102 d_p_form: ENT lista_id DEF_TIPO • d_tipo
+   98 d_par_form: d_p_form COMPOSICION d_par_form •
 
-    ENTERO               shift, and go to state 80
-    REAL                 shift, and go to state 81
-    BOOLEANO             shift, and go to state 82
-    CARACACTER           shift, and go to state 83
-    CADENA               shift, and go to state 84
-    TABLA                shift, and go to state 85
-    TUPLA                shift, and go to state 86
-    RESTA                shift, and go to state 39
-    VERDADERO            shift, and go to state 40
-    FALSO                shift, and go to state 41
-    NO                   shift, and go to state 42
-    REF                  shift, and go to state 87
-    LITERAL_ENTERO       shift, and go to state 47
-    LITERAL_REAL         shift, and go to state 48
-    IDENTIFICADOR        shift, and go to state 88
-    LITERAL_CARACTER     shift, and go to state 89
-    PARENTESIS_APERTURA  shift, and go to state 50
-
-    d_tipo       go to state 238
-    expresion_t  go to state 91
-    tipo_base    go to state 92
-    expresion    go to state 93
-    exp          go to state 94
-    funcion_ll   go to state 95
+    $default  reduce using rule 98 (d_par_form)
 
 
 State 227
 
-  103 d_p_form: SAL lista_id DEF_TIPO • d_tipo
+   21 d_tipo: TABLA INICIO_ARRAY expresion_t SUBRANGO expresion_t • FIN_ARRAY DE d_tipo
 
-    ENTERO               shift, and go to state 80
-    REAL                 shift, and go to state 81
-    BOOLEANO             shift, and go to state 82
-    CARACACTER           shift, and go to state 83
-    CADENA               shift, and go to state 84
-    TABLA                shift, and go to state 85
-    TUPLA                shift, and go to state 86
-    RESTA                shift, and go to state 39
-    VERDADERO            shift, and go to state 40
-    FALSO                shift, and go to state 41
-    NO                   shift, and go to state 42
-    REF                  shift, and go to state 87
-    LITERAL_ENTERO       shift, and go to state 47
-    LITERAL_REAL         shift, and go to state 48
-    IDENTIFICADOR        shift, and go to state 88
-    LITERAL_CARACTER     shift, and go to state 89
-    PARENTESIS_APERTURA  shift, and go to state 50
-
-    d_tipo       go to state 239
-    expresion_t  go to state 91
-    tipo_base    go to state 92
-    expresion    go to state 93
-    exp          go to state 94
-    funcion_ll   go to state 95
+    FIN_ARRAY  shift, and go to state 236
 
 
 State 228
-
-   98 a_cabecera: IDENTIFICADOR PARENTESIS_APERTURA d_par_form PARENTESIS_CIERRE COMPOSICION •
-
-    $default  reduce using rule 98 (a_cabecera)
-
-
-State 229
-
-  100 d_par_form: d_p_form COMPOSICION d_par_form •
-
-    $default  reduce using rule 100 (d_par_form)
-
-
-State 230
-
-   21 d_tipo: TABLA INICIO_ARRAY expresion_t SUBRANGO expresion_t • FIN_ARRAY DE d_tipo
-
-    FIN_ARRAY  shift, and go to state 240
-
-
-State 231
 
    28 lista_campos: IDENTIFICADOR DEF_TIPO d_tipo COMPOSICION • lista_campos
 
@@ -3717,47 +3672,167 @@ State 231
 
     $default  reduce using rule 29 (lista_campos)
 
-    lista_campos  go to state 241
+    lista_campos  go to state 237
+
+
+State 229
+
+   88 lista_opciones: SI_NO_SI expresion • ENTONCES instrucciones lista_opciones
+
+    ENTONCES  shift, and go to state 238
+
+
+State 230
+
+   87 alternativa: SI expresion ENTONCES instrucciones lista_opciones FSI •
+
+    $default  reduce using rule 87 (alternativa)
+
+
+State 231
+
+   93 it_cota_fija: PARA IDENTIFICADOR ASIGNACION expresion HASTA expresion • HACER instruccion FPARA
+
+    HACER  shift, and go to state 239
 
 
 State 232
 
-   43 lista_d_var: lista_id DEF_TIPO d_tipo COMPOSICION $@1 lista_d_var •
+   97 f_cabecera: IDENTIFICADOR PARENTESIS_APERTURA lista_d_var PARENTESIS_CIERRE DEV d_tipo • COMPOSICION
 
-    $default  reduce using rule 43 (lista_d_var)
+    COMPOSICION  shift, and go to state 240
 
 
 State 233
 
-   90 lista_opciones: SI_NO_SI expresion • ENTONCES instrucciones lista_opciones
+  102 d_p_form: ES lista_id DEF_TIPO COMPOSICION • d_tipo
 
-    ENTONCES  shift, and go to state 242
+    ENTERO               shift, and go to state 80
+    REAL                 shift, and go to state 81
+    BOOLEANO             shift, and go to state 82
+    CARACACTER           shift, and go to state 83
+    CADENA               shift, and go to state 84
+    TABLA                shift, and go to state 85
+    TUPLA                shift, and go to state 86
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    REF                  shift, and go to state 87
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 88
+    LITERAL_CARACTER     shift, and go to state 89
+    PARENTESIS_APERTURA  shift, and go to state 50
+
+    d_tipo       go to state 241
+    expresion_t  go to state 91
+    tipo_base    go to state 92
+    expresion    go to state 93
+    exp          go to state 94
+    funcion_ll   go to state 95
 
 
 State 234
 
-   89 alternativa: SI expresion ENTONCES instrucciones lista_opciones FSI •
+  100 d_p_form: ENT lista_id DEF_TIPO d_tipo •
 
-    $default  reduce using rule 89 (alternativa)
+    $default  reduce using rule 100 (d_p_form)
 
 
 State 235
 
-   95 it_cota_fija: PARA IDENTIFICADOR ASIGNACION expresion HASTA expresion • HACER instruccion FPARA
+  101 d_p_form: SAL lista_id DEF_TIPO d_tipo •
 
-    HACER  shift, and go to state 243
+    $default  reduce using rule 101 (d_p_form)
 
 
 State 236
 
-   99 f_cabecera: IDENTIFICADOR PARENTESIS_APERTURA lista_d_var PARENTESIS_CIERRE DEV d_tipo • COMPOSICION
+   21 d_tipo: TABLA INICIO_ARRAY expresion_t SUBRANGO expresion_t FIN_ARRAY • DE d_tipo
 
-    COMPOSICION  shift, and go to state 244
+    DE  shift, and go to state 242
 
 
 State 237
 
-  104 d_p_form: ES lista_id DEF_TIPO COMPOSICION • d_tipo
+   28 lista_campos: IDENTIFICADOR DEF_TIPO d_tipo COMPOSICION lista_campos •
+
+    $default  reduce using rule 28 (lista_campos)
+
+
+State 238
+
+   88 lista_opciones: SI_NO_SI expresion ENTONCES • instrucciones lista_opciones
+
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    SI                   shift, and go to state 43
+    MIENTRAS             shift, and go to state 44
+    PARA                 shift, and go to state 45
+    CONTINUAR            shift, and go to state 46
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 49
+    PARENTESIS_APERTURA  shift, and go to state 50
+
+    exp            go to state 51
+    instrucciones  go to state 243
+    instruccion    go to state 53
+    asignacion     go to state 54
+    alternativa    go to state 55
+    iteracion      go to state 56
+    it_cota_exp    go to state 57
+    it_cota_fija   go to state 58
+    accion_ll      go to state 59
+
+
+State 239
+
+   93 it_cota_fija: PARA IDENTIFICADOR ASIGNACION expresion HASTA expresion HACER • instruccion FPARA
+
+    RESTA                shift, and go to state 39
+    VERDADERO            shift, and go to state 40
+    FALSO                shift, and go to state 41
+    NO                   shift, and go to state 42
+    SI                   shift, and go to state 43
+    MIENTRAS             shift, and go to state 44
+    PARA                 shift, and go to state 45
+    CONTINUAR            shift, and go to state 46
+    LITERAL_ENTERO       shift, and go to state 47
+    LITERAL_REAL         shift, and go to state 48
+    IDENTIFICADOR        shift, and go to state 49
+    PARENTESIS_APERTURA  shift, and go to state 50
+
+    exp           go to state 51
+    instruccion   go to state 244
+    asignacion    go to state 54
+    alternativa   go to state 55
+    iteracion     go to state 56
+    it_cota_exp   go to state 57
+    it_cota_fija  go to state 58
+    accion_ll     go to state 59
+
+
+State 240
+
+   97 f_cabecera: IDENTIFICADOR PARENTESIS_APERTURA lista_d_var PARENTESIS_CIERRE DEV d_tipo COMPOSICION •
+
+    $default  reduce using rule 97 (f_cabecera)
+
+
+State 241
+
+  102 d_p_form: ES lista_id DEF_TIPO COMPOSICION d_tipo •
+
+    $default  reduce using rule 102 (d_p_form)
+
+
+State 242
+
+   21 d_tipo: TABLA INICIO_ARRAY expresion_t SUBRANGO expresion_t FIN_ARRAY DE • d_tipo
 
     ENTERO               shift, and go to state 80
     REAL                 shift, and go to state 81
@@ -3785,167 +3860,40 @@ State 237
     funcion_ll   go to state 95
 
 
-State 238
-
-  102 d_p_form: ENT lista_id DEF_TIPO d_tipo •
-
-    $default  reduce using rule 102 (d_p_form)
-
-
-State 239
-
-  103 d_p_form: SAL lista_id DEF_TIPO d_tipo •
-
-    $default  reduce using rule 103 (d_p_form)
-
-
-State 240
-
-   21 d_tipo: TABLA INICIO_ARRAY expresion_t SUBRANGO expresion_t FIN_ARRAY • DE d_tipo
-
-    DE  shift, and go to state 246
-
-
-State 241
-
-   28 lista_campos: IDENTIFICADOR DEF_TIPO d_tipo COMPOSICION lista_campos •
-
-    $default  reduce using rule 28 (lista_campos)
-
-
-State 242
-
-   90 lista_opciones: SI_NO_SI expresion ENTONCES • instrucciones lista_opciones
-
-    RESTA                shift, and go to state 39
-    VERDADERO            shift, and go to state 40
-    FALSO                shift, and go to state 41
-    NO                   shift, and go to state 42
-    SI                   shift, and go to state 43
-    MIENTRAS             shift, and go to state 44
-    PARA                 shift, and go to state 45
-    CONTINUAR            shift, and go to state 46
-    LITERAL_ENTERO       shift, and go to state 47
-    LITERAL_REAL         shift, and go to state 48
-    IDENTIFICADOR        shift, and go to state 49
-    PARENTESIS_APERTURA  shift, and go to state 50
-
-    exp            go to state 51
-    instrucciones  go to state 247
-    instruccion    go to state 53
-    asignacion     go to state 54
-    alternativa    go to state 55
-    iteracion      go to state 56
-    it_cota_exp    go to state 57
-    it_cota_fija   go to state 58
-    accion_ll      go to state 59
-
-
 State 243
 
-   95 it_cota_fija: PARA IDENTIFICADOR ASIGNACION expresion HASTA expresion HACER • instruccion FPARA
+   88 lista_opciones: SI_NO_SI expresion ENTONCES instrucciones • lista_opciones
 
-    RESTA                shift, and go to state 39
-    VERDADERO            shift, and go to state 40
-    FALSO                shift, and go to state 41
-    NO                   shift, and go to state 42
-    SI                   shift, and go to state 43
-    MIENTRAS             shift, and go to state 44
-    PARA                 shift, and go to state 45
-    CONTINUAR            shift, and go to state 46
-    LITERAL_ENTERO       shift, and go to state 47
-    LITERAL_REAL         shift, and go to state 48
-    IDENTIFICADOR        shift, and go to state 49
-    PARENTESIS_APERTURA  shift, and go to state 50
+    SI_NO_SI  shift, and go to state 215
 
-    exp           go to state 51
-    instruccion   go to state 248
-    asignacion    go to state 54
-    alternativa   go to state 55
-    iteracion     go to state 56
-    it_cota_exp   go to state 57
-    it_cota_fija  go to state 58
-    accion_ll     go to state 59
+    $default  reduce using rule 89 (lista_opciones)
+
+    lista_opciones  go to state 246
 
 
 State 244
 
-   99 f_cabecera: IDENTIFICADOR PARENTESIS_APERTURA lista_d_var PARENTESIS_CIERRE DEV d_tipo COMPOSICION •
+   93 it_cota_fija: PARA IDENTIFICADOR ASIGNACION expresion HASTA expresion HACER instruccion • FPARA
 
-    $default  reduce using rule 99 (f_cabecera)
+    FPARA  shift, and go to state 247
 
 
 State 245
-
-  104 d_p_form: ES lista_id DEF_TIPO COMPOSICION d_tipo •
-
-    $default  reduce using rule 104 (d_p_form)
-
-
-State 246
-
-   21 d_tipo: TABLA INICIO_ARRAY expresion_t SUBRANGO expresion_t FIN_ARRAY DE • d_tipo
-
-    ENTERO               shift, and go to state 80
-    REAL                 shift, and go to state 81
-    BOOLEANO             shift, and go to state 82
-    CARACACTER           shift, and go to state 83
-    CADENA               shift, and go to state 84
-    TABLA                shift, and go to state 85
-    TUPLA                shift, and go to state 86
-    RESTA                shift, and go to state 39
-    VERDADERO            shift, and go to state 40
-    FALSO                shift, and go to state 41
-    NO                   shift, and go to state 42
-    REF                  shift, and go to state 87
-    LITERAL_ENTERO       shift, and go to state 47
-    LITERAL_REAL         shift, and go to state 48
-    IDENTIFICADOR        shift, and go to state 88
-    LITERAL_CARACTER     shift, and go to state 89
-    PARENTESIS_APERTURA  shift, and go to state 50
-
-    d_tipo       go to state 249
-    expresion_t  go to state 91
-    tipo_base    go to state 92
-    expresion    go to state 93
-    exp          go to state 94
-    funcion_ll   go to state 95
-
-
-State 247
-
-   90 lista_opciones: SI_NO_SI expresion ENTONCES instrucciones • lista_opciones
-
-    SI_NO_SI  shift, and go to state 218
-
-    $default  reduce using rule 91 (lista_opciones)
-
-    lista_opciones  go to state 250
-
-
-State 248
-
-   95 it_cota_fija: PARA IDENTIFICADOR ASIGNACION expresion HASTA expresion HACER instruccion • FPARA
-
-    FPARA  shift, and go to state 251
-
-
-State 249
 
    21 d_tipo: TABLA INICIO_ARRAY expresion_t SUBRANGO expresion_t FIN_ARRAY DE d_tipo •
 
     $default  reduce using rule 21 (d_tipo)
 
 
-State 250
+State 246
 
-   90 lista_opciones: SI_NO_SI expresion ENTONCES instrucciones lista_opciones •
+   88 lista_opciones: SI_NO_SI expresion ENTONCES instrucciones lista_opciones •
 
-    $default  reduce using rule 90 (lista_opciones)
+    $default  reduce using rule 88 (lista_opciones)
 
 
-State 251
+State 247
 
-   95 it_cota_fija: PARA IDENTIFICADOR ASIGNACION expresion HASTA expresion HACER instruccion FPARA •
+   93 it_cota_fija: PARA IDENTIFICADOR ASIGNACION expresion HASTA expresion HACER instruccion FPARA •
 
-    $default  reduce using rule 95 (it_cota_fija)
+    $default  reduce using rule 93 (it_cota_fija)

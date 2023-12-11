@@ -145,8 +145,11 @@ union YYSTYPE
         int literal_booleano;
         char literal_caracter;
         char* literal_cadena;
+        char* identificador;
+        int lista[10];
+        int posicion;
 
-#line 150 "parser.tab.h"
+#line 153 "parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

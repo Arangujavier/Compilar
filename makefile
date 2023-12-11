@@ -4,13 +4,13 @@ compilar: scanner.l
 	@echo "Compilando Flex"
 	flex scanner.l
 	@echo "Compilando Tabla de Simbolos"
-#gcc -c tabla_simbolos.c -o tabla_simbolos.o
+	gcc -c tablaSimbolos.c -o tablaSimbolos.o
 	@echo "Compilando Tabla de Cuadruplas"
 #gcc -c tabla_cuadruplas.c -o tabla_cuadruplas.o
 
 	@echo "Compilando GCC"
 	gcc -c lex.yy.c 
-	gcc parser.tab.c lex.yy.o
+	gcc parser.tab.c lex.yy.o tablaSimbolos.o
 
 ejecutarPrueba: scanner prueba
 	./scanner prueba

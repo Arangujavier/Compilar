@@ -15,11 +15,11 @@ bool estaIncluido(char *nombre) {
     return false;
 }
 
-void agregarNombre(char *nombre, int tipo, int sid) {
+void agregarNombre(char *nombre/*, int tipo, int sid*/) {
     if (numSimbolos < TAMANO) {
         strcpy(tablaSimbolos[numSimbolos].nombre, nombre);
-        tablaSimbolos[numSimbolos].tipo = tipo;
-        tablaSimbolos[numSimbolos].sid = sid;
+        tablaSimbolos[numSimbolos].tipo = -1;
+        tablaSimbolos[numSimbolos].sid = -1;
         numSimbolos++;
     }
 }
@@ -34,6 +34,7 @@ Simbolo *accederInfo(char *nombre) {
 }
 
 void actualizarInfo(char *nombre, int nuevoTipo, int nuevoSid) {
+    printf("Actualizando %s\n", nombre);
     for (int i = 0; i < numSimbolos; i++) {
         if (strcmp(tablaSimbolos[i].nombre, nombre) == 0) {
             tablaSimbolos[i].tipo = nuevoTipo;
@@ -59,7 +60,8 @@ void borrarNombre(char *nombre) {
     }
 }
 
-void mostrarTablaSimbolos() {
+void mostrarTabla() {
+    printf("TABLA DE SIMBOLOS:\n");
     for (int i = 0; i < numSimbolos; i++) {
         printf("Nombre: %s, Tipo: %d, SID: %d\n", tablaSimbolos[i].nombre, tablaSimbolos[i].tipo, tablaSimbolos[i].sid);
     }

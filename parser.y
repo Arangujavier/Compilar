@@ -22,6 +22,9 @@ extern FILE * yyin;
         int literal_booleano;
         char literal_caracter;
         char* literal_cadena;
+        char* identificador;
+        int lista[10];
+        int posicion;
 };
 
 %token ENTERO
@@ -84,7 +87,7 @@ extern FILE * yyin;
 
 %token <literal_entero> LITERAL_ENTERO
 %token <literal_real> LITERAL_REAL
-%token <literal_cadena> IDENTIFICADOR
+%token <identificador> IDENTIFICADOR
 %token <literal_caracter> LITERAL_CARACTER
 %token <literal_cadena> LITERAL_CADENA
 %token ASIGNACION
@@ -103,7 +106,7 @@ extern FILE * yyin;
 %token PARENTESIS_APERTURA
 %token PARENTESIS_CIERRE
 
-%type <literal_cadena> lista_id
+%type <identificador> lista_id
 %type <tipo> d_tipo
 
 %left CREACION_TIPO
@@ -171,10 +174,8 @@ d_tipo:
         IDENTIFICADOR
         | expresion_t SUBRANGO expresion_t
         | REF d_tipo
-        | tipo_base {printf("Contenido: %d.\n",$$);}
+        | tipo_base
 ;
-
-
 expresion_t:
         expresion
         | LITERAL_CARACTER
@@ -201,13 +202,21 @@ lista_d_cte:
         | /*Epsilon*/
 ;
 lista_d_var:
-        lista_id DEF_TIPO IDENTIFICADOR COMPOSICION lista_d_var 
-        | lista_id DEF_TIPO d_tipo COMPOSICION { printf("Variable: %s, tipo: %d\n",$1,$3);} lista_d_var
+         lista_id DEF_TIPO d_tipo COMPOSICION lista_d_var {
+            //printf("Variable: %s, tipo: %d\n",$1,$3);
+        }
         | /*Epsilon*/
 ;
 lista_id:
-        IDENTIFICADOR SEPARADOR lista_id {printf("Lista id: %s\n", $$);}
-        | IDENTIFICADOR
+        IDENTIFICADOR SEPARADOR lista_id {
+            printf("Identificador 1: |%s|\n", $1);
+            strcat($$,$3);
+            printf("Contenido actual lista: |%s|\n", $$);}
+            
+        | IDENTIFICADOR {
+            printf("Identificador 2: |%s|\n", $1);
+            $$ = $1;
+            printf("Contenido actual lista: |%s|\n", $$);}
 ;
 decl_ent_sal:
         decl_ent
@@ -352,13 +361,7 @@ int main (int argc, char **argv ) {
     yyparse();
     fclose(yyin);
     //yylex_destroy(); //Destruir scanner
-    return 0;
-}
 
-void obtenerListaIdentificadoresVariables(char *cadena, char *salida){
-    // Eliminar :...
-    char *posicion_dos_puntos = strchr(cadena, ':');
-    int posicion = posicion_dos_puntos - cadena;
-    strncpy(salida, cadena, posicion);
-    salida[posicion] = '\0';
+    //mostrarTabla();
+    return 0;
 }
