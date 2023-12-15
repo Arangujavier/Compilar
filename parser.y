@@ -15,6 +15,7 @@ extern FILE * yyin;
 
 %}
 
+
 %union {
         int tipo;
         int literal_entero;
@@ -203,6 +204,7 @@ lista_d_cte:
 ;
 lista_d_var:
          lista_id DEF_TIPO d_tipo COMPOSICION lista_d_var {
+                agregarNombre($1);
             //printf("Variable: %s, tipo: %d\n",$1,$3);
         }
         | /*Epsilon*/
@@ -210,13 +212,28 @@ lista_d_var:
 lista_id:
         IDENTIFICADOR SEPARADOR lista_id {
             printf("Identificador 1: |%s|\n", $1);
-            strcat($$,$3);
-            printf("Contenido actual lista: |%s|\n", $$);}
-            
+            agregarNombre($1);
+            int size = strlen($1) + strlen($3) + 2; // +2 para el separador y '\0'
+            $$ = (char *) malloc(size);
+            if ($$ == NULL) {
+                char error[100];
+                sprintf(error, "Error al reservar memoria para el identificador %s", $1);
+                yyerror(error);
+            }
+            sprintf($$, "%s,%s", $1, $3); // Usa sprintf para formatear correctamente
+            printf("Contenido actual lista: |%s|\n", $$);
+        }
         | IDENTIFICADOR {
             printf("Identificador 2: |%s|\n", $1);
-            $$ = $1;
-            printf("Contenido actual lista: |%s|\n", $$);}
+            agregarNombre($1);
+            $$ = strdup($1); // Duplica el identificador
+            if ($$ == NULL) {
+                char error[100];
+                sprintf(error, "Error al reservar memoria para el identificador %s", $1);
+                yyerror(error);
+            }
+            printf("Contenido actual lista: |%s|\n", $$);
+        }
 ;
 decl_ent_sal:
         decl_ent
@@ -239,7 +256,10 @@ exp:
         exp Y exp
         | exp O exp
         | NO exp
-        | IDENTIFICADOR
+        | IDENTIFICADOR{
+            if(!estaIncluido($1)) {
+                yyerror("Identificador no declarado");
+            }}
         | exp PUNTO exp
         | exp INICIO_ARRAY exp FIN_ARRAY
         | exp REF
@@ -279,7 +299,7 @@ instruccion:
         | accion_ll
 ;
 asignacion:
-        exp ASIGNACION exp
+        IDENTIFICADOR ASIGNACION exp
         
 ;
 alternativa:
