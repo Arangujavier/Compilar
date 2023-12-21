@@ -69,6 +69,12 @@
 /* First part of user prologue.  */
 #line 1 "parser.y"
 
+/*
+DECLARACIONES EN C:
+        Definir tipos y variables utilizadas en las acciones. Puede también usar comandos 
+        del preprocesador para definir macros que se utilicen ahí, y utilizar #include para
+        incluir archivos de cabecera que realicen cualquiera de estas cosas.
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -83,8 +89,14 @@ int yyparse(void);
 
 extern FILE * yyin;
 
+/*
+DECLARACIONES DE BISON:
+        declaran los nombres de los símbolos terminales y no terminales, y también podrían 
+        describir la precedencia de operadores y los tipos de datos de los valores semánticos
+        de varios símbolos.
+*/
 
-#line 88 "parser.tab.c"
+#line 100 "parser.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -624,17 +636,17 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int16 yyrline[] =
 {
-       0,   126,   126,   129,   132,   135,   136,   137,   140,   141,
-     142,   145,   148,   149,   150,   151,   156,   159,   162,   167,
-     168,   171,   172,   175,   176,   177,   178,   181,   182,   185,
-     186,   189,   190,   191,   192,   193,   198,   199,   200,   201,
-     202,   203,   206,   210,   213,   226,   239,   240,   241,   244,
-     247,   252,   253,   256,   257,   258,   259,   263,   264,   265,
-     266,   267,   268,   269,   270,   271,   272,   273,   274,   275,
-     276,   277,   278,   279,   280,   281,   282,   283,   284,   285,
-     291,   292,   295,   296,   297,   298,   299,   302,   306,   309,
-     310,   313,   314,   317,   320,   325,   328,   331,   334,   337,
-     338,   341,   342,   343,   346,   349,   352,   353
+       0,   139,   139,   142,   145,   148,   149,   150,   153,   154,
+     155,   158,   161,   162,   163,   164,   169,   172,   175,   180,
+     181,   184,   185,   188,   189,   190,   191,   194,   195,   198,
+     199,   202,   203,   204,   205,   206,   211,   212,   213,   214,
+     215,   216,   219,   238,   241,   251,   259,   260,   261,   264,
+     267,   272,   273,   276,   277,   278,   279,   283,   284,   285,
+     286,   287,   288,   289,   290,   291,   292,   293,   294,   295,
+     296,   297,   298,   299,   300,   301,   302,   303,   304,   305,
+     311,   312,   315,   316,   317,   318,   319,   322,   326,   329,
+     330,   333,   334,   337,   340,   345,   348,   351,   354,   357,
+     358,   361,   362,   363,   366,   369,   372,   373
 };
 #endif
 
@@ -1379,89 +1391,96 @@ yyreduce:
   switch (yyn)
     {
   case 31: /* tipo_base: ENTERO  */
-#line 189 "parser.y"
+#line 202 "parser.y"
                { (yyval.tipo) = 0;}
-#line 1385 "parser.tab.c"
-    break;
-
-  case 32: /* tipo_base: BOOLEANO  */
-#line 190 "parser.y"
-                   { (yyval.tipo) = 1;}
-#line 1391 "parser.tab.c"
-    break;
-
-  case 33: /* tipo_base: CARACACTER  */
-#line 191 "parser.y"
-                     { (yyval.tipo) = 2;}
 #line 1397 "parser.tab.c"
     break;
 
-  case 34: /* tipo_base: REAL  */
-#line 192 "parser.y"
-               { (yyval.tipo) = 3;}
+  case 32: /* tipo_base: BOOLEANO  */
+#line 203 "parser.y"
+                   { (yyval.tipo) = 1;}
 #line 1403 "parser.tab.c"
     break;
 
-  case 35: /* tipo_base: CADENA  */
-#line 193 "parser.y"
-                 { (yyval.tipo) = 4;}
+  case 33: /* tipo_base: CARACACTER  */
+#line 204 "parser.y"
+                     { (yyval.tipo) = 2;}
 #line 1409 "parser.tab.c"
     break;
 
-  case 42: /* lista_d_var: lista_id DEF_TIPO d_tipo COMPOSICION lista_d_var  */
+  case 34: /* tipo_base: REAL  */
+#line 205 "parser.y"
+               { (yyval.tipo) = 3;}
+#line 1415 "parser.tab.c"
+    break;
+
+  case 35: /* tipo_base: CADENA  */
 #line 206 "parser.y"
+                 { (yyval.tipo) = 4;}
+#line 1421 "parser.tab.c"
+    break;
+
+  case 42: /* lista_d_var: lista_id DEF_TIPO d_tipo COMPOSICION lista_d_var  */
+#line 219 "parser.y"
                                                           {
-                agregarNombre((yyvsp[-4].identificador));
-            //printf("Variable: %s, tipo: %d\n",$1,$3);
+            // Recorro la lista de variables separada por , para asignar el tipo en la tabla de simbolos
+            char * cadena;
+            char * identificador;
+            cadena = strdup((yyvsp[-4].identificador));
+            identificador = strtok(cadena, ",");
+            while(identificador != NULL){
+                Simbolo *simbolo = accederInfo(identificador);
+                if(simbolo->sid != -1){
+                    int id = simbolo->sid;
+                    actualizarInfo(identificador, (yyvsp[-2].tipo), id); //El id se actualiza cuando no debe, si hay tiempo corregir
+                }
+                else{
+                    actualizarInfo(identificador, (yyvsp[-2].tipo), generarId()); //El id se actualiza cuando no debe, si hay tiempo corregir
+                }
+                
+                identificador = strtok(NULL,",");
+            }
         }
-#line 1418 "parser.tab.c"
+#line 1445 "parser.tab.c"
     break;
 
   case 44: /* lista_id: IDENTIFICADOR SEPARADOR lista_id  */
-#line 213 "parser.y"
-                                         {
-            printf("Identificador 1: |%s|\n", (yyvsp[-2].identificador));
-            agregarNombre((yyvsp[-2].identificador));
-            int size = strlen((yyvsp[-2].identificador)) + strlen((yyvsp[0].identificador)) + 2; // +2 para el separador y '\0'
-            (yyval.identificador) = (char *) malloc(size);
-            if ((yyval.identificador) == NULL) {
-                char error[100];
-                sprintf(error, "Error al reservar memoria para el identificador %s", (yyvsp[-2].identificador));
-                yyerror(error);
-            }
-            sprintf((yyval.identificador), "%s,%s", (yyvsp[-2].identificador), (yyvsp[0].identificador)); // Usa sprintf para formatear correctamente
-            printf("Contenido actual lista: |%s|\n", (yyval.identificador));
+#line 241 "parser.y"
+                                         { /*¿POR QUE IDENTIFICADOR CONTIENE VARIOS IDENTIFICADORES?*/
+            char * lista_id[50];
+            char * identificador;
+            identificador = strtok((yyvsp[-2].identificador), ",");
+            agregarNombre(identificador);
+            strcpy(lista_id, (yyvsp[0].identificador));
+            strcat(lista_id,",");
+            strcat(lista_id,identificador);
+            strcpy((yyval.identificador),lista_id);
         }
-#line 1436 "parser.tab.c"
+#line 1460 "parser.tab.c"
     break;
 
   case 45: /* lista_id: IDENTIFICADOR  */
-#line 226 "parser.y"
-                        {
-            printf("Identificador 2: |%s|\n", (yyvsp[0].identificador));
-            agregarNombre((yyvsp[0].identificador));
-            (yyval.identificador) = strdup((yyvsp[0].identificador)); // Duplica el identificador
-            if ((yyval.identificador) == NULL) {
-                char error[100];
-                sprintf(error, "Error al reservar memoria para el identificador %s", (yyvsp[0].identificador));
-                yyerror(error);
-            }
-            printf("Contenido actual lista: |%s|\n", (yyval.identificador));
+#line 251 "parser.y"
+                        { /*FUNCIONA*/
+            char* cadena = (yyvsp[0].identificador); // Cadena donde almaceno los datos a tratar
+            cadena[strlen(cadena)-1] = '\0'; // Elimino el ultimo caracter, ya que siempre es basura
+            agregarNombre(cadena); // Añado el nombre del identificador a la tabla de simbolos
+            (yyval.identificador) = strdup(cadena); // Añado el nombre de la cadena a la lista de de identificadores
         }
-#line 1452 "parser.tab.c"
+#line 1471 "parser.tab.c"
     break;
 
   case 56: /* exp: IDENTIFICADOR  */
-#line 259 "parser.y"
+#line 279 "parser.y"
                        {
             if(!estaIncluido((yyvsp[0].identificador))) {
                 yyerror("Identificador no declarado");
             }}
-#line 1461 "parser.tab.c"
+#line 1480 "parser.tab.c"
     break;
 
 
-#line 1465 "parser.tab.c"
+#line 1484 "parser.tab.c"
 
       default: break;
     }
@@ -1654,10 +1673,14 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 356 "parser.y"
+#line 376 "parser.y"
 
-    //CODIGO
-
+/*
+CODIGO C ADICIONAL:
+        contener cualquier código C que desee utilizar. A menudo suele ir la definición 
+        del analizador léxico yylex, más subrutinas invocadas por las acciones en la reglas
+        gramaticales. En un programa simple, todo el resto del programa puede ir aquí.
+*/
 
 void yyerror(char *s) {
     fprintf(stderr, "Error: %s\n", s);
@@ -1675,15 +1698,12 @@ int main (int argc, char **argv ) {
         printf("No se puede abrir el archivo");
         return 1;
     }
-    //Inicializar flex
-    //yylex();
     //yydebug = 1;
     
     // Copiar al fichero de salida
     yyparse();
     fclose(yyin);
-    //yylex_destroy(); //Destruir scanner
 
-    //mostrarTabla();
+    mostrarTabla();
     return 0;
 }

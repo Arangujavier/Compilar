@@ -160,7 +160,7 @@ PARENTESIS_CIERRE   "\)"
 {TUPLA}                 { printf("[%d]: TOKEN: TIPO DE DATO, VALOR %s\n", yylineno, yytext); return TUPLA;}
 {FTUPLA}                { printf("[%d]: TOKEN: TIPO DE DATO, VALOR %s\n", yylineno, yytext); return FTUPLA;}
 {VAR}                   { printf("[%d]: TOKEN: TIPO DE DATO, VALOR %s\n", yylineno, yytext); return VAR;}
-{FVAR}                  {printf("[%d]: TOKEN: TIPO DE DATO, VALOR %s\n", yylineno, yytext); return FVAR;}
+{FVAR}                  { printf("[%d]: TOKEN: TIPO DE DATO, VALOR %s\n", yylineno, yytext); return FVAR;}
     /*Operador*/
 {SUMA}                  { printf("[%d]: TOKEN: OPERADOR, VALOR %s\n", yylineno, yytext); return SUMA;}
 {RESTA}                 { printf("[%d]: TOKEN: OPERADOR, VALOR %s\n", yylineno, yytext); return RESTA;}

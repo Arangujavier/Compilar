@@ -137,15 +137,15 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 19 "parser.y"
+#line 29 "parser.y"
 
         int tipo;
         int literal_entero;
         float literal_real;
         int literal_booleano;
         char literal_caracter;
-        char* literal_cadena;
-        char* identificador;
+        char * literal_cadena;
+        char * identificador;
         int lista[10];
         int posicion;
 

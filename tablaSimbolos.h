@@ -16,6 +16,7 @@ void agregarNombre(char *nombre/*, int tipo, int sid*/);          // Añadir un 
 Simbolo *accederInfo(char *nombre);                               // Acceder a la información asociada a un nombre.
 void actualizarInfo(char *nombre, int nuevoTipo, int nuevoSid);   // Añadir información a la ya existente sobre un nombre.
 void borrarNombre(char *nombre);                                  // Borrar un nombre
-void mostrarTabla();                                              // Muestra el contenido de la tabla de simbolos                        
+void mostrarTabla();                                              // Muestra el contenido de la tabla de simbolos               
+int siguienteId();                                                // Devuelve el siguiente id disponible         
 
 #endif

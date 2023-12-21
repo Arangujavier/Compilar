@@ -1,4 +1,10 @@
 %{
+/*
+DECLARACIONES EN C:
+        Definir tipos y variables utilizadas en las acciones. Puede también usar comandos 
+        del preprocesador para definir macros que se utilicen ahí, y utilizar #include para
+        incluir archivos de cabecera que realicen cualquiera de estas cosas.
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -13,17 +19,21 @@ int yyparse(void);
 
 extern FILE * yyin;
 
+/*
+DECLARACIONES DE BISON:
+        declaran los nombres de los símbolos terminales y no terminales, y también podrían 
+        describir la precedencia de operadores y los tipos de datos de los valores semánticos
+        de varios símbolos.
+*/
 %}
-
-
 %union {
         int tipo;
         int literal_entero;
         float literal_real;
         int literal_booleano;
         char literal_caracter;
-        char* literal_cadena;
-        char* identificador;
+        char * literal_cadena;
+        char * identificador;
         int lista[10];
         int posicion;
 };
@@ -121,7 +131,10 @@ extern FILE * yyin;
 
 %%
 
-/* PROALG */
+/* 
+        REGLAS GRAMATICALES:
+        Definen cómo construir cada símbolo no terminal a partir de sus partes.
+*/
 desc_algoritmo: 
         ALGORITMO IDENTIFICADOR COMPOSICION cabecera_alg bloque_alg FALGORITMO PUNTO 
 ;
@@ -151,7 +164,7 @@ declaraciones:
         | /*Epsilon*/
 ;
 
-/* DECLARACIONES */
+// DECLARACIONES
 declaracion_tipo:
         TIPO lista_d_tipo FTIPO COMPOSICION
 ;
@@ -162,7 +175,7 @@ declaracion_var:
         VAR lista_d_var FVAR COMPOSICION
 ;
 
-/* TIPOS */
+// TIPOS
 lista_d_tipo:
         IDENTIFICADOR CREACION_TIPO d_tipo COMPOSICION lista_d_tipo
         | /*Epsilon*/
@@ -193,7 +206,7 @@ tipo_base:
         | CADENA { $<tipo>$ = 4;}
 ;
 
-/* CONSTANTES Y VARIABLES */
+// CONSTANTES Y VARIABLES
 lista_d_cte:
         IDENTIFICADOR CREACION_TIPO ENTERO COMPOSICION lista_d_cte
         | IDENTIFICADOR CREACION_TIPO BOOLEANO COMPOSICION lista_d_cte
@@ -204,35 +217,42 @@ lista_d_cte:
 ;
 lista_d_var:
          lista_id DEF_TIPO d_tipo COMPOSICION lista_d_var {
-                agregarNombre($1);
-            //printf("Variable: %s, tipo: %d\n",$1,$3);
+            // Recorro la lista de variables separada por , para asignar el tipo en la tabla de simbolos
+            char * cadena;
+            char * identificador;
+            cadena = strdup($1);
+            identificador = strtok(cadena, ",");
+            while(identificador != NULL){
+                Simbolo *simbolo = accederInfo(identificador);
+                if(simbolo->sid != -1){
+                    int id = simbolo->sid;
+                    actualizarInfo(identificador, $3, id); //El id se actualiza cuando no debe, si hay tiempo corregir
+                }
+                else{
+                    actualizarInfo(identificador, $3, generarId()); //El id se actualiza cuando no debe, si hay tiempo corregir
+                }
+                
+                identificador = strtok(NULL,",");
+            }
         }
         | /*Epsilon*/
 ;
 lista_id:
-        IDENTIFICADOR SEPARADOR lista_id {
-            printf("Identificador 1: |%s|\n", $1);
-            agregarNombre($1);
-            int size = strlen($1) + strlen($3) + 2; // +2 para el separador y '\0'
-            $$ = (char *) malloc(size);
-            if ($$ == NULL) {
-                char error[100];
-                sprintf(error, "Error al reservar memoria para el identificador %s", $1);
-                yyerror(error);
-            }
-            sprintf($$, "%s,%s", $1, $3); // Usa sprintf para formatear correctamente
-            printf("Contenido actual lista: |%s|\n", $$);
+        IDENTIFICADOR SEPARADOR lista_id { /*¿POR QUE IDENTIFICADOR CONTIENE VARIOS IDENTIFICADORES?*/
+            char * lista_id[50];
+            char * identificador;
+            identificador = strtok($1, ",");
+            agregarNombre(identificador);
+            strcpy(lista_id, $3);
+            strcat(lista_id,",");
+            strcat(lista_id,identificador);
+            strcpy($$,lista_id);
         }
-        | IDENTIFICADOR {
-            printf("Identificador 2: |%s|\n", $1);
-            agregarNombre($1);
-            $$ = strdup($1); // Duplica el identificador
-            if ($$ == NULL) {
-                char error[100];
-                sprintf(error, "Error al reservar memoria para el identificador %s", $1);
-                yyerror(error);
-            }
-            printf("Contenido actual lista: |%s|\n", $$);
+        | IDENTIFICADOR { /*FUNCIONA*/
+            char* cadena = $1; // Cadena donde almaceno los datos a tratar
+            cadena[strlen(cadena)-1] = '\0'; // Elimino el ultimo caracter, ya que siempre es basura
+            agregarNombre(cadena); // Añado el nombre del identificador a la tabla de simbolos
+            $$ = strdup(cadena); // Añado el nombre de la cadena a la lista de de identificadores
         }
 ;
 decl_ent_sal:
@@ -247,7 +267,7 @@ decl_sal:
         SAL lista_d_var
 ;
 
-/* EXPRESIONES */
+// EXPRESIONES
 expresion:
         exp
         | funcion_ll
@@ -286,7 +306,7 @@ exp:
 ;
 
 
-/* INSTRUCCIONES */
+// INSTRUCCIONES
 instrucciones:
         instruccion COMPOSICION instrucciones
         | instruccion
@@ -320,7 +340,7 @@ it_cota_fija:
         PARA IDENTIFICADOR ASIGNACION expresion HASTA expresion HACER instruccion FPARA
 ;
 
-/* ACCIONES Y FUNCIONES */
+// ACCIONES Y FUNCIONES
 accion_d:
         ACCION a_cabecera bloque FACCION
 ;
@@ -354,8 +374,12 @@ l_ll:
 ;
 
 %%
-    //CODIGO
-
+/*
+CODIGO C ADICIONAL:
+        contener cualquier código C que desee utilizar. A menudo suele ir la definición 
+        del analizador léxico yylex, más subrutinas invocadas por las acciones en la reglas
+        gramaticales. En un programa simple, todo el resto del programa puede ir aquí.
+*/
 
 void yyerror(char *s) {
     fprintf(stderr, "Error: %s\n", s);
@@ -373,15 +397,12 @@ int main (int argc, char **argv ) {
         printf("No se puede abrir el archivo");
         return 1;
     }
-    //Inicializar flex
-    //yylex();
     //yydebug = 1;
     
     // Copiar al fichero de salida
     yyparse();
     fclose(yyin);
-    //yylex_destroy(); //Destruir scanner
 
-    //mostrarTabla();
+    mostrarTabla();
     return 0;
 }
