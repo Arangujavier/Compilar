@@ -646,13 +646,13 @@ static const yytype_int16 yyrline[] =
      201,   204,   205,   208,   209,   210,   211,   214,   215,   218,
      219,   222,   223,   224,   225,   226,   231,   232,   233,   234,
      235,   236,   239,   260,   263,   273,   281,   282,   283,   286,
-     289,   295,   302,   305,   324,   325,   326,   327,   331,   332,
-     333,   334,   335,   336,   337,   338,   339,   340,   341,   342,
-     343,   344,   345,   346,   347,   348,   349,   350,   351,   352,
-     355,   383,   384,   385,   386,   392,   393,   396,   397,   398,
-     399,   400,   403,   432,   435,   436,   439,   440,   443,   446,
-     451,   454,   457,   460,   463,   464,   467,   468,   469,   472,
-     475,   478,   479
+     289,   295,   302,   306,   325,   326,   327,   328,   332,   333,
+     334,   335,   336,   337,   338,   339,   340,   341,   342,   343,
+     344,   345,   346,   347,   348,   349,   350,   351,   352,   353,
+     356,   375,   376,   377,   378,   384,   385,   388,   389,   390,
+     391,   392,   395,   421,   424,   425,   428,   429,   432,   435,
+     440,   443,   446,   449,   452,   453,   456,   457,   458,   461,
+     464,   467,   468
 };
 #endif
 
@@ -1506,81 +1506,45 @@ yyreduce:
 #line 1507 "parser.tab.c"
     break;
 
-  case 53: /* exp: exp SUMA exp  */
-#line 305 "parser.y"
-                 {
-      #ifdef _DEBUG
-      printf("EXPRESION ARITMETICA SUMA\n");
-      #endif
-
-      (yyval.paraExp)    = new_exp_a();          // Pedimos una estructura exp_a_b para manejar aritmeticos                                                            
-      int tempId = generarId(); // Pedimos un simbolo temporal
-      char tempName[20];
-      sprintf(tempName, "temp%d", tempId);
-      agregarNombre(tempName);  // Insertamos el simbolo temporal en la tabla de simbolos
-      (yyval.paraExp)->s = accederInfo(tempName); // Suponiendo que 's' es un puntero a Simbolo
-      (yyval.paraExp)->s->tipo = TIPOENTERO;
-      
-      //SUMA ENTERO ENTERO
-      if((yyvsp[-2].paraExp)->s->tipo == TIPOENTERO && (yyvsp[0].paraExp)->s->tipo == TIPOENTERO){
-        gen(qt, SUMAENT, (yyvsp[-2].paraExp)->s->sid, (yyvsp[0].paraExp)->s->sid, (yyval.paraExp)->s->sid);
-      }
-          
-    }
-#line 1531 "parser.tab.c"
-    break;
-
   case 57: /* exp: IDENTIFICADOR  */
-#line 327 "parser.y"
+#line 328 "parser.y"
                        {
             if(!estaIncluido((yyvsp[0].literal_cadena))) {
                 yyerror("Identificador no declarado");
             }}
-#line 1540 "parser.tab.c"
+#line 1516 "parser.tab.c"
     break;
 
   case 80: /* operando: IDENTIFICADOR  */
-#line 355 "parser.y"
+#line 356 "parser.y"
                   {
-        #ifdef _DEBUG
-        printf("OPERANDO\n");
-        #endif
 
         if(estaIncluido((yyvsp[0].literal_cadena))) {
-            #ifdef _DEBUG
-            printf("EL ID EXISTE EN LA TABLA DE SIMBOLOS\n");
-            #endif
 
             Simbolo *s = accederInfo((yyvsp[0].literal_cadena));
 
             if(s->tipo == TIPOREAL || s->tipo == TIPOENTERO) {
-                (yyval.paraExp) = new_exp_a();
-                (yyval.paraExp)->s = s;
+                //$$ = new_exp_a();
+                //$$->s = s;
             }
             else if(s->tipo == TIPOBOOLEANO) {
-                (yyval.paraExp) = new_exp_b();
-                (yyval.paraExp)->s = s;
+                //$$ = new_exp_b();
+                //$$->s = s;
             }
         }
         else {
-            #ifdef _DEBUG
-            printf("EL ID NO EXISTE EN LA TABLA DE SIMBOLOS\n");
-            #endif
             yyerror("ID NO EXISTE EN LA TABLA DE SIMBOLOS");
         }
     }
-#line 1573 "parser.tab.c"
+#line 1540 "parser.tab.c"
     break;
 
   case 92: /* asignacion: operando ASIGNACION exp  */
-#line 404 "parser.y"
+#line 396 "parser.y"
         {
 
-        if(is_arithmetic((yyvsp[-2].paraExp)) && is_arithmetic((yyvsp[0].paraExp)))
+        if(es_aritmetico((yyvsp[-2].paraExp)) && es_aritmetico((yyvsp[0].paraExp)))
         {
-                #ifdef _DEBUG
-                printf("ASIGNACION ARITMETICA\n");
-                #endif
 
                 if((yyvsp[-2].paraExp)->s->tipo == (yyvsp[0].paraExp)->s->tipo)
                 {        
@@ -1600,11 +1564,11 @@ yyreduce:
 
                 printf("Asignacion: Variable: |%s| := |%s|\n", (yyvsp[-2].paraExp), (yyvsp[0].paraExp));
         }
-#line 1604 "parser.tab.c"
+#line 1568 "parser.tab.c"
     break;
 
 
-#line 1608 "parser.tab.c"
+#line 1572 "parser.tab.c"
 
       default: break;
     }
@@ -1797,7 +1761,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 482 "parser.y"
+#line 471 "parser.y"
 
 
 

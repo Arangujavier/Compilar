@@ -302,17 +302,18 @@ expresion:
         | funcion_ll
 ;
 exp:
-    exp SUMA exp {
+
+    exp SUMA exp /*{
       #ifdef _DEBUG
       printf("EXPRESION ARITMETICA SUMA\n");
       #endif
 
       $$    = new_exp_a();          // Pedimos una estructura exp_a_b para manejar aritmeticos                                                            
-      int tempId = generarId(); // Pedimos un simbolo temporal
+      int tempId = generarId(); 
       char tempName[20];
       sprintf(tempName, "temp%d", tempId);
       agregarNombre(tempName);  // Insertamos el simbolo temporal en la tabla de simbolos
-      $$->s = accederInfo(tempName); // Suponiendo que 's' es un puntero a Simbolo
+      $$->s = accederInfo(tempName); 
       $$->s->tipo = TIPOENTERO;
       
       //SUMA ENTERO ENTERO
@@ -320,7 +321,7 @@ exp:
         gen(qt, SUMAENT, $1->s->sid, $3->s->sid, $$->s->sid);
       }
           
-    }
+    }*/
         |exp Y exp
         | exp O exp
         | NO exp
@@ -353,30 +354,21 @@ exp:
 ;
 operando:
     IDENTIFICADOR {
-        #ifdef _DEBUG
-        printf("OPERANDO\n");
-        #endif
 
         if(estaIncluido($1)) {
-            #ifdef _DEBUG
-            printf("EL ID EXISTE EN LA TABLA DE SIMBOLOS\n");
-            #endif
 
             Simbolo *s = accederInfo($1);
 
             if(s->tipo == TIPOREAL || s->tipo == TIPOENTERO) {
-                $$ = new_exp_a();
-                $$->s = s;
+                //$$ = new_exp_a();
+                //$$->s = s;
             }
             else if(s->tipo == TIPOBOOLEANO) {
-                $$ = new_exp_b();
-                $$->s = s;
+                //$$ = new_exp_b();
+                //$$->s = s;
             }
         }
         else {
-            #ifdef _DEBUG
-            printf("EL ID NO EXISTE EN LA TABLA DE SIMBOLOS\n");
-            #endif
             yyerror("ID NO EXISTE EN LA TABLA DE SIMBOLOS");
         }
     }
@@ -403,11 +395,8 @@ asignacion:
         operando ASIGNACION exp
         {
 
-        if(is_arithmetic($1) && is_arithmetic($3))
+        if(es_aritmetico($1) && es_aritmetico($3))
         {
-                #ifdef _DEBUG
-                printf("ASIGNACION ARITMETICA\n");
-                #endif
 
                 if($1->s->tipo == $3->s->tipo)
                 {        
