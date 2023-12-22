@@ -6,11 +6,10 @@ compilar: scanner.l
 	@echo "Compilando Tabla de Simbolos"
 	gcc -c tablaSimbolos.c -o tablaSimbolos.o
 	@echo "Compilando Tabla de Cuadruplas"
-#gcc -c tabla_cuadruplas.c -o tabla_cuadruplas.o
-
+	gcc -c tablaCuadruplas.c -o tablaCuadruplas.o
 	@echo "Compilando GCC"
 	gcc -c lex.yy.c 
-	gcc parser.tab.c lex.yy.o tablaSimbolos.o
+	gcc parser.tab.c lex.yy.o tablaSimbolos.o tablaCuadruplas.o
 
 ejecutarPrueba: scanner prueba
 	./scanner prueba

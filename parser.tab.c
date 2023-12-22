@@ -78,9 +78,10 @@ DECLARACIONES EN C:
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include<errno.h>
+#include <errno.h>
 #include "parser.tab.h"
 #include "tablaSimbolos.h"
+#include "tablaCuadruplas.h"
 
 int yylex(void);    // Declare the lexer function
 void yyerror(char *s);
@@ -96,7 +97,7 @@ DECLARACIONES DE BISON:
         de varios símbolos.
 */
 
-#line 100 "parser.tab.c"
+#line 101 "parser.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -636,17 +637,17 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int16 yyrline[] =
 {
-       0,   139,   139,   142,   145,   148,   149,   150,   153,   154,
-     155,   158,   161,   162,   163,   164,   169,   172,   175,   180,
-     181,   184,   185,   188,   189,   190,   191,   194,   195,   198,
-     199,   202,   203,   204,   205,   206,   211,   212,   213,   214,
-     215,   216,   219,   238,   241,   251,   259,   260,   261,   264,
-     267,   272,   273,   276,   277,   278,   279,   283,   284,   285,
-     286,   287,   288,   289,   290,   291,   292,   293,   294,   295,
-     296,   297,   298,   299,   300,   301,   302,   303,   304,   305,
-     311,   312,   315,   316,   317,   318,   319,   322,   326,   329,
-     330,   333,   334,   337,   340,   345,   348,   351,   354,   357,
-     358,   361,   362,   363,   366,   369,   372,   373
+       0,   140,   140,   143,   146,   149,   150,   151,   154,   155,
+     156,   159,   162,   163,   164,   165,   170,   173,   176,   181,
+     182,   185,   186,   189,   190,   191,   192,   195,   196,   199,
+     200,   203,   204,   205,   206,   207,   212,   213,   214,   215,
+     216,   217,   220,   239,   242,   252,   260,   261,   262,   265,
+     268,   273,   274,   277,   278,   279,   280,   284,   285,   286,
+     287,   288,   289,   290,   291,   292,   293,   294,   295,   296,
+     297,   298,   299,   300,   301,   302,   303,   304,   305,   306,
+     312,   313,   316,   317,   318,   319,   320,   323,   327,   330,
+     331,   334,   335,   338,   341,   346,   349,   352,   355,   358,
+     359,   362,   363,   364,   367,   370,   373,   374
 };
 #endif
 
@@ -1391,37 +1392,37 @@ yyreduce:
   switch (yyn)
     {
   case 31: /* tipo_base: ENTERO  */
-#line 202 "parser.y"
+#line 203 "parser.y"
                { (yyval.tipo) = 0;}
-#line 1397 "parser.tab.c"
+#line 1398 "parser.tab.c"
     break;
 
   case 32: /* tipo_base: BOOLEANO  */
-#line 203 "parser.y"
+#line 204 "parser.y"
                    { (yyval.tipo) = 1;}
-#line 1403 "parser.tab.c"
+#line 1404 "parser.tab.c"
     break;
 
   case 33: /* tipo_base: CARACACTER  */
-#line 204 "parser.y"
+#line 205 "parser.y"
                      { (yyval.tipo) = 2;}
-#line 1409 "parser.tab.c"
+#line 1410 "parser.tab.c"
     break;
 
   case 34: /* tipo_base: REAL  */
-#line 205 "parser.y"
+#line 206 "parser.y"
                { (yyval.tipo) = 3;}
-#line 1415 "parser.tab.c"
+#line 1416 "parser.tab.c"
     break;
 
   case 35: /* tipo_base: CADENA  */
-#line 206 "parser.y"
+#line 207 "parser.y"
                  { (yyval.tipo) = 4;}
-#line 1421 "parser.tab.c"
+#line 1422 "parser.tab.c"
     break;
 
   case 42: /* lista_d_var: lista_id DEF_TIPO d_tipo COMPOSICION lista_d_var  */
-#line 219 "parser.y"
+#line 220 "parser.y"
                                                           {
             // Recorro la lista de variables separada por , para asignar el tipo en la tabla de simbolos
             char * cadena;
@@ -1441,11 +1442,11 @@ yyreduce:
                 identificador = strtok(NULL,",");
             }
         }
-#line 1445 "parser.tab.c"
+#line 1446 "parser.tab.c"
     break;
 
   case 44: /* lista_id: IDENTIFICADOR SEPARADOR lista_id  */
-#line 241 "parser.y"
+#line 242 "parser.y"
                                          { /*¿POR QUE IDENTIFICADOR CONTIENE VARIOS IDENTIFICADORES?*/
             char * lista_id[50];
             char * identificador;
@@ -1456,31 +1457,31 @@ yyreduce:
             strcat(lista_id,identificador);
             strcpy((yyval.identificador),lista_id);
         }
-#line 1460 "parser.tab.c"
+#line 1461 "parser.tab.c"
     break;
 
   case 45: /* lista_id: IDENTIFICADOR  */
-#line 251 "parser.y"
+#line 252 "parser.y"
                         { /*FUNCIONA*/
             char* cadena = (yyvsp[0].identificador); // Cadena donde almaceno los datos a tratar
             cadena[strlen(cadena)-1] = '\0'; // Elimino el ultimo caracter, ya que siempre es basura
             agregarNombre(cadena); // Añado el nombre del identificador a la tabla de simbolos
             (yyval.identificador) = strdup(cadena); // Añado el nombre de la cadena a la lista de de identificadores
         }
-#line 1471 "parser.tab.c"
+#line 1472 "parser.tab.c"
     break;
 
   case 56: /* exp: IDENTIFICADOR  */
-#line 279 "parser.y"
+#line 280 "parser.y"
                        {
             if(!estaIncluido((yyvsp[0].identificador))) {
                 yyerror("Identificador no declarado");
             }}
-#line 1480 "parser.tab.c"
+#line 1481 "parser.tab.c"
     break;
 
 
-#line 1484 "parser.tab.c"
+#line 1485 "parser.tab.c"
 
       default: break;
     }
@@ -1673,7 +1674,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 376 "parser.y"
+#line 377 "parser.y"
 
 /*
 CODIGO C ADICIONAL:
@@ -1704,6 +1705,8 @@ int main (int argc, char **argv ) {
     yyparse();
     fclose(yyin);
 
-    mostrarTabla();
+    // Mostrar contenido de las distintas tablas
+    mostrarTablaSimbolos();
+    mostrarTablaCuadruplas();
     return 0;
 }

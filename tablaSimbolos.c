@@ -62,7 +62,7 @@ void borrarNombre(char *nombre) {
     }
 }
 
-void mostrarTabla() {
+void mostrarTablaSimbolos() {
     printf("TABLA DE SIMBOLOS:\n");
     for (int i = 0; i < numSimbolos; i++) {
         printf("Nombre: %s, Tipo: %d, SID: %d\n", tablaSimbolos[i].nombre, tablaSimbolos[i].tipo, tablaSimbolos[i].sid);

@@ -1,22 +1,22 @@
-
 #include "tablacuadruplas.h"
 #include <stdio.h>
 
-void agregarCuadrupla(char* operador, char* arg1, char* arg2, char* resultado) {
+Cuadrupla tablaCuadruplas[100];
+int numCuadruplas = 0;
+
+void agregarCuadrupla(char* operador, char* operando1, char* operando2, char* resultado) {
     if (numCuadruplas < TAMANO_CUADRUPLAS) {
-        cuadruplas[numCuadruplas].operador = strdup(operador);
-        cuadruplas[numCuadruplas].arg1 = strdup(arg1);
-        cuadruplas[numCuadruplas].arg2 = strdup(arg2);
-        cuadruplas[numCuadruplas].resultado = strdup(resultado);
+        tablaCuadruplas[numCuadruplas].operador = strdup(operador);
+        tablaCuadruplas[numCuadruplas].operando1 = strdup(operando1);
+        tablaCuadruplas[numCuadruplas].operando1 = strdup(operando2);
+        tablaCuadruplas[numCuadruplas].resultado = strdup(resultado);
         numCuadruplas++;
     }
 }
 
-void mostrarCuadruplas() {
-    printf("Cuadruplas generadas:\n");
+void mostrarTablaCuadruplas() {
+    printf("TABLA DE CUADRUPLAS:\n");
     for (int i = 0; i < numCuadruplas; i++) {
-        printf("%d: (%s, %s, %s, %s)\n", i, cuadruplas[i].operador, cuadruplas[i].arg1, cuadruplas[i].arg2, cuadruplas[i].resultado);
+        printf("%d: (%s, %s, %s, %s)\n", i, tablaCuadruplas[i].operador, tablaCuadruplas[i].operando1, tablaCuadruplas[i].operando2, tablaCuadruplas[i].resultado);
     }
 }
-
-

@@ -8,9 +8,10 @@ DECLARACIONES EN C:
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include<errno.h>
+#include <errno.h>
 #include "parser.tab.h"
 #include "tablaSimbolos.h"
+#include "tablaCuadruplas.h"
 
 int yylex(void);    // Declare the lexer function
 void yyerror(char *s);
@@ -320,7 +321,9 @@ instruccion:
 ;
 asignacion:
         IDENTIFICADOR ASIGNACION exp
-        
+        {
+                printf("Asignacion: Variable: |%s| := |%s|\n", $1, $3);
+        }
 ;
 alternativa:
         SI expresion ENTONCES instrucciones lista_opciones FSI
@@ -403,6 +406,8 @@ int main (int argc, char **argv ) {
     yyparse();
     fclose(yyin);
 
-    mostrarTabla();
+    // Mostrar contenido de las distintas tablas
+    mostrarTablaSimbolos();
+    mostrarTablaCuadruplas();
     return 0;
 }
