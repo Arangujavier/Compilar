@@ -1,49 +1,60 @@
 #ifndef CB_EXP_A_B_H
 #define CB_EXP_A_B_H
 
-#include "util.h"	
 #include "tablaSimbolos.h"
-#include "tablacuadruplas.h"
+#include "tablaCuadruplas.h"
 #define TRUE 1
 #define FALSE 0
+#define TIPOENTERO 1
+#define TIPOBOOLEANO 2
+#define TIPOCARACTER 3
+#define TIPOREAL 4
+#define TIPOCADENA 5
+#define SUMAENT 6
+#define ASIGNA 19
+#define INT2REA 20
+#define REA2INT 21
+
+
 
 /* Estructura exp_a_b, para las expresiones que pueden ser aritméticas o booleanas */
-typedef struct exp_a_b
+typedef struct exp_ab
 {
 	int ar;
 	int bol;
-}exp_a_b;
+	Simbolo *s;
+} exp_ab;
 
 
 /**
  *
  * @return: devuelve una estructura exp_a_b
  */
-exp_a_b* new_exp_a_b();
+exp_ab* new_exp_ab();
 
 /**
  *
  * @return: devuelve una estructura exp_a_b para manejar aritméticos
  */
-exp_a_b* new_exp_a();
+exp_ab* new_exp_a();
 
 /**
  *
  * @return: devuelve una estructura exp_a_b para manejar booleanos
  */
-exp_a_b* new_exp_b(); 	
+exp_ab* new_exp_b(); 	
 
 /**
  *
  * Convierte a aritmetico
  */
-int set_arithmetic(exp_a_b *ex);
+void set_arithmetic(exp_ab *ex);
 
 /**
  *
  * Convierte a booleano
  */
-int set_boolean(exp_a_b *ex);
+void set_boolean(exp_ab *ex);
 
 /**
  *

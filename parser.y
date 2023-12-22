@@ -12,6 +12,7 @@ DECLARACIONES EN C:
 #include "parser.tab.h"
 #include "tablaSimbolos.h"
 #include "tablaCuadruplas.h"
+#include "exp_ab.h"
 
 int yylex(void);    // Declare the lexer function
 void yyerror(char *s);
@@ -19,6 +20,8 @@ int yylex(void);
 int yyparse(void);
 
 extern FILE * yyin;
+quad *qt;
+
 
 /*
 DECLARACIONES DE BISON:
@@ -27,6 +30,14 @@ DECLARACIONES DE BISON:
         de varios símbolos.
 */
 %}
+
+%code requires
+{
+  #include "tablaSimbolos.h"
+  #include "tablaCuadruplas.h"
+  #include "exp_ab.h"
+}
+
 %union {
         int tipo;
         int literal_entero;
@@ -37,6 +48,7 @@ DECLARACIONES DE BISON:
         char * identificador;
         int lista[10];
         int posicion;
+        exp_ab *paraExp;
 };
 
 %token ENTERO
@@ -99,7 +111,7 @@ DECLARACIONES DE BISON:
 
 %token <literal_entero> LITERAL_ENTERO
 %token <literal_real> LITERAL_REAL
-%token <identificador> IDENTIFICADOR
+%token <literal_cadena> IDENTIFICADOR
 %token <literal_caracter> LITERAL_CARACTER
 %token <literal_cadena> LITERAL_CADENA
 %token ASIGNACION
@@ -118,8 +130,15 @@ DECLARACIONES DE BISON:
 %token PARENTESIS_APERTURA
 %token PARENTESIS_CIERRE
 
+
 %type <identificador> lista_id
 %type <tipo> d_tipo
+%type <paraExp> exp
+%type <paraExp> operando
+%type <paraExp> expresion
+
+
+
 
 %left CREACION_TIPO
 %nonassoc MENOR_IGUAL MAYOR_IGUAL MAYOR MENOR IGUAL DISTINTO
@@ -223,6 +242,7 @@ lista_d_var:
             char * identificador;
             cadena = strdup($1);
             identificador = strtok(cadena, ",");
+            printf("DEBUG - Tipo a asignar: %d\n", $3);
             while(identificador != NULL){
                 Simbolo *simbolo = accederInfo(identificador);
                 if(simbolo->sid != -1){
@@ -230,6 +250,7 @@ lista_d_var:
                     actualizarInfo(identificador, $3, id); //El id se actualiza cuando no debe, si hay tiempo corregir
                 }
                 else{
+               
                     actualizarInfo(identificador, $3, generarId()); //El id se actualiza cuando no debe, si hay tiempo corregir
                 }
                 
@@ -251,7 +272,7 @@ lista_id:
         }
         | IDENTIFICADOR { /*FUNCIONA*/
             char* cadena = $1; // Cadena donde almaceno los datos a tratar
-            cadena[strlen(cadena)-1] = '\0'; // Elimino el ultimo caracter, ya que siempre es basura
+            //cadena[strlen(cadena)-1] = '\0'; // Elimino el ultimo caracter, ya que siempre es basura
             agregarNombre(cadena); // Añado el nombre del identificador a la tabla de simbolos
             $$ = strdup(cadena); // Añado el nombre de la cadena a la lista de de identificadores
         }
@@ -270,11 +291,37 @@ decl_sal:
 
 // EXPRESIONES
 expresion:
-        exp
+
+    exp {
+      #ifdef _DEBUG
+      printf("EXPRESION ARITMETICA BOOLEANA\n");
+      #endif
+
+      $$ = $1;
+        }
         | funcion_ll
 ;
 exp:
-        exp Y exp
+    exp SUMA exp {
+      #ifdef _DEBUG
+      printf("EXPRESION ARITMETICA SUMA\n");
+      #endif
+
+      $$    = new_exp_a();          // Pedimos una estructura exp_a_b para manejar aritmeticos                                                            
+      int tempId = generarId(); // Pedimos un simbolo temporal
+      char tempName[20];
+      sprintf(tempName, "temp%d", tempId);
+      agregarNombre(tempName);  // Insertamos el simbolo temporal en la tabla de simbolos
+      $$->s = accederInfo(tempName); // Suponiendo que 's' es un puntero a Simbolo
+      $$->s->tipo = TIPOENTERO;
+      
+      //SUMA ENTERO ENTERO
+      if($1->s->tipo == TIPOENTERO && $3->s->tipo == TIPOENTERO){
+        gen(qt, SUMAENT, $1->s->sid, $3->s->sid, $$->s->sid);
+      }
+          
+    }
+        |exp Y exp
         | exp O exp
         | NO exp
         | IDENTIFICADOR{
@@ -295,7 +342,6 @@ exp:
         | PARENTESIS_APERTURA exp PARENTESIS_CIERRE
         | exp LITERAL_ENTERO
         | exp LITERAL_REAL
-        | exp SUMA exp
         | exp RESTA exp
         | exp MULTIPLICACION exp
         | exp DIVISION exp
@@ -304,6 +350,40 @@ exp:
         | LITERAL_REAL
         | LITERAL_ENTERO
         | RESTA exp
+;
+operando:
+    IDENTIFICADOR {
+        #ifdef _DEBUG
+        printf("OPERANDO\n");
+        #endif
+
+        if(estaIncluido($1)) {
+            #ifdef _DEBUG
+            printf("EL ID EXISTE EN LA TABLA DE SIMBOLOS\n");
+            #endif
+
+            Simbolo *s = accederInfo($1);
+
+            if(s->tipo == TIPOREAL || s->tipo == TIPOENTERO) {
+                $$ = new_exp_a();
+                $$->s = s;
+            }
+            else if(s->tipo == TIPOBOOLEANO) {
+                $$ = new_exp_b();
+                $$->s = s;
+            }
+        }
+        else {
+            #ifdef _DEBUG
+            printf("EL ID NO EXISTE EN LA TABLA DE SIMBOLOS\n");
+            #endif
+            yyerror("ID NO EXISTE EN LA TABLA DE SIMBOLOS");
+        }
+    }
+    | operando PUNTO operando
+    | operando INICIO_LLAVE expresion FIN_LLAVE 
+    | operando REF
+|
 ;
 
 
@@ -320,8 +400,31 @@ instruccion:
         | accion_ll
 ;
 asignacion:
-        IDENTIFICADOR ASIGNACION exp
+        operando ASIGNACION exp
         {
+
+        if(is_arithmetic($1) && is_arithmetic($3))
+        {
+                #ifdef _DEBUG
+                printf("ASIGNACION ARITMETICA\n");
+                #endif
+
+                if($1->s->tipo == $3->s->tipo)
+                {        
+                gen(&qt, ASIGNA, $3->s->sid, -1, $1->s->sid);
+                } 
+        else if($1->s->tipo == TIPOENTERO && $3->s->tipo == TIPOREAL)
+        {
+                printf("TIPOREAL A TIPOENTERO\n");
+                gen(&qt, REA2INT, $3->s->sid, -1, $1->s->sid);
+        }
+        else if($1->s->tipo == TIPOREAL && $3->s->tipo == TIPOENTERO)
+        {
+                printf(" TIPOENTERO A TIPOREAL\n");
+                gen(&qt, INT2REA, $3->s->sid, -1, $1->s->sid);
+        }  
+        }
+
                 printf("Asignacion: Variable: |%s| := |%s|\n", $1, $3);
         }
 ;
@@ -377,12 +480,7 @@ l_ll:
 ;
 
 %%
-/*
-CODIGO C ADICIONAL:
-        contener cualquier código C que desee utilizar. A menudo suele ir la definición 
-        del analizador léxico yylex, más subrutinas invocadas por las acciones en la reglas
-        gramaticales. En un programa simple, todo el resto del programa puede ir aquí.
-*/
+
 
 void yyerror(char *s) {
     fprintf(stderr, "Error: %s\n", s);
@@ -408,6 +506,5 @@ int main (int argc, char **argv ) {
 
     // Mostrar contenido de las distintas tablas
     mostrarTablaSimbolos();
-    mostrarTablaCuadruplas();
     return 0;
 }

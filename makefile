@@ -7,9 +7,11 @@ compilar: scanner.l
 	gcc -c tablaSimbolos.c -o tablaSimbolos.o
 	@echo "Compilando Tabla de Cuadruplas"
 	gcc -c tablaCuadruplas.c -o tablaCuadruplas.o
+	@echo "Compilando exp_ab"
+	gcc -c exp_ab.c -o exp_ab.o
 	@echo "Compilando GCC"
 	gcc -c lex.yy.c 
-	gcc parser.tab.c lex.yy.o tablaSimbolos.o tablaCuadruplas.o
+	gcc parser.tab.c lex.yy.o tablaSimbolos.o tablaCuadruplas.o exp_ab.o
 
 ejecutarPrueba: scanner prueba
 	./scanner prueba

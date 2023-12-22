@@ -3,6 +3,7 @@
 
 #include <stdbool.h>
 
+
 #define TAMANO 1000
 
 typedef struct {
@@ -12,11 +13,12 @@ typedef struct {
 } Simbolo;
 
 bool estaIncluido(char *nombre);                                  // Determinar si un nombre esta incluido en la tabla.
-void agregarNombre(char *nombre/*, int tipo, int sid*/);          // Añadir un nuevo nombre a la tabla.
+void agregarNombre(char *nombre);                            // Añadir un nuevo nombre a la tabla.
 Simbolo *accederInfo(char *nombre);                               // Acceder a la información asociada a un nombre.
 void actualizarInfo(char *nombre, int nuevoTipo, int nuevoSid);   // Añadir información a la ya existente sobre un nombre.
 void borrarNombre(char *nombre);                                  // Borrar un nombre
 void mostrarTablaSimbolos();                                      // Muestra el contenido de la tabla de simbolos               
-int siguienteId();                                                // Devuelve el siguiente id disponible         
+int siguienteId();     
+int generarId();                                           // Devuelve el siguiente id disponible         
 
 #endif

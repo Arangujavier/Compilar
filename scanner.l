@@ -31,6 +31,9 @@
 //Librerias
 #include <stdio.h>
 #include "parser.tab.h"
+#include "tablaSimbolos.h"
+#include "tablaCuadruplas.h"
+#include "exp_ab.h"
 int yywrap() { return 1; } //Excepcion para compilar en MAC
 %}
 
@@ -201,7 +204,7 @@ PARENTESIS_CIERRE   "\)"
     /*Otros*/
 {LITERAL_REAL}          { printf("[%d]: TOKEN: LITERAL REAL, VALOR %s\n", yylineno, yytext); yylval.literal_real = atof(yytext); return LITERAL_REAL;} 
 {LITERAL_ENTERO}        { printf("[%d]: TOKEN: LITERAL ENTERO, VALOR %s\n", yylineno, yytext); yylval.literal_entero = atoi(yytext); return LITERAL_ENTERO;} 
-{IDENTIFICADOR}         { printf("[%d]: TOKEN: IDENTIFICADOR, VALOR: %s\n", yylineno, yytext); yylval.literal_cadena = yytext; return IDENTIFICADOR; }
+{IDENTIFICADOR}         { printf("[%d]: TOKEN: IDENTIFICADOR, VALOR: %s\n", yylineno, yytext); yylval.literal_cadena = malloc(strlen(yytext)); strncpy(yylval.literal_cadena, yytext, strlen(yytext));   return IDENTIFICADOR; }
 {LITERAL_CARACTER}      { printf("[%d]: TOKEN: LITERAL CARACTER, VALOR: %s\n", yylineno, yytext); yylval.literal_caracter = yytext; return LITERAL_CARACTER;}
 {LITERAL_CADENA}        { printf("[%d]: TOKEN: LITERAL CADENA, VALOR: %s\n", yylineno, yytext); yylval.literal_cadena = yytext; return LITERAL_CADENA;}
 {ASIGNACION}            { printf("[%d]: TOKEN: ASIGNACION, VALOR: %s\n", yylineno, yytext);return ASIGNACION; }

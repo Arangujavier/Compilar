@@ -44,6 +44,14 @@
 #if YYDEBUG
 extern int yydebug;
 #endif
+/* "%code requires" blocks.  */
+#line 35 "parser.y"
+
+  #include "tablaSimbolos.h"
+  #include "tablaCuadruplas.h"
+  #include "exp_ab.h"
+
+#line 55 "parser.tab.h"
 
 /* Token kinds.  */
 #ifndef YYTOKENTYPE
@@ -137,7 +145,7 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 30 "parser.y"
+#line 41 "parser.y"
 
         int tipo;
         int literal_entero;
@@ -148,8 +156,9 @@ union YYSTYPE
         char * identificador;
         int lista[10];
         int posicion;
+        exp_ab *paraExp;
 
-#line 153 "parser.tab.h"
+#line 162 "parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
